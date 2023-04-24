@@ -1,0 +1,29 @@
+.primary {
+  &:active {
+    box-shadow: 0px 0px 0px 3px rgba(39, 55, 140, 0.25);
+  }
+}
+
+.secondary {
+  &:active {
+    box-shadow: 0px 0px 0px 3px rgba(255, 213, 90, 0.25);
+  }
+}
+
+.success {
+  &:active {
+    box-shadow: 0px 0px 0px 3px rgba(78, 195, 61, 0.25);
+  }
+}
+
+.danger {
+  &:active {
+    box-shadow: 0px 0px 0px 3px rgba(246, 75, 60, 0.25);
+  }
+}
+
+.warning {
+  &:active {
+    box-shadow: 0px 0px 0px 3px rgba(255, 183, 38, 0.25);
+  }
+}
