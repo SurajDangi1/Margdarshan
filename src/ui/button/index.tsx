@@ -59,6 +59,7 @@ const hoverBgColorMap: {
   },
 };
 
+
 const textColorMap: {
   [key in ButtonTheme]: {
     [key in ButtonVariant]: string;
@@ -140,6 +141,9 @@ const yAxisPaddingMap: {
   medium: 2,
   large: 3,
 };
+
+
+
 const textSizeMap: {
   [key in ButtonSize]: string;
 } = {
@@ -147,6 +151,7 @@ const textSizeMap: {
   medium: "body-1",
   large: "body-1",
 };
+
 
 const iconSizeMap: {
   [key in ButtonSize]: string;
@@ -156,6 +161,8 @@ const iconSizeMap: {
   large: "22px",
 };
 
+
+
 const disabledBgColorMap: {
   [key in ButtonVariant]: string;
 } = {
@@ -163,6 +170,8 @@ const disabledBgColorMap: {
   secondary: "transparent",
   tertiary: "transparent",
 };
+
+
 
 const defaultBgColorMap: {
   [key in ButtonTheme]: {
@@ -200,6 +209,7 @@ const defaultBgColorMap: {
     tertiary: "transparent",
   },
 };
+
 /* eslint-disable-next-line */
 export type ButtonProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,

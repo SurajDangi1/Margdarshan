@@ -22,6 +22,7 @@ const MobileNav = (props: { close: () => void }) => {
             className={`border-b-grey-300 cursor-pointer border-b transition-all my-8 flex items-center justify-between hover:border-opacity-100 
           }`}
           >
+
             {link.text}
             <AiOutlineArrowRight />
           </div>
