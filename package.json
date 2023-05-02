@@ -17,6 +17,7 @@
     "@types/node": "18.15.12",
     "@types/react": "18.0.37",
     "@types/react-dom": "18.0.11",
+    "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
@@ -30,7 +31,8 @@
     "sass": "^1.62.0",
     "slugify": "^1.6.6",
     "tailwind-merge": "^1.12.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
