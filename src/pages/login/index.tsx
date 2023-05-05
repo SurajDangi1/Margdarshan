@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
+
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -17,7 +17,7 @@ const initialValues: FormValues = {
 };
 
 const Login = () => {
-
+  
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email('Invalid email')
@@ -36,7 +36,7 @@ const Login = () => {
       console.error("Error:", Response);
     }
   };
-  
+
   return (
     <div className="grid grid-cols-2">
       <div>
@@ -93,10 +93,10 @@ const Login = () => {
                       <a href="#" className="text-sm font-medium text-cherry-300 hover:underline dark:text-primary-500">
                         Forgot password?
                       </a>
-                    </div> 
+                    </div>
                     <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log in</button>
                     <p className="text-sm font-light text-grey-900">
-                      Don’t have an account yet? <a href="/signup" className="font-medium text-cherry-300 hover:underline dark:text-primary-500">Sign up</a>
+                      Don’t have an account yet? <Link href="/signup" className="font-medium text-cherry-300 hover:underline dark:text-primary-500">Sign up</Link>
                     </p>
                   </Form>
                 )}
@@ -104,7 +104,6 @@ const Login = () => {
             </div>
           </div>
         </div>
-
       </div>
       <div className="pt-24 bg-grey-300 hidden lg:block">
         <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded-xl pl-10 border-x-4 border-y-4" alt='img' height={90} width={1000}></Image>

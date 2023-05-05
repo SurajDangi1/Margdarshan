@@ -4,6 +4,7 @@ import OnboardingForm from "@/onboarding-form";
 import { NextSeo } from "next-seo";
 import { HeroBanner } from "@/ui";
 import { useWindowWidth } from "@/hooks";
+import UserSignUp from "@/ui/folder";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ const LandingHero = () => {
           </h6>
         </div>
       </div>
+    
     </HeroBanner>
   );
 };
