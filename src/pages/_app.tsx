@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import "../styles/globals.css";
 import { Footer } from "@/ui/footer";
 import { Poppins } from "next/font/google";
+import SignUp from "@/ui/folder";
+
 
 const poppins = Poppins({
   subsets: ["devanagari"],
@@ -32,6 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <main className="app">
             <Component {...pageProps} />
           </main>
+   
           <Footer />
         </div>
       </MaterialThemeContext>
