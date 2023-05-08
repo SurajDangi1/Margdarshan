@@ -37,9 +37,9 @@ const LandingHero = () => {
             Paving the way for the youth of India
           </h6>
         </div>
-        <div className="mb-5">
+        {/* <div className="mb-5">
           <ScholarshipCard image={"/Scholarship-dum-images/log-in.jpg"} deadlineDate={"5 | 10 | 23"} scholarshipName={"The Colgate Scholarship"} scholarshipDescription={"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci incidunt minima molestiae nulla. Eaque exercitationem eum aspernatur illo, dolorem alias molestias iusto, dolor non laudantium maxime quod? Nulla, nemo? Animi?"} />
-        </div>
+        </div> */}
       </div>
 
     </HeroBanner>
