@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 interface FormValues {
     fullName: string;
@@ -58,10 +59,10 @@ export default function SignUp() {
         console.log(values);
         try {
             const response = await axios.post("http://localhost:9000/auth/signup", values, { withCredentials: true });
-            console.log("Sign Up SuccesFully")
+            toast.success("Sign Up successful");
         } catch (error) {
             console.error("Error:", Response);
-            console.log("Sign Up Failed")
+            toast.error("Sign Up failed");
         }
     };
 
@@ -157,7 +158,7 @@ export default function SignUp() {
                                             <ErrorMessage name="pin" className="text-red-600" component="div" />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="">
                                         <label htmlFor="region" className="block text-sm font-medium leading-6 text-grey-900">
                                             State / Province
@@ -251,6 +252,8 @@ export default function SignUp() {
                                         <ErrorMessage name="level_of_study" className="text-red-600" />
                                     </div> */}
 
+
+
                                     {/* {selectedCourse === "12th" && (
                                         <div className="">
                                             <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-grey-900">
@@ -325,6 +328,10 @@ export default function SignUp() {
             <div className="pt-36 bg-grey-300 hidden lg:block">
                 <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded pl-5" alt='img-1' width={900} height={100}></Image>
             </div>
+            <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
         </div>
 
     )
