@@ -1,10 +1,11 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import Image from "next/image";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 
 interface FormValues {
   email: string;
@@ -17,7 +18,7 @@ const initialValues: FormValues = {
 };
 
 const Login = () => {
-  
+
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email('Invalid email')
@@ -27,18 +28,20 @@ const Login = () => {
       .min(8, 'Password must be at least 8 characters')
   });
 
-  const url = process.env.LOGIN_URL as string;
-  console.log(url)
+  // const url = process.env.LOGIN_URL as string;
+  // console.log(url)
+
   const handleSubmit = async (values: FormValues): Promise<void> => {
     try {
       const response = await axios.post("http://localhost:9000/auth/login", values, { withCredentials: true });
+      toast.success("Login successful");
     } catch (error) {
       console.error("Error:", Response);
+      toast.error("Login failed");
     }
   };
-
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid  grid-cols-1 lg:grid-cols-2 pt-16">
       <div>
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
@@ -105,10 +108,15 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="pt-24 bg-grey-300 hidden lg:block">
+      <div className="pt-24 bg-grey-300 hidden  lg:block">
         <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded-xl pl-10 border-x-4 border-y-4" alt='img' height={90} width={1000}></Image>
       </div>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
     </div>
+
   )
 };
 

@@ -1,289 +1,290 @@
-import { Button, Card, Checkbox, Input, TextField, Typography, makeStyles } from "@mui/material";
-import { useState } from "react";
-import Image from "next/image";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as yup from "yup";
+import { Formik, Form, Field } from "formik";
+import { TextField, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import * as Yup from "yup";
 import axios from "axios";
+import Image from "next/image";
+import { useState } from "react";
+import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
+
 
 interface FormValues {
     fullName: string;
     email: string;
     password: string;
-    pin: string;
-    city: string;
-    state: string;
-   //   gender: string;
-   // level_of_study: string;
-   //  field_of_study: string;
-    //   lastName: string;
+    gender: string
+    pin: string,
+    state: string,
+    city: string,
+    level_of_study: string,
+    field_of_study: string,
+
 }
 
 
-const initialValues: FormValues = {
-    fullName: "",
-    email: "",
-    password: "",
-    pin: "",
-    city: "",
-    state: "",
-   //  gender: "",
-   // level_of_study: "",
-    // field_of_study: "",
-    //   lastName: "",
-};
-
-
-const validationSchema = yup.object().shape({
-    fullName: yup.string().required("Full name is required"),
-    email: yup.string().email().required("Email is required"),
-    password: yup
-        .string()
-        .required("Password is required")
-        .min(8, "Password must be at least 8 characters long"),
-    pin: yup.string().required("Postal code is required"),
-    city: yup.string().required("City is required"),
-    state: yup.string().required("State is required"),
-   // gender: yup.string().required("Gender is required"),
-   // level_of_study: yup.string().required("level_of_study is required"),
-    // field_of_study: yup.string().required("Date of birth is required"),
-    // lastName: yup.string().required("Last name is required"),
+const validationSchema = Yup.object().shape({
+    fullName: Yup.string().required("Full name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().required("Password is required"),
+    gender: Yup.string().required("gender is required"),
+    pin: Yup.string().required("Pin is required"),
+    state: Yup.string().required("State is required"),
+    city: Yup.string().required("City is required"),
+    level_of_study: Yup.string().required("Level of Study is required"),
+    field_of_study: Yup.string().required("Field of Study is required"),
 });
 
 
-const genderOptions = ['Male', 'Female', 'Other'];
-const levelOfStudyOptions = ['10th', '12th', 'Undergraduate', 'Postgraduate'];
-const streamOptions = ['Arts', 'Commerce', 'Science'];
+const UserSignUp = () => {
 
-export default function SignUp() {
-    const url = "https://localhost:9000/auth/signup";
+    const initialValues: FormValues = { fullName: "", email: "", password: "", gender: "", pin: "", state: "", city: "", level_of_study: "", field_of_study: "" };
+
+    const [selectedCourse, setSelectedCourse] = useState("");
+
     const handleSubmit = async (values: FormValues) => {
         console.log(values);
         try {
             const response = await axios.post("http://localhost:9000/auth/signup", values, { withCredentials: true });
-            console.log("Sign Up SuccesFully")
+            toast.success("Sign Up successful");
         } catch (error) {
             console.error("Error:", Response);
-            console.log("Sign Up Failed")
+            toast.error("Sign Up failed");
         }
     };
-
-    const [selectedCourse, setSelectedCourse] = useState("");
-
     return (
-        <div className="grid grid-cols-2">
-            <div className="pt-24 mb-20 pl-10 pr-10 ">
-                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                    {({ errors, touched, isSubmitting }) => (
-                        <Form >
-                            <div className="border-grey-900/10 pl-2 pr-2 rounded-xl pb-12 border">
-                                <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 mb-5">
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="fullName" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Full name
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="text"
-                                                name="fullName"
-                                                id="fullName"
+        <div className="pt-16">
+            <div className="grid grid-cols-2 gap-2  pl-6 bg-secondary pb-8">
+                <div className="">
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {({ errors, touched }) => (
+                            <Form className="">
 
-                                                className={`block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.fullName && touched.fullName ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
-                                            />
-                                            <ErrorMessage name="fullName" component="div" className="text-red-500 text-xs mt-1" />
-                                        </div>
-                                    </div>
-
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Email
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="email"
-                                                name="email"
-                                                id="email"
-
-                                                className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 placeholder:text-grey-400 sm:text-sm sm:leading-6"
-                                            />
-                                            <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
-                                        </div>
-                                    </div>
-
-
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Password
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="password"
-                                                name="password"
-                                                id="password"
-                                                placeholder="••••••••"
-                                                className={`bg-grey-50 border ${errors.password && touched.password ? 'border-red-600' : 'border-grey-300'
-                                                    } text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                                            />
-                                            <ErrorMessage name="password" className="text-red-600" component="div" />
-                                        </div>
-                                    </div>
-
-
-
-                                    <div className="sm:col-span-3">
-                                        <label htmlFor="gender">Gender</label>
-                                        <Field as="select" name="gender" id="gender"
-                                            className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                            <option value="">Select Gender</option>
-                                            {genderOptions.map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}
+                                <div className="grid grid-cols-2 gap-2 pt-5">
+                                    <div className="">
+                                        <Field name="fullName">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="fullName"
+                                                    label="Full Name"
+                                                    variant="outlined"
+                                                    error={errors.fullName && touched.fullName}
+                                                    helperText={
+                                                        errors.fullName && touched.fullName ? errors.fullName : null
+                                                    }
+                                                />
+                                            )}
                                         </Field>
-                                        <ErrorMessage name="gender" className="text-red-500 text-sm mt-1" />
                                     </div>
 
-                                    <div className="sm:col-span-2">
-                                        <label htmlFor="pin" className="block text-sm font-medium leading-6 text-grey-900">
-                                            ZIP / Postal code
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="number"
-                                                name="pin"
-                                                id="pin"
-                                                autoComplete="postal-code"
-                                                className={`bg-grey-50 border ${errors.password && touched.password ? 'border-red-600' : 'border-grey-300'
-                                                    } text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                                            />
-                                            <ErrorMessage name="pin" className="text-red-600" component="div" />
-                                        </div>
-                                    </div>
-
-                                    <div className="sm:col-span-2 sm:col-start-1">
-                                        <label htmlFor="city" className="block text-sm font-medium leading-6 text-grey-900">
-                                            City
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="text"
-                                                name="city"
-                                                id="city"
-
-                                                className={`block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 placeholder:text-grey-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.city && touched.city ? 'border-red-500' : ''
-                                                    }`}
-                                            />
-                                            {errors.city && touched.city ? <div className="text-red-500 text-sm mt-1">{errors.city}</div> : null}
-                                        </div>
-                                    </div>
-
-                                    <div className="sm:col-span-2">
-                                        <label htmlFor="region" className="block text-sm font-medium leading-6 text-grey-900">
-                                            State / Province
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="text"
-                                                name="state"
-                                                id="state"
-                                                className={`bg-grey-50 border ${errors.password && touched.password ? 'border-red-600' : 'border-grey-300'
-                                                    } text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
-                                            />
-                                            <ErrorMessage name="state" className="text-red-600" component="div" />
-                                        </div>
-                                    </div>
-
-
-                                    {/* <div className="sm:col-span-3">
-                                        <label htmlFor="level_of_study" className="block text-sm font-medium leading-6 text-grey-900">Level of Study</label>
-                                        <Field as="select" name="level_of_study" id="level_of_study" onChange={(e: boolean) => setSelectedCourse(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                            <option value="">Select Level of Study</option>
-                                            {levelOfStudyOptions.map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}
+                                    <div className="">
+                                        <Field name="email">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="email"
+                                                    label="Email"
+                                                    type="email"
+                                                    variant="outlined"
+                                                    error={errors.email && touched.email}
+                                                    helperText={errors.email && touched.email ? errors.email : null}
+                                                />
+                                            )}
                                         </Field>
-                                        <ErrorMessage name="level_of_study" className="text-red-600" />
+                                    </div>
+                                </div>
+
+                                
+                                <div className="grid grid-cols-2 gap-2 pt-5">
+                                    <div className="">
+                                        <Field name="password">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="password"
+                                                    label="password"
+                                                    type="password"
+                                                    variant="outlined"
+                                                    error={errors.password && touched.password}
+                                                    helperText={errors.password && touched.password ? errors.password : null}
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
+                                    <div className="">
+                                        <FormControl className="w-56" error={Boolean(errors.gender && touched.gender)}>
+                                            <InputLabel id="gender-label">gender</InputLabel>
+                                            <Field name="gender" as={Select} labelId="gender-label">
+                                                <MenuItem value="">Select a gender</MenuItem>
+                                                <MenuItem value="Male">Male</MenuItem>
+                                                <MenuItem value="Female">Female</MenuItem>
+                                                <MenuItem value="Other">Other</MenuItem>
+
+                                            </Field>
+                                            {errors.gender && touched.gender ? (
+                                                <div className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
+                                                    {errors.gender}
+                                                </div>
+                                            ) : null}
+                                        </FormControl>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-2  pt-5">
+                                    <div className="">
+                                        <Field name="pin">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="pin"
+                                                    label="pin"
+                                                    type="number"
+                                                    variant="outlined"
+                                                    error={errors.pin && touched.pin}
+                                                    helperText={
+                                                        errors.pin && touched.pin ? errors.pin : null
+                                                    }
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
+
+                                    <div className="">
+                                        <Field name="state">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="state"
+                                                    label="state"
+                                                    variant="outlined"
+                                                    error={errors.state && touched.state}
+                                                    helperText={
+                                                        errors.state && touched.state ? errors.state : null
+                                                    }
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
+                                </div>
+
+
+                                <div className="grid grid-cols-2 gap-2 pt-5">
+                                    {/* <div className="">
+                                        <FormControl className="w-56" error={Boolean(errors.field_of_study && touched.field_of_study)}>
+                                            <InputLabel id="field_of_study">Education</InputLabel>
+                                            <Field name="field_of_study" as={Select} labelId="field_of_study" onChange={(e: any) => setSelectedCourse(e.target.value)}>
+                                                <MenuItem value="">Select an option</MenuItem>
+                                                <MenuItem value="Male">10th</MenuItem>
+                                                <MenuItem value="Female">12th</MenuItem>
+                                                <MenuItem value="Other">Post Graduate</MenuItem>
+                                                <MenuItem value="Other">Under Graduate</MenuItem>
+
+                                            </Field>
+                                            {errors.field_of_study && touched.field_of_study ? (
+                                                <div className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
+                                                    {errors.field_of_study}
+                                                </div>
+                                            ) : null}
+                                        </FormControl>
                                     </div> */}
+
+                                    <div className="">
+                                        <Field name="field_of_study">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="field_of_study"
+                                                    label="Feild of Study"
+                                                    variant="outlined"
+                                                    error={errors.field_of_study && touched.field_of_study}
+                                                    helperText={
+                                                        errors.field_of_study && touched.field_of_study ? errors.field_of_study : null
+                                                    }
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
+
+                                    <div className="">
+                                        <Field name="level_of_study">
+                                            {({ field }) => (
+                                                <TextField
+                                                    {...field}
+                                                    id="level_of_study"
+                                                    label="Level of Study"
+                                                    variant="outlined"
+                                                    error={errors.level_of_study && touched.level_of_study}
+                                                    helperText={
+                                                        errors.level_of_study && touched.level_of_study ? errors.level_of_study : null
+                                                    }
+                                                />
+                                            )}
+                                        </Field>
+                                    </div>
 
                                     {/* {selectedCourse === "12th" && (
-                                        <div className="sm:col-span-3">
-                                            <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-grey-900">
-                                                12th Stream
-                                            </label>
-                                            <Field
-                                                as="select"
-                                                id="field_of_study"
-                                                name="field_of_study"
-                                                className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                            ><option value="">Select Level of Study</option>
-                                            {streamOptions.map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}
-                                            </Field>
-                                            <ErrorMessage name="field_of_study" component="div" className="text-red-500 text-sm mt-1" />
+                                        <div>
+                                            <FormControl className="w-56" error={Boolean(errors.level_of_study && touched.level_of_study)}>
+                                                <InputLabel id="level_of_study">Level of Study</InputLabel>
+                                                <Field name="level_of_study" as={Select} labelId="field_of_study" onChange={(e: any) => setSelectedCourse(e.target.value)}>
+                                                    <MenuItem value="">Select an option</MenuItem>
+                                                    <MenuItem value="10th">10th</MenuItem>
+                                                    <MenuItem value="12th">12th</MenuItem>
+                                                    <MenuItem value="Post Graduate">Post Graduate</MenuItem>
+                                                    <MenuItem value="Under Graduate"></MenuItem>
+
+                                                </Field>
+                                                {errors.field_of_study && touched.field_of_study ? (
+                                                    <div className="MuiFormHelperText-root MuiFormHelperText-contained Mui-error">
+                                                        {errors.field_of_study}
+                                                    </div>
+                                                ) : null}
+                                            </FormControl>
                                         </div>
                                     )} */}
-
-                                    {/* <div className="sm:col-span-3">
-                                        <label htmlFor="course" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Course (currently pursuing)
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                as="select"
-                                                id="level_of_study"
-                                                name="level_of_study"
-                
-                                                
-                                            >
-                                                <option value="">Select an option</option>
-                                                <option value="10th">10th</option>
-                                                <option value="12th">12th</option>
-                                                <option value="Post Graduate">Post Graduate</option>
-                                                <option value="Under Graduate">Under Graduate</option>
-                                            </Field>
-                                            <ErrorMessage name="level_of_study" component="div" className="text-red-500 text-sm mt-1" />
-                                        </div>
-                                    </div> */}
-
-
-
-                                    {/* 
-                                     <div className="col-span-full">
-                    <label htmlFor="field_of_study" className="block text-sm font-medium leading-6 text-grey-900">
-                    field_of_study
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        type="text"
-                        name="field_of_study"
-                        id="field_of_study"
-
-                        className={`block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 placeholder:text-grey-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.field_of_study && touched.field_of_study ? 'border-red-500' : ''
-                          }`}
-                      />
-                      {errors.field_of_study && touched.field_of_study ? (
-                        <div className="text-red-500 text-sm mt-1">{errors.field_of_study}</div>
-                      ) : null}
-                    </div>
-                                     </div>                
-                                    */}
-
                                 </div>
-                                <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</button>
-                            </div>
-                        </Form>
-                    )}
-                </Formik>
-            </div>
-            <div className="pt-36">
-                <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded" alt='img-1' width={1000} height={100}></Image>
+
+                                <div className="pt-5">
+                                    <Field name="city">
+                                        {({ field }) => (
+                                            <TextField
+                                                {...field}
+                                                id="city"
+                                                label="city"
+                                                variant="outlined"
+                                                error={errors.city && touched.city}
+                                                helperText={
+                                                    errors.city && touched.city ? errors.city : null
+                                                }
+                                            />
+                                        )}
+                                    </Field>
+                                </div>
+
+                                <div className="col-span-2 flex justify-end pt-4 mb-2">
+                                    <button type="submit" className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</button>
+                                </div>
+                                <p className="text-sm font-light text-grey-900">
+                                    Already have an account ? <Link href="/login" className="font-medium text-cherry-300 hover:underline dark:text-primary-500">Log in</Link>
+                                </p>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+                <div className="pt-5 hidden lg:block">
+                    <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded" alt='img-1' width={1000} height={100}></Image>
+                </div>
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
             </div>
         </div>
-    )
+    );
 };
+
+export default UserSignUp;
