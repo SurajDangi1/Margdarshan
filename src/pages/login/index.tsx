@@ -27,7 +27,6 @@ const Login = () => {
       .required('Password is required')
       .min(8, 'Password must be at least 8 characters')
   });
-
   // const url = process.env.LOGIN_URL as string;
   // console.log(url)
 

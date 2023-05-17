@@ -25,4 +25,5 @@ const useReadingProgress = () => {
   return completion;
 }
 
+
 export default useReadingProgress

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ActiveLinkContext } from "./active-link-context";
 import { useVerticalScroll } from "@/hooks";
 import BrandBlackLogo from "public/assets/logo/margdarshan-logo-black.svg";
@@ -17,6 +17,24 @@ export const
     const vertScroll = useVerticalScroll();
 
     const completion = useReadingProgress();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        const isScrolled = window.scrollY > 0;
+        if (isScrolled !== scrolled) {
+          setScrolled(isScrolled);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, [scrolled]);
+     
+
+
     return (
       <ActiveLinkContext.Provider
         value={{
@@ -27,9 +45,11 @@ export const
         <div
           style={{ top: 0 }}
           onMouseLeave={() => setActiveLink("")}
-          className={`lg-block bg-white/12 fixed  left-1/2 z-40 w-full -translate-x-1/2 transform transition-all  hover:bg-white/100 ${vertScroll > 0 || isMobileNavOpen ? "bg-white/100" : ""
+          className={`lg-block  ${scrolled ? 'bg-red-500' : 'bg-white/12'} fixed  left-1/2 z-40 w-full -translate-x-1/2 transform transition-all  hover:bg-white/100 ${vertScroll > 0 || isMobileNavOpen ? "bg-white/100" : ""
             }`}
         >
+
+
           <div
             className={`container flex grid-cols-12 items-center justify-between p-4 xl:grid`}
           >
@@ -71,8 +91,8 @@ export const
                 })}
               </div>
             </div>
-            <span style={{transform:`translate(${completion - 100}%)`}} 
-          className="absolute bg-warning h-1 w-full bottom-0"/>
+            {/* <span style={{transform:`translate(${completion - 100}%)`}} 
+          className="absolute bg-warning h-1 w-full bottom-0"/> */}
             <div
               className={`col-span-3 hidden w-full items-center xl:flex justify-end`}
             >

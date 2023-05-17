@@ -20,6 +20,7 @@ export function getParsedFileContentBySlug<FrontMatterFormat>(
   };
 }
 
+
 export const renderMarkdown = (markdownContent: string) => {
   return serialize(markdownContent || "");
 };
