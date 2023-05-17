@@ -1,11 +1,17 @@
 import { slugify } from "@/ui";
-import { useRef } from "react";
+import { DetailedHTMLProps, HTMLAttributes, useRef } from "react";
 
-const H2 = ({ children }: { children: string }) => {
+const H2 = (
+  props: DetailedHTMLProps<
+    HTMLAttributes<HTMLHeadingElement>,
+    HTMLHeadingElement
+  >
+) => {
+  const { children, ...otherProps } = props;
   const h2Ref = useRef<HTMLHeadingElement>(null);
   return (
     <h2
-      id={slugify(children)}
+      id={slugify(children?.toString())}
       ref={h2Ref}
       className={`text-title-4 font-bold`}
       style={
@@ -14,6 +20,7 @@ const H2 = ({ children }: { children: string }) => {
           // marginTop: isLg ? -80 : -40,
         }
       }
+      {...otherProps}
     >
       {children}
     </h2>

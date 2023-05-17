@@ -1,6 +1,6 @@
 import { useArticleContext } from "@/markdown/context";
 import Image, { ImageProps } from "next/image";
-export const Img = (props: ImageProps) => {
+const Img = (props: ImageProps) => {
   const frontMatter = useArticleContext()!;
 
   const src = props.src.toString();

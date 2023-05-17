@@ -1,6 +1,6 @@
 import { slugify } from "@/ui";
 import { ReactNode } from "react";
-export const Note = (props: { title: string; body: ReactNode }) => {
+const Note = (props: { title: string; body: ReactNode }) => {
   return (
     <div id={slugify(props.title)}>
       <div className={` bg-surface-blue not-prose rounded-huge mt-5 p-8`}>
@@ -10,3 +10,5 @@ export const Note = (props: { title: string; body: ReactNode }) => {
     </div>
   );
 };
+
+export default Note;

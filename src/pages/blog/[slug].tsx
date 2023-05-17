@@ -7,6 +7,7 @@ import {
   getHeadings,
   ArticleContext,
 } from "@/markdown";
+import H1 from "@/markdown/mdx-elements/h1";
 import { HeroBanner } from "@/ui";
 
 import fs from "fs";
@@ -22,7 +23,7 @@ export function BlogArticle({
   return (
     <>
       <NextSeo
-        title={frontMatter.title + " | PrishaPolicy"}
+        title={frontMatter.title}
         description={frontMatter.title + " " + frontMatter.description}
       />
       <ArticleContext.Provider value={frontMatter}>
@@ -42,19 +43,15 @@ export function BlogArticle({
             </div>
           </div>
         </HeroBanner>
-        <ArticleJsonLd
-          authorName={"Margdarshan"}
-          datePublished={frontMatter.date as string}
-          description={frontMatter.description}
-          images={[`/blog-assets/${frontMatter.slug}/cover.png`]}
-          publisherLogo=""
-          url={`https://prishapolicy.com/resources/blog/${frontMatter.slug}`}
-          title={frontMatter.title}
-          type="Blog"
-        />
+
         <div className="gap-x-15 container mt-8 grid-cols-12 xl:grid">
           <div className="prose col-span-8 mb-10 max-w-full">
-            <MDXRemote {...html} components={mdxElements} />
+            <MDXRemote
+              {...html}
+              components={{
+                h1: H1,
+              }}
+            />
           </div>
           <div className="hidden xl:col-span-4 xl:block">
             <div className="">Side Bar</div>
@@ -82,6 +79,7 @@ export const getStaticProps = async ({
   const MarkdownComponent = (
     <MDXRemote {...renderedHTML} components={mdxElements} />
   );
+
   const headings = getHeadings(renderToString(MarkdownComponent));
 
   const blogsDir = fs.readdirSync(BLOG_PATH);

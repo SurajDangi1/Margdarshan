@@ -1,11 +1,9 @@
-import './youtube.module.css';
-
 export interface YoutubeProps {
   title: string;
   uid: string;
 }
 
-export function Youtube(props: YoutubeProps) {
+const Youtube = (props: YoutubeProps) => {
   return (
     <div className="youtube-embed">
       <iframe
@@ -16,6 +14,6 @@ export function Youtube(props: YoutubeProps) {
       ></iframe>
     </div>
   );
-}
+};
 
 export default Youtube;
