@@ -91,7 +91,7 @@ export const
                 })}
               </div>
             </div>
-            {/* <span style={{transform:`translate(${completion - 100}%)`}} 
+             {/* <span style={{transform:`translate(${completion - 100}%)`}} 
           className="absolute bg-warning h-1 w-full bottom-0"/> */}
             <div
               className={`col-span-3 hidden w-full items-center xl:flex justify-end`}

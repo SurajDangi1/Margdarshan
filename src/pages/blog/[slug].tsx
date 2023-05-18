@@ -27,6 +27,8 @@ export function BlogArticle({
         description={frontMatter.title + " " + frontMatter.description}
       />
       <ArticleContext.Provider value={frontMatter}>
+        {/* <span style={{transform:`translate(${completion - 100}%)`}} 
+          className="absolute bg-warning h-1 w-full bottom-0"/> */}
         <HeroBanner
           padding={false}
           backgroundColor="cherry-300"

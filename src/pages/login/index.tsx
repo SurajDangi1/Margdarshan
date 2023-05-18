@@ -17,6 +17,7 @@ const initialValues: FormValues = {
   password: '',
 };
 
+
 const Login = () => {
 
   const validationSchema = Yup.object().shape({
@@ -27,18 +28,22 @@ const Login = () => {
       .required('Password is required')
       .min(8, 'Password must be at least 8 characters')
   });
-  // const url = process.env.LOGIN_URL as string;
-  // console.log(url)
 
-  const handleSubmit = async (values: FormValues): Promise<void> => {
+
+
+
+
+   const handleSubmit = async (values: FormValues): Promise<void> => {
     try {
       const response = await axios.post("http://localhost:9000/auth/login", values, { withCredentials: true });
+      sessionStorage.setItem('token', response.data.access_token);
       toast.success("Login successful");
     } catch (error) {
       console.error("Error:", Response);
       toast.error("Login failed");
     }
   };
+
   return (
     <div className="grid  grid-cols-1 lg:grid-cols-2 pt-16">
       <div>
@@ -115,7 +120,6 @@ const Login = () => {
         reverseOrder={false}
       />
     </div>
-
   )
 };
 

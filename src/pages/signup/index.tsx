@@ -16,6 +16,8 @@ interface FormValues {
     gender: string;
     level_of_study: string;
     field_of_study: string;
+    dateOfBirth: string;
+    country: string
 }
 
 
@@ -29,8 +31,9 @@ const initialValues: FormValues = {
     gender: "",
     level_of_study: "",
     field_of_study: "",
+    country: "",
+    dateOfBirth: ""
 };
-
 
 
 const validationSchema = yup.object().shape({
@@ -45,7 +48,9 @@ const validationSchema = yup.object().shape({
     state: yup.string().required("State is required"),
     gender: yup.string().required("Gender is required"),
     level_of_study: yup.string().required("Education is required"),
-    field_of_study: yup.string().required("Date of birth is required"),
+    field_of_study: yup.string().required("Education is required"),
+    country: yup.string().required("country is required"),
+    dateOfBirth: yup.string().required("Date of birth is required"),
 });
 
 
@@ -59,6 +64,7 @@ export default function SignUp() {
         console.log(values);
         try {
             const response = await axios.post("http://localhost:9000/auth/signup", values, { withCredentials: true });
+            sessionStorage.setItem('token', response.data.access_token);
             toast.success("Sign Up successful");
         } catch (error) {
             console.error("Error:", Response);
@@ -131,6 +137,27 @@ export default function SignUp() {
                                             Gender
                                         </label>
                                         <div className="mt-2">
+                                            <select
+                                                name="gender"
+                                                id="gender"
+                                                className={`block w-full px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.gender && touched.gender ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"} sm:text-sm sm:leading-6`}
+                                            >
+                                                <option value="" disabled>Select a gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                           {/* <ErrorMessage name="gender" component="div" className="text-red-500 text-xs mt-1" /> */}
+                                        </div>
+                                    </div>
+
+
+
+                                    {/* <div className="">
+                                        <label htmlFor="gender" className="block text-sm font-medium leading-6 text-grey-900">
+                                            Gender
+                                        </label>
+                                        <div className="mt-2">
                                             <Field
                                                 type="text"
                                                 name="gender"
@@ -140,7 +167,7 @@ export default function SignUp() {
                                             />
                                             <ErrorMessage name="gender" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className="">
                                         <label htmlFor="pin" className="block text-sm font-medium leading-6 text-grey-900">
@@ -223,6 +250,37 @@ export default function SignUp() {
                                         </div>
                                     </div>
 
+                                    <div className="">
+                                        <label htmlFor="dateOfBirth" className="block text-sm font-medium leading-6 text-grey-900">
+                                            Date of birth
+                                        </label>
+                                        <div className="mt-2">
+                                            <Field
+                                                type="date"
+                                                name="dateOfBirth"
+                                                id="dateOfBirth"
+                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.field_of_study && touched.field_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
+                                                    } sm:text-sm sm:leading-6`}
+                                            />
+                                            <ErrorMessage name="dateOfBirth" component="div" className="text-red-500 text-xs mt-1" />
+                                        </div>
+                                    </div>
+
+                                    <div className="">
+                                        <label htmlFor="country" className="block text-sm font-medium leading-6 text-grey-900">
+                                            Country
+                                        </label>
+                                        <div className="mt-2">
+                                            <Field
+                                                type="text"
+                                                name="country"
+                                                id="country"
+                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.field_of_study && touched.field_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
+                                                    } sm:text-sm sm:leading-6`}
+                                            />
+                                            <ErrorMessage name="country" component="div" className="text-red-500 text-xs mt-1" />
+                                        </div>
+                                    </div>
 
                                     {/* <div className="">
                                         <label htmlFor="gender">Gender</label>
@@ -329,9 +387,9 @@ export default function SignUp() {
                 <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded pl-5" alt='img-1' width={900} height={100}></Image>
             </div>
             <Toaster
-                    position="top-center"
-                    reverseOrder={false}
-                />
+                position="top-center"
+                reverseOrder={false}
+            />
         </div>
 
     )
