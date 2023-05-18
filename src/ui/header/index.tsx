@@ -9,6 +9,7 @@ import { Button } from "../button";
 import MobileNav from "./mobile-nav";
 import { mainLinks } from "../constants";
 import useReadingProgress from "@/hooks/usePageScrollBar";
+import Logout from "@/pages/logout";
 
 export const
   Header = () => {
@@ -26,13 +27,21 @@ export const
           setScrolled(isScrolled);
         }
       };
-  
+
       window.addEventListener('scroll', handleScroll);
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
     }, [scrolled]);
-     
+
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+      // Check if the user is logged in when the component mounts
+      const token = sessionStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    }, []);
 
 
     return (
@@ -64,10 +73,11 @@ export const
                     className="w-3/4 lg:w-full"
                   />
                 </Link>
+
               </div>
             </div>
-            <div className="col-span-7 flex justify-center ">
-              <div className={`hidden gap-x-4 xl:flex gap-x-8`}>
+            <div className="col-span-7 flex justify-center gap-x-8">
+              <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>
                 {mainLinks.map((link, idx) => {
                   const onClick = () => {
                     if (link.link && window) {
@@ -90,8 +100,10 @@ export const
                   );
                 })}
               </div>
+              {isLoggedIn ? <div className={`border-b-secondary cursor-pointer border-b-2 transition-all  hover:border-opacity-100 "
+                }`} ><Logout /></div> : <div className={`border-b-secondary cursor-pointer border-b-2 transition-all  hover:border-opacity-100 `}> <Link href="/login">Login</Link></div>}
             </div>
-             {/* <span style={{transform:`translate(${completion - 100}%)`}} 
+            {/* <span style={{transform:`translate(${completion - 100}%)`}} 
           className="absolute bg-warning h-1 w-full bottom-0"/> */}
             <div
               className={`col-span-3 hidden w-full items-center xl:flex justify-end`}

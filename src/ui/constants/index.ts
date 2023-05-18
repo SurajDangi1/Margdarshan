@@ -8,10 +8,11 @@ export const mainLinks = [
   },
   {
     text: "About",
-  },
-  {
-    text: "Log in",
-    link: "/login",
+    link:"/"
   },
 ];
 
+// {
+//   text: "Log in",
+//   link: "/login",
+// },

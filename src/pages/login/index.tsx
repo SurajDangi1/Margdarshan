@@ -37,6 +37,7 @@ const Login = () => {
     try {
       const response = await axios.post("http://localhost:9000/auth/login", values, { withCredentials: true });
       sessionStorage.setItem('token', response.data.access_token);
+      window.location.href = '/';
       toast.success("Login successful");
     } catch (error) {
       console.error("Error:", Response);
