@@ -25,4 +25,6 @@ export interface BlogFrontMatter {
   mode?: "dark" | "light";
   date: string;
   heroTextColor?: string;
+  startDate: string;
+  endDate: string;
 }

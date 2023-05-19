@@ -4,4 +4,6 @@ export * from "./constants";
 export * from "./button";
 export * from "./slugify";
 export * from "./hero-banner";
-export * from "./lib/scholarship-card/index";
+export * from "./lib";
+export * from "./button-link";
+export * from "./container";

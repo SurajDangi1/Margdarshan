@@ -7,7 +7,6 @@ import { Footer } from "@/ui/footer";
 import { Poppins } from "next/font/google";
 import SignUp from "@/ui/folder";
 
-
 const poppins = Poppins({
   subsets: ["devanagari"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
@@ -27,12 +26,11 @@ export default function App({ Component, pageProps }: AppProps) {
             type: "website",
             locale: "en_IN",
             url: `${process.env.URL}`,
-
           }}
         />
         <div className={`${poppins.variable} font-sans`}>
           <Header />
-        
+
           <main className="app">
             <Component {...pageProps} />
           </main>

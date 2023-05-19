@@ -59,7 +59,6 @@ const hoverBgColorMap: {
   },
 };
 
-
 const textColorMap: {
   [key in ButtonTheme]: {
     [key in ButtonVariant]: string;
@@ -142,8 +141,6 @@ const yAxisPaddingMap: {
   large: 3,
 };
 
-
-
 const textSizeMap: {
   [key in ButtonSize]: string;
 } = {
@@ -151,7 +148,6 @@ const textSizeMap: {
   medium: "body-1",
   large: "body-1",
 };
-
 
 const iconSizeMap: {
   [key in ButtonSize]: string;
@@ -161,8 +157,6 @@ const iconSizeMap: {
   large: "22px",
 };
 
-
-
 const disabledBgColorMap: {
   [key in ButtonVariant]: string;
 } = {
@@ -170,8 +164,6 @@ const disabledBgColorMap: {
   secondary: "transparent",
   tertiary: "transparent",
 };
-
-
 
 const defaultBgColorMap: {
   [key in ButtonTheme]: {
@@ -255,7 +247,7 @@ export const Button = forwardRef<any, ButtonProps>(
     const disabledBgColor = disabledBgColorMap[variant];
     const computedClassName = `${
       !disabled && boxShadow
-    } ${className} flex items-center gap-2 border-2 px-6 py-${yAxisPadding} rounded-${size} text-${textSize} justify-center whitespace-nowrap  ${
+    } ${className} flex  items-center gap-2 border-2 px-6 py-${yAxisPadding} rounded-${size} rounded-lg text-${textSize} justify-center whitespace-nowrap  ${
       !disabled
         ? `hover:bg-${hoverBgColor} bg-${defaultBgColor} text-${textColor} 
        border-${borderColor}`
@@ -293,7 +285,7 @@ export const Button = forwardRef<any, ButtonProps>(
     return (
       <button
         {...props}
-        className={computedClassName}
+        className={`${computedClassName} rounded-large`}
         ref={ref}
         style={computedStyle}
         onClick={onClick}
