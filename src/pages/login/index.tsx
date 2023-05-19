@@ -106,7 +106,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="pt-24 bg-grey-300 hidden pl-10 lg:block">
+      <div className="pt-24 bg-grey-50 hidden pl-10 lg:block">
         <div className="border-4 rounded-lg border-gray-300">
           <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded" alt='img' height={90} width={1000}></Image>
         </div>

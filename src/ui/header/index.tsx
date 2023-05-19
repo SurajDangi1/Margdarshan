@@ -100,8 +100,7 @@ export const
                   );
                 })}
               </div>
-              {isLoggedIn ? <div className={`border-b-secondary cursor-pointer border-b-2 transition-all  hover:border-opacity-100 "
-                }`} ><Logout /></div> : <div className={`border-b-secondary cursor-pointer border-b-2 transition-all  hover:border-opacity-100 `}> <Link href="/login">Login</Link></div>}
+              {isLoggedIn ? <div> <Logout /></div> : <div > <Link href="/login">Login</Link></div>}
             </div>
             {/* <span style={{transform:`translate(${completion - 100}%)`}} 
           className="absolute bg-warning h-1 w-full bottom-0"/> */}

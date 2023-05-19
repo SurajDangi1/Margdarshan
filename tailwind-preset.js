@@ -42,6 +42,7 @@ module.exports = {
       },
       transparent: "transparent", // used for making elements not shift, in case of some border being applied on hover
       grey: {
+        50: "#f9f9fb",
         100: "#F0F0F0",
         200: "#E0E0E0",
         300: "#CCCCCC",
@@ -51,6 +52,7 @@ module.exports = {
         700: "#545454",
         800: "#2E2E2E",
         900: "#1A1A1A",
+
       },
       red: {
         100: "#FAEDED",

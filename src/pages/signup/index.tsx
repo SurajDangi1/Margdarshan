@@ -96,8 +96,7 @@ export default function SignUp() {
                                                 name="fullName"
                                                 id="fullName"
 
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.fullName && touched.fullName ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="fullName" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -112,8 +111,7 @@ export default function SignUp() {
                                                 type="email"
                                                 name="email"
                                                 id="email"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.email && touched.email ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                                         </div>
@@ -129,8 +127,7 @@ export default function SignUp() {
                                                 name="password"
                                                 id="password"
                                                 placeholder="••••••••"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.password && touched.password ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="password" className="text-red-600" component="div" />
                                         </div>
@@ -138,15 +135,18 @@ export default function SignUp() {
 
 
                                     <div>
-                                        <label htmlFor="gender">Gender</label>
+                                        <label htmlFor="gender" className="block text-sm font-medium leading-6 text-grey-900">Gender</label>
+                                        <div className="mt-2">
+
                                         <Field as="select" id="gender" name="gender"
-                                            className={`block w-full px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.gender && touched.gender ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"} sm:text-sm sm:leading-6`}
+                                            className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         >
                                             <option value="">Select an option</option>
                                             <option value="Male"> Male</option>
                                             <option value="option2">Female</option>
                                             <option value="Other">Other</option>
                                         </Field>
+                                        </div>
                                         <ErrorMessage name="gender" component="div" className="text-red-500 text-xs mt-1" />
                                     </div>
 
@@ -161,8 +161,7 @@ export default function SignUp() {
                                                 name="pin"
                                                 id="pin"
                                                 autoComplete="postal-code"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.pin && touched.pin ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="pin" className="text-red-600" component="div" />
                                         </div>
@@ -177,8 +176,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="state"
                                                 id="state"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.state && touched.state ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="state" className="text-red-600" component="div" />
                                         </div>
@@ -193,8 +191,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="city"
                                                 id="city"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.city && touched.city ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             {errors.city && touched.city ? <div className="text-red-500 text-sm mt-1">{errors.city}</div> : null}
                                         </div>
@@ -210,8 +207,7 @@ export default function SignUp() {
                                                 as="select"
                                                 name="level_of_study"
                                                 id="level_of_study"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.level_of_study && touched.level_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             > <option value="">Please select</option>
                                                 <option value="10th">10th</option>
                                                 <option value="12th">12th</option>
@@ -230,8 +226,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="field_of_study"
                                                 id="field_of_study"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.field_of_study && touched.field_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="field_of_study" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -246,8 +241,7 @@ export default function SignUp() {
                                                 type="date"
                                                 name="dateOfBirth"
                                                 id="dateOfBirth"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.field_of_study && touched.field_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="dateOfBirth" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -262,8 +256,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="country"
                                                 id="country"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.field_of_study && touched.field_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="country" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -276,7 +269,7 @@ export default function SignUp() {
                 </Formik>
             </div>
 
-            <div className="pt-36 bg-grey-300 hidden pl-10 lg:block">
+            <div className="pt-36 bg-grey-50 hidden pl-10 lg:block">
                 <div className="border-4 rounded-lg border-gray-300">
                     <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded" alt='img-1' width={900} height={100}></Image>
                 </div>
