@@ -38,7 +38,7 @@ export const
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-      // Check if the user is logged in when the component mounts
+   
       const token = sessionStorage.getItem('token');
       setIsLoggedIn(!!token);
     }, []);
@@ -73,34 +73,43 @@ export const
                     className="w-3/4 lg:w-full"
                   />
                 </Link>
-
               </div>
             </div>
             <div className="col-span-7 flex justify-center gap-x-8">
-              <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>
-                {mainLinks.map((link, idx) => {
-                  const onClick = () => {
-                    if (link.link && window) {
-                      window.location.href = link.link;
-                    }
-                  };
-                  const currentActive = activeLink === link.text.toLowerCase();
-                  return (
-                    <div
-                      key={idx}
-                      onClick={onClick}
-                      onMouseEnter={() => {
-                        setActiveLink(link.text.toLowerCase());
-                      }}
-                      className={`border-b-secondary cursor-pointer border-b-2 transition-all  hover:border-opacity-100 ${currentActive ? "border-opacity-100" : "border-opacity-12"
-                        }`}
-                    >
-                      {link.text}
-                    </div>
-                  );
-                })}
-              </div>
-              {isLoggedIn ? <div> <Logout /></div> : <div > <Link href="/login">Login</Link></div>}
+              {isLoggedIn ? <div className="hidden gap-x-4 xl:flex xl:gap-x-8">
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">All Scholarships</div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">Central Scholarships</div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">UG Scholarships</div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">About</div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">  <Logout /> </div>
+              </div> :
+                <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>
+                  {mainLinks.map((link, idx) => {
+                    const onClick = () => {
+                      if (link.link && window) {
+                        window.location.href = link.link;
+                      }
+                    };
+                    const currentActive = activeLink === link.text.toLowerCase();
+                    return (
+                      <div
+                        key={idx}
+                        onClick={onClick}
+                        onMouseEnter={() => {
+                          setActiveLink(link.text.toLowerCase());
+                        }}
+                        className={`border-b-secondary cursor-pointer border-b-2 transition-all  hover:border-opacity-100 ${currentActive ? "border-opacity-100" : "border-opacity-12"
+                          }`}
+                      >
+                        {link.text}
+                      </div>
+
+                    );
+                  })}
+
+                </div>
+              }
+
             </div>
             {/* <span style={{transform:`translate(${completion - 100}%)`}} 
           className="absolute bg-warning h-1 w-full bottom-0"/> */}
