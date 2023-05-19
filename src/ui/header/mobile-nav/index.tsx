@@ -14,7 +14,6 @@ export type MobileNavLinks = {
   }[];
 }[];
 
-
 const MobileNav = (props: { close: () => void }) => {
   return (
     <div className="container flex h-[calc(100vh-64px)] flex-col justify-between overflow-auto px-5 pb-7 xl:hidden">
@@ -24,8 +23,7 @@ const MobileNav = (props: { close: () => void }) => {
             key={idx}
             className={`border-b-grey-300 cursor-pointer border-b transition-all my-8 flex items-center justify-between hover:border-opacity-100 
           }`}
-          >
-            {link.text}
+          > {link.text}
             <AiOutlineArrowRight />
           </div>
         ))}
