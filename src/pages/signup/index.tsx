@@ -54,26 +54,30 @@ const validationSchema = yup.object().shape({
 });
 
 
-const genderOptions = ['Male', 'Female', 'Other'];
-const levelOfStudyOptions = ['10th', '12th', 'Undergraduate', 'Postgraduate'];
-const streamOptions = ['Arts', 'Commerce', 'Science'];
+
 
 export default function SignUp() {
+
+
     const url = "https://localhost:9000/auth/signup";
     const handleSubmit = async (values: FormValues) => {
         console.log(values);
         try {
             const response = await axios.post("http://localhost:9000/auth/signup", values, { withCredentials: true });
             sessionStorage.setItem('token', response.data.access_token);
+            window.location.href = '/';
             toast.success("Sign Up successful");
         } catch (error) {
             console.error("Error:", Response);
             toast.error("Sign Up failed");
+
         }
     };
 
-    const [selectedCourse, setSelectedCourse] = useState("");
-
+    const [selectedValue, setSelectedValue] = useState('');
+    const handleDropdownChange = (event: any) => {
+        setSelectedValue(event.target.value);
+    };
     return (
         <div className="grid  sm:grid-cols-1 lg:grid-cols-2">
             <div className="pt-24 mb-20 pl-10 pr-10 ">
@@ -132,42 +136,20 @@ export default function SignUp() {
                                         </div>
                                     </div>
 
-                                    <div className="">
-                                        <label htmlFor="gender" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Gender
-                                        </label>
-                                        <div className="mt-2">
-                                            <select
-                                                name="gender"
-                                                id="gender"
-                                                className={`block w-full px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.gender && touched.gender ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"} sm:text-sm sm:leading-6`}
-                                            >
-                                                <option value="" disabled>Select a gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                           {/* <ErrorMessage name="gender" component="div" className="text-red-500 text-xs mt-1" /> */}
-                                        </div>
+
+                                    <div>
+                                        <label htmlFor="gender">Gender</label>
+                                        <Field as="select" id="gender" name="gender"
+                                            className={`block w-full px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.gender && touched.gender ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"} sm:text-sm sm:leading-6`}
+                                        >
+                                            <option value="">Select an option</option>
+                                            <option value="Male"> Male</option>
+                                            <option value="option2">Female</option>
+                                            <option value="Other">Other</option>
+                                        </Field>
+                                        <ErrorMessage name="gender" component="div" className="text-red-500 text-xs mt-1" />
                                     </div>
 
-
-
-                                    {/* <div className="">
-                                        <label htmlFor="gender" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Gender
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="text"
-                                                name="gender"
-                                                id="gender"
-                                                className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.gender && touched.gender ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
-                                                    } sm:text-sm sm:leading-6`}
-                                            />
-                                            <ErrorMessage name="gender" component="div" className="text-red-500 text-xs mt-1" />
-                                        </div>
-                                    </div> */}
 
                                     <div className="">
                                         <label htmlFor="pin" className="block text-sm font-medium leading-6 text-grey-900">
@@ -218,18 +200,23 @@ export default function SignUp() {
                                         </div>
                                     </div>
 
+
                                     <div className="">
                                         <label htmlFor="level_of_study" className="block text-sm font-medium leading-6 text-grey-900">
                                             Education (currently pursuing)
                                         </label>
                                         <div className="mt-2">
                                             <Field
-                                                type="text"
+                                                as="select"
                                                 name="level_of_study"
                                                 id="level_of_study"
                                                 className={`block w-full  px-2 rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ${errors.level_of_study && touched.level_of_study ? "ring-red-500 placeholder:text-grey-400" : "ring-grey-500 placeholder:text-grey-400"
                                                     } sm:text-sm sm:leading-6`}
-                                            />
+                                            > <option value="">Please select</option>
+                                                <option value="10th">10th</option>
+                                                <option value="12th">12th</option>
+                                                <option value="Under Graduate">Under Graduate</option>
+                                                <option value="Post Graduate">Post Graduate</option></Field>
                                             <ErrorMessage name="level_of_study" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
                                     </div>
@@ -281,101 +268,6 @@ export default function SignUp() {
                                             <ErrorMessage name="country" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
                                     </div>
-
-                                    {/* <div className="">
-                                        <label htmlFor="gender">Gender</label>
-                                        <Field as="select" name="gender" id="gender"
-                                            className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                            <option value="">Select Gender</option>
-                                            {genderOptions.map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}
-                                        </Field>
-                                        <ErrorMessage name="gender" className="text-red-500 text-sm mt-1" />
-                                    </div> */}
-
-
-                                    {/* <div className="">
-                                        <label htmlFor="level_of_study" className="block text-sm font-medium leading-6 text-grey-900">Level of Study</label>
-                                        <Field as="select" name="level_of_study" id="level_of_study" onChange={(e: boolean) => setSelectedCourse(e.target.value)} className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                            <option value="">Select Level of Study</option>
-                                            {levelOfStudyOptions.map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}
-                                        </Field>
-                                        <ErrorMessage name="level_of_study" className="text-red-600" />
-                                    </div> */}
-
-
-
-                                    {/* {selectedCourse === "12th" && (
-                                        <div className="">
-                                            <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-grey-900">
-                                                12th Stream
-                                            </label>
-                                            <Field
-                                                as="select"
-                                                id="field_of_study"
-                                                name="field_of_study"
-                                                className="block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                            ><option value="">Select Level of Study</option>
-                                            {streamOptions.map((option) => (
-                                                <option key={option} value={option}>
-                                                    {option}
-                                                </option>
-                                            ))}
-                                            </Field>
-                                            <ErrorMessage name="field_of_study" component="div" className="text-red-500 text-sm mt-1" />
-                                        </div>
-                                    )} */}
-
-                                    {/* <div className="">
-                                        <label htmlFor="course" className="block text-sm font-medium leading-6 text-grey-900">
-                                            Course (currently pursuing)
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                as="select"
-                                                id="level_of_study"
-                                                name="level_of_study"
-                
-                                                
-                                            >
-                                                <option value="">Select an option</option>
-                                                <option value="10th">10th</option>
-                                                <option value="12th">12th</option>
-                                                <option value="Post Graduate">Post Graduate</option>
-                                                <option value="Under Graduate">Under Graduate</option>
-                                            </Field>
-                                            <ErrorMessage name="level_of_study" component="div" className="text-red-500 text-sm mt-1" />
-                                        </div>
-                                    </div> */}
-
-
-                                    {/* <div className="col-span-full">
-                                        <label htmlFor="field_of_study" className="block text-sm font-medium leading-6 text-grey-900">
-                                            field_of_study
-                                        </label>
-                                        <div className="mt-2">
-                                            <Field
-                                                type="text"
-                                                name="field_of_study"
-                                                id="field_of_study"
-
-                                                className={`block w-full rounded-md border-0 py-1.5 text-grey-900 shadow-sm ring-1 ring-inset ring-grey-500 placeholder:text-grey-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.field_of_study && touched.field_of_study ? 'border-red-500' : ''
-                                                    }`}
-                                            />
-                                            {errors.field_of_study && touched.field_of_study ? (
-                                                <div className="text-red-500 text-sm mt-1">{errors.field_of_study}</div>
-                                            ) : null}
-                                        </div>
-                                    </div> */}
-
-
                                 </div>
                                 <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</button>
                             </div>
@@ -383,8 +275,11 @@ export default function SignUp() {
                     )}
                 </Formik>
             </div>
-            <div className="pt-36 bg-grey-300 hidden lg:block">
-                <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded pl-5" alt='img-1' width={900} height={100}></Image>
+
+            <div className="pt-36 bg-grey-300 hidden pl-10 lg:block">
+                <div className="border-4 rounded-lg border-gray-300">
+                    <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded" alt='img-1' width={900} height={100}></Image>
+                </div>
             </div>
             <Toaster
                 position="top-center"
