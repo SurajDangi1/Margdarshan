@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -17,9 +16,7 @@ const initialValues: FormValues = {
   password: '',
 };
 
-
 const Login = () => {
-
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email('Invalid email')
@@ -29,11 +26,7 @@ const Login = () => {
       .min(8, 'Password must be at least 8 characters')
   });
 
-
-
-
-
-   const handleSubmit = async (values: FormValues): Promise<void> => {
+  const handleSubmit = async (values: FormValues): Promise<void> => {
     try {
       const response = await axios.post("http://localhost:9000/auth/login", values, { withCredentials: true });
       sessionStorage.setItem('token', response.data.access_token);
@@ -113,8 +106,10 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="pt-24 bg-grey-300 hidden  lg:block">
-        <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded-xl pl-10 border-x-4 border-y-4" alt='img' height={90} width={1000}></Image>
+      <div className="pt-24 bg-grey-50 hidden pl-10 lg:block">
+        <div className="border-4 rounded-lg border-gray-300">
+          <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded" alt='img' height={90} width={1000}></Image>
+        </div>
       </div>
       <Toaster
         position="top-center"

@@ -10,6 +10,10 @@ export const mainLinks = [
     text: "About",
     link: "/",
   },
+  {
+    text: "Login",
+    link: "/login",
+  },
 ];
 
 // {
