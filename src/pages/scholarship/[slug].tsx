@@ -8,7 +8,7 @@ import {
   ArticleContext,
 } from "@/markdown";
 import H1 from "@/markdown/mdx-elements/h1";
-import { Container, HeroBanner, imagesArray } from "@/ui";
+import { Container, HeroBanner, ScholarshipCard, imagesArray } from "@/ui";
 
 import fs from "fs";
 import { MDXRemote } from "next-mdx-remote";
@@ -65,17 +65,28 @@ export function BlogArticle({
           </Container>
         </section>
 
-        <div className="gap-x-15 container mt-8 grid-cols-12 xl:grid">
-          <div className="prose col-span-8 mb-10 max-w-full">
-            <MDXRemote
-              {...html}
-              components={{
-                h1: H1,
-              }}
-            />
+        <div className="gap-x-6 container mt-8 grid-cols-12 xl:grid">
+          <div className="prose col-span-8 mb-10">
+            <MDXRemote {...html} components={mdxElements} />
           </div>
-          <div className="hidden xl:col-span-4 xl:block">
-            <div className="">Side Bar</div>
+          <div className="hidden xl:col-span-4 xl:block max-w-[400px]">
+            <div className="flex flex-col gap-6">
+              {articlesData.slice(0, 5).map((article, idx) => (
+                <div key={idx}>
+                  <ScholarshipCard
+                    deadlineDate={article.endDate}
+                    image={
+                      imagesArray[
+                        Math.floor(Math.random() * imagesArray.length)
+                      ]
+                    }
+                    scholarshipDescription={article.description}
+                    scholarshipName={article.title}
+                    slug={article.slug}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </ArticleContext.Provider>
