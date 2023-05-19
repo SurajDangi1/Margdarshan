@@ -23,6 +23,6 @@ export interface BlogFrontMatter {
     mail: string;
   };
   mode?: "dark" | "light";
-  date?: string;
+  date: string;
   heroTextColor?: string;
 }
