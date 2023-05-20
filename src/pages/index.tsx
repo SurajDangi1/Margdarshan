@@ -99,7 +99,7 @@ const LandingHero = (props: {
                   }
                   scholarshipDescription={article.description}
                   scholarshipName={article.title}
-                  slug={article.slug}
+                  slug={`/scholarship/${article.slug}`}
                 />
               </div>
             ))}

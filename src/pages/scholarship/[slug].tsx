@@ -82,7 +82,7 @@ export function BlogArticle({
                     }
                     scholarshipDescription={article.description}
                     scholarshipName={article.title}
-                    slug={article.slug}
+                    slug={`/scholarship/${article.slug}`}
                   />
                 </div>
               ))}
@@ -138,7 +138,7 @@ export const getStaticProps = async ({
 };
 
 export const getStaticPaths = async () => {
-  const paths = [];
+  const paths: any = [];
   fs.readdirSync(BLOG_PATH).forEach((file) => {
     paths.push({
       params: {

@@ -81,7 +81,7 @@ const UserSignUp = () => {
                 <div className="grid grid-cols-2 gap-2 pt-5">
                   <div className="">
                     <Field name="fullName">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="fullName"
@@ -100,7 +100,7 @@ const UserSignUp = () => {
 
                   <div className="">
                     <Field name="email">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="email"
@@ -120,7 +120,7 @@ const UserSignUp = () => {
                 <div className="grid grid-cols-2 gap-2 pt-5">
                   <div className="">
                     <Field name="password">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="password"
@@ -161,7 +161,7 @@ const UserSignUp = () => {
                 <div className="grid grid-cols-2 gap-2  pt-5">
                   <div className="">
                     <Field name="pin">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="pin"
@@ -179,7 +179,7 @@ const UserSignUp = () => {
 
                   <div className="">
                     <Field name="state">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="state"
@@ -217,7 +217,7 @@ const UserSignUp = () => {
 
                   <div className="">
                     <Field name="field_of_study">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="field_of_study"
@@ -238,7 +238,7 @@ const UserSignUp = () => {
 
                   <div className="">
                     <Field name="level_of_study">
-                      {({ field }) => (
+                      {({ field }: { field: any }) => (
                         <TextField
                           {...field}
                           id="level_of_study"
@@ -281,7 +281,7 @@ const UserSignUp = () => {
 
                 <div className="pt-5">
                   <Field name="city">
-                    {({ field }) => (
+                    {({ field }: { field: any }) => (
                       <TextField
                         {...field}
                         id="city"

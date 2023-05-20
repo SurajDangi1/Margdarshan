@@ -19,7 +19,7 @@ export const ScholarshipCard = ({
   slug,
 }: ScholarshipsProps) => {
   return (
-    <Link href={`scholarship/${slug}`}>
+    <Link href={`${slug}`}>
       <div className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer rounded-large group min-h-[560px]">
         <div className="overflow-hidden">
           <Image
