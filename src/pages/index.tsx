@@ -11,8 +11,6 @@ import {
   imagesArray,
 } from "@/ui";
 import { useWindowWidth } from "@/hooks";
-import UserSignUp from "@/ui/folder";
-import SignUp from "@/ui/folder";
 import backgroundImage from "@/images/background-home.jpg";
 import dayjs from "dayjs";
 import fs from "fs";
