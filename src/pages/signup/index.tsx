@@ -55,7 +55,7 @@ export default function SignUp() {
     console.log(values);
     try {
       const response = await axios.post(
-        `${process.env.URL}/auth/signup`,
+        `https://margdarshan.up.railway.app/auth/signup`,
         values,
         { withCredentials: true }
       );
