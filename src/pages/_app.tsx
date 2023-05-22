@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import "../styles/globals.css";
 import { Footer } from "@/ui/footer";
 import { Poppins } from "next/font/google";
-import SignUp from "@/ui/folder";
 
 const poppins = Poppins({
   subsets: ["devanagari"],

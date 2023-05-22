@@ -51,7 +51,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                   }
                   scholarshipDescription={article.description}
                   scholarshipName={article.title}
-                  slug={article.slug}
+                  slug={`/scholarship/${article.slug}`}
                 />
               </div>
             ))}
