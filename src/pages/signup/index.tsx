@@ -82,13 +82,12 @@ export default function SignUp() {
         >
           {({ errors, touched, isSubmitting }) => (
             <Form>
-              <div className="border-grey-900 pl-2 pr-2 rounded-medium pb-12 border">
+              <div className=" pl-2 pr-2 rounded-medium">
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-8 mb-5">
                   <div className="">
                     <label
                       htmlFor="fullName"
-                      className="block text-sm font-medium leading-6 text-grey-900"
-                    >
+                      className="block text-sm font-medium leading-6 text-grey-900">
                       Full name
                     </label>
                     <div className="mt-2">
@@ -96,7 +95,7 @@ export default function SignUp() {
                         type="text"
                         name="fullName"
                         id="fullName"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="fullName"
@@ -118,7 +117,7 @@ export default function SignUp() {
                         type="email"
                         name="email"
                         id="email"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="email"
@@ -141,7 +140,7 @@ export default function SignUp() {
                         name="password"
                         id="password"
                         placeholder="••••••••"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="password"
@@ -163,11 +162,11 @@ export default function SignUp() {
                         as="select"
                         id="gender"
                         name="gender"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       >
                         <option value="">Select an option</option>
                         <option value="Male"> Male</option>
-                        <option value="option2">Female</option>
+                       <option value="option2">Female</option>
                         <option value="Other">Other</option>
                       </Field>
                     </div>
@@ -191,7 +190,7 @@ export default function SignUp() {
                         name="pin"
                         id="pin"
                         autoComplete="postal-code"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="pin"
@@ -213,7 +212,7 @@ export default function SignUp() {
                         type="text"
                         name="state"
                         id="state"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="state"
@@ -235,7 +234,7 @@ export default function SignUp() {
                         type="text"
                         name="city"
                         id="city"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       {errors.city && touched.city ? (
                         <div className="text-red-500 text-sm mt-1">
@@ -257,7 +256,7 @@ export default function SignUp() {
                         as="select"
                         name="level_of_study"
                         id="level_of_study"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       >
                         {" "}
                         <option value="">Please select</option>
@@ -286,7 +285,7 @@ export default function SignUp() {
                         type="text"
                         name="field_of_study"
                         id="field_of_study"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="field_of_study"
@@ -308,7 +307,7 @@ export default function SignUp() {
                         type="date"
                         name="dateOfBirth"
                         id="dateOfBirth"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="dateOfBirth"
@@ -330,7 +329,7 @@ export default function SignUp() {
                         type="text"
                         name="country"
                         id="country"
-                        className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="country"
@@ -352,16 +351,9 @@ export default function SignUp() {
           )}
         </Formik>
       </div>
-
-      <div className="pt-36 bg-grey-50 hidden pl-20 lg:block">
-        <div className="border-4 rounded-medium border-gray-300">
-          <Image
-            src="/Scholarship-dum-images/img-1.jpg"
-            className="rounded"
-            alt="img-1"
-            width={900}
-            height={100}
-          ></Image>
+      <div className="pt-44 pl-20 bg-grey-50 hidden lg:block">
+        <div className="border-t-4 border-l-4 border-r-0 border-b-4 rounded-tl-huge rounded-bl-huge border-grey-400 overflow-hidden">
+          <Image src="/Scholarship-dum-images/log-in.jpg" className="" alt="img" height={90} width={1000} />
         </div>
       </div>
       <Toaster position="top-center" reverseOrder={false} />

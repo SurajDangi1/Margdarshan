@@ -20,9 +20,11 @@ import {
   getParsedFileContentBySlug,
 } from "@/markdown";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 const Home = (props: ReturnType<typeof getStaticProps>["props"]) => {
+
   console.log("props:", props);
   return (
     <div>
@@ -99,14 +101,17 @@ const LandingHero = (props: {
                   scholarshipName={article.title}
                   slug={`/scholarship/${article.slug}`}
                 />
+
               </div>
             ))}
           </div>
         </div>
       </section>
+
     </div>
   );
 };
+
 
 export const getStaticProps = () => {
   const blogsDir = fs.readdirSync(BLOG_PATH);
