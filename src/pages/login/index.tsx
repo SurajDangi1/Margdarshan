@@ -42,7 +42,7 @@ const Login = () => {
     <div className="grid  grid-cols-1 lg:grid-cols-2 pt-16">
       <div>
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full  rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
+          <div className="w-full rounded-medium shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                 {({ errors, touched, isSubmitting }) => (
@@ -57,7 +57,7 @@ const Login = () => {
                         id="email"
                         placeholder="name@company.com"
                         className={`bg-grey-50 border ${errors.email && touched.email ? 'border-red-600' : 'border-grey-300'
-                          } text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                          } text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                       />
                       <ErrorMessage name="email" className="text-red-600" component="div" />
                     </div>
@@ -71,7 +71,7 @@ const Login = () => {
                         id="password"
                         placeholder="••••••••"
                         className={`bg-grey-50 border ${errors.password && touched.password ? 'border-red-600' : 'border-grey-300'
-                          } text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
+                          } text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5`}
                       />
                       <ErrorMessage name="password" className="text-red-600" component="div" />
                     </div>
@@ -82,7 +82,7 @@ const Login = () => {
                             type="checkbox"
                             id="remember"
                             name="remember"
-                            className="w-4 h-4 border border-grey-300 rounded bg-grey-50 focus:ring-3 focus:ring-primary-300 dark:bg-grey-700 dark:border-grey-600 dark:focus:ring-primary-600 dark:ring-offset-grey-800"
+                            className="w-4 h-4 border border-grey-300 rounded-medium bg-grey-50 focus:ring-3 focus:ring-primary-300 dark:bg-grey-700 dark:border-grey-600 dark:focus:ring-primary-600 dark:ring-offset-grey-800"
                           />
                         </div>
                         <div className="ml-3 text-sm">
@@ -95,7 +95,7 @@ const Login = () => {
                         Forgot password?
                       </a>
                     </div>
-                    <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log in</button>
+                    <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 rounded-medium hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-mediumrounded-medium text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log in</button>
                     <p className="text-sm font-light text-grey-900">
                       Don’t have an account yet? <Link href="/signup" className="font-medium text-cherry-300 hover:underline dark:text-primary-500">Sign up</Link>
                     </p>
@@ -106,9 +106,9 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div className="pt-24 bg-grey-50 hidden pl-10 lg:block">
-        <div className="border-4 rounded-lg border-gray-300">
-          <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded" alt='img' height={90} width={1000}></Image>
+      <div className="pt-24  pl-20 bg-grey-50 hidden lg:block">
+        <div className="border-4 rounded-medium border-gray-300">
+          <Image src='/Scholarship-dum-images/log-in.jpg' className="rounded-small" alt='img' height={90} width={1000}></Image>
         </div>
       </div>
       <Toaster

@@ -83,8 +83,8 @@ export default function SignUp() {
             <div className="pt-24 mb-20 pl-10 pr-10 ">
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                     {({ errors, touched, isSubmitting }) => (
-                        <Form >
-                            <div className="border-grey-900npl-2 pl-2 pr-2 rounded-xl pb-12 border">
+                        <Form className="">
+                            <div className="border-grey-900  pl-2 pr-2 rounded-medium pb-12 border">
                                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-6 gap-y-8 mb-5">
                                     <div className="">
                                         <label htmlFor="fullName" className="block text-sm font-medium leading-6 text-grey-900">
@@ -96,7 +96,7 @@ export default function SignUp() {
                                                 name="fullName"
                                                 id="fullName"
 
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="fullName" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -111,7 +111,7 @@ export default function SignUp() {
                                                 type="email"
                                                 name="email"
                                                 id="email"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                                         </div>
@@ -127,7 +127,7 @@ export default function SignUp() {
                                                 name="password"
                                                 id="password"
                                                 placeholder="••••••••"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="password" className="text-red-600" component="div" />
                                         </div>
@@ -139,7 +139,7 @@ export default function SignUp() {
                                         <div className="mt-2">
 
                                         <Field as="select" id="gender" name="gender"
-                                            className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                            className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         >
                                             <option value="">Select an option</option>
                                             <option value="Male"> Male</option>
@@ -161,7 +161,7 @@ export default function SignUp() {
                                                 name="pin"
                                                 id="pin"
                                                 autoComplete="postal-code"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="pin" className="text-red-600" component="div" />
                                         </div>
@@ -176,7 +176,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="state"
                                                 id="state"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="state" className="text-red-600" component="div" />
                                         </div>
@@ -191,7 +191,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="city"
                                                 id="city"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             {errors.city && touched.city ? <div className="text-red-500 text-sm mt-1">{errors.city}</div> : null}
                                         </div>
@@ -207,7 +207,7 @@ export default function SignUp() {
                                                 as="select"
                                                 name="level_of_study"
                                                 id="level_of_study"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             > <option value="">Please select</option>
                                                 <option value="10th">10th</option>
                                                 <option value="12th">12th</option>
@@ -226,7 +226,7 @@ export default function SignUp() {
                                                 type="text"
                                                 name="field_of_study"
                                                 id="field_of_study"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="field_of_study" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -241,7 +241,7 @@ export default function SignUp() {
                                                 type="date"
                                                 name="dateOfBirth"
                                                 id="dateOfBirth"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="dateOfBirth" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
@@ -256,22 +256,22 @@ export default function SignUp() {
                                                 type="text"
                                                 name="country"
                                                 id="country"
-                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                                className="bg-grey-50 border text-grey-900 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                             />
                                             <ErrorMessage name="country" component="div" className="text-red-500 text-xs mt-1" />
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</button>
+                                <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-medium text-sm px-5 py-1.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign Up</button>
                             </div>
                         </Form>
                     )}
                 </Formik>
             </div>
 
-            <div className="pt-36 bg-grey-50 hidden pl-10 lg:block">
-                <div className="border-4 rounded-lg border-gray-300">
-                    <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded" alt='img-1' width={900} height={100}></Image>
+            <div className="pt-36 bg-grey-50 hidden pl-20 lg:block">
+                <div className="border-4 rounded-medium border-gray-300">
+                    <Image src='/Scholarship-dum-images/img-1.jpg' className="rounded-medium" alt='img-1' width={900} height={100}></Image>
                 </div>
             </div>
             <Toaster
