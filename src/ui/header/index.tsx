@@ -81,7 +81,7 @@ export const
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">Central Scholarships</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">UG Scholarships</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">About</div>
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Logout /> </div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/profile'></Link> </div>
               
               </div> :
                 <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>

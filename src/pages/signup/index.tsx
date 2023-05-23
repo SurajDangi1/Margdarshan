@@ -341,7 +341,7 @@ export default function SignUp() {
                   </div>
                 </div>
                 <Button text=" Sign Up" type="submit"
-                  disabled={isSubmitting}  theme="primary" className="px-5 w-full" size="medium" />
+                  disabled={isSubmitting}  theme="secondary" className="px-5 w-full" size="medium" />
               </div>
             </Form>
           )}

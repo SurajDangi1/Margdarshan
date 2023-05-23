@@ -7,3 +7,4 @@ export * from "./hero-banner";
 export * from "./lib";
 export * from "./button-link";
 export * from "./container";
+export * from "./inputs-area"
