@@ -109,8 +109,8 @@ const Login = () => {
                         Forgot password?
                       </a>
                     </div>
-                    {/* <Button variant=""></Button> */}
-                    <button type="submit" disabled={isSubmitting} className="w-full text-black bg-cherry-300 rounded-medium hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-mediumrounded-medium text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log in</button>
+                    <Button text="Log in" type="submit" theme="primary" className="px-5 w-full" size="medium" />
+                    {/* <button  disabled={isSubmitting} className="w-full text-black bg-cherry-300 rounded-medium hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-mediumrounded-medium text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log in</button> */}
                     <p className="text-sm font-light text-grey-900">
                       Don’t have an account yet?{" "}
                       <Link

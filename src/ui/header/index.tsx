@@ -81,7 +81,8 @@ export const
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">Central Scholarships</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">UG Scholarships</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">About</div>
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">  <Logout /> </div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Logout /> </div>
+              
               </div> :
                 <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>
                   {mainLinks.map((link, idx) => {
@@ -111,6 +112,7 @@ export const
               }
 
             </div>
+            {/* <div className="cursor-pointer transition-all  hover:border-opacity-100 "> <Link href="/profile">Profile</Link> </div> */}
             {/* <span style={{transform:`translate(${completion - 100}%)`}} 
           className="absolute bg-warning h-1 w-full bottom-0"/> */}
             <div

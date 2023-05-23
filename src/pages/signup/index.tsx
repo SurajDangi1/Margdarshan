@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { Button } from "@/ui";
 
 interface FormValues {
   fullName: string;
@@ -339,13 +340,8 @@ export default function SignUp() {
                     </div>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full text-black bg-cherry-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-medium text-sm px-5 py-1.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  Sign Up
-                </button>
+                <Button text=" Sign Up" type="submit"
+                  disabled={isSubmitting}  theme="primary" className="px-5 w-full" size="medium" />
               </div>
             </Form>
           )}
