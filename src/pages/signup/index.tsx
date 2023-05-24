@@ -130,7 +130,7 @@ export default function SignUp() {
 
                   <div className="">
                     <label
-                      htmlFor="last-name"
+                     
                       className="block text-sm font-medium leading-6 text-grey-900"
                     >
                       Password

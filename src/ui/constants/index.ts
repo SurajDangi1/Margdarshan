@@ -8,7 +8,7 @@ export const mainLinks = [
   },
   {
     text: "About",
-    link: "/",
+    link: "/profile",
   },
   {
     text: "Login",

@@ -8,3 +8,5 @@ export * from "./lib";
 export * from "./button-link";
 export * from "./container";
 export * from "./inputs-area"
+export * from './input'
+export * from './user-signup-edit'
