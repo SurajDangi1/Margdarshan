@@ -1,33 +1,36 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import React, { useState } from 'react';
 
-export default function BasicSelect() {
-  const [age, setAge] = React.useState('');
+type DropdownProps = {
+  label: string;
+  options: string[];
+  onSelect: (value: string) => void;
+};
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+const Dropdown: React.FC<DropdownProps> = ({ label, options, onSelect }) => {
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleOptionSelect = (value: string) => {
+    setSelectedOption(value);
+    onSelect(value);
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          onChange={handleChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+    <div>
+      <label className="block text-sm font-medium leading-6 text-black">
+        {label}
+      </label>
+      <div className='mt-1'>
+        <select className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" value={selectedOption} onChange={(e) => handleOptionSelect(e.target.value)}>
+          <option value="">Select an option</option>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+    </div>
   );
-}
+};
+
+export default Dropdown;

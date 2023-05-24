@@ -132,10 +132,10 @@ const Login = () => {
           <Image src="/Scholarship-dum-images/log-in.jpg" className="" alt="img" height={90} width={1000} />
         </div>
       </div>
-
       <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 };
+
 
 export default Login;

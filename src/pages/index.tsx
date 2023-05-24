@@ -19,6 +19,7 @@ import {
   BlogFrontMatter,
   getParsedFileContentBySlug,
 } from "@/markdown";
+import Filter from "@/ui/filters";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -68,6 +69,7 @@ const LandingHero = (props: {
           <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
             Find life-changing scholarships made for you
           </p>
+          
           <div className="mt-10 flex justify-center space-x-6">
             <Button href="/ai" text="Ask your AI "></Button>
             <Button

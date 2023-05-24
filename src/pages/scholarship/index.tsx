@@ -7,6 +7,7 @@ import { Container, ScholarshipCard, imagesArray } from "@/ui";
 import React from "react";
 import fs from "fs";
 import backgroundImage from "@/images/background-home.jpg";
+import Filter from "@/ui/filters";
 
 const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
   console.log("props:", props);
@@ -40,6 +41,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
         </Container>
       </section>
       <section id="recent-scholarships" className="bg-slate-100">
+        <Filter />
         <div className="container pt-10 pb-10">
           <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {props.articlesData.map((article, idx) => (
