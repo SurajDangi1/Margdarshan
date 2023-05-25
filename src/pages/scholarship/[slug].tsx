@@ -13,7 +13,7 @@ import { Container, HeroBanner, ScholarshipCard, imagesArray } from "@/ui";
 import fs from "fs";
 import { MDXRemote } from "next-mdx-remote";
 import { ArticleJsonLd, NextSeo } from "next-seo";
-import { renderToString } from "react-dom/server";
+import { renderToString } from "react-dom/server"; 
 import backgroundImage from "@/images/background-home.jpg";
 
 export function BlogArticle({
@@ -31,7 +31,7 @@ export function BlogArticle({
       <NextSeo
         title={frontMatter.title}
         description={frontMatter.title + " " + frontMatter.description}
-      />
+      />   
       <ArticleContext.Provider value={frontMatter}>
         {/* <span style={{transform:`translate(${completion - 100}%)`}} 
           className="absolute bg-warning h-1 w-full bottom-0"/> */}
@@ -98,7 +98,7 @@ export const getStaticProps = async ({
   params,
 }: {
   params: { slug: string };
-}) => {
+}) => {                                
   // read markdown file into content and frontmatter
   const blogMarkdownContent = getParsedFileContentBySlug<BlogFrontMatter>(
     params.slug,

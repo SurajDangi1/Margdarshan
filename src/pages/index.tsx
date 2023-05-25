@@ -19,7 +19,7 @@ import {
   BlogFrontMatter,
   getParsedFileContentBySlug,
 } from "@/markdown";
-import Filter from "@/ui/filters";
+
 
 
 const inter = Inter({ subsets: ["latin"] });

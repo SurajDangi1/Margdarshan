@@ -14,9 +14,6 @@ interface FormValues {
   city: string;
   state: string;
   gender: string;
-  level_of_study: string;
-  field_of_study: string;
-  dateOfBirth: string;
   country: string;
 }
 
@@ -28,10 +25,7 @@ const initialValues: FormValues = {
   city: "",
   state: "",
   gender: "",
-  level_of_study: "",
-  field_of_study: "",
   country: "",
-  dateOfBirth: "",
 };
 
 const validationSchema = yup.object().shape({
@@ -45,10 +39,7 @@ const validationSchema = yup.object().shape({
   city: yup.string().required("City is required"),
   state: yup.string().required("State is required"),
   gender: yup.string().required("Gender is required"),
-  level_of_study: yup.string().required("Education is required"),
-  field_of_study: yup.string().required("Education is required"),
   country: yup.string().required("country is required"),
-  dateOfBirth: yup.string().required("Date of birth is required"),
 });
 
 export default function SignUp() {
@@ -101,7 +92,7 @@ export default function SignUp() {
                       <ErrorMessage
                         name="fullName"
                         component="div"
-                        className="text-red-500 text-xs mt-1"
+                        className="text-red-500 text-sm mt-1"
                       />
                     </div>
                   </div>
@@ -130,7 +121,7 @@ export default function SignUp() {
 
                   <div className="">
                     <label
-                     
+
                       className="block text-sm font-medium leading-6 text-grey-900"
                     >
                       Password
@@ -145,7 +136,7 @@ export default function SignUp() {
                       />
                       <ErrorMessage
                         name="password"
-                        className="text-red-600"
+                        className="text-red-500 text-sm mt-1"
                         component="div"
                       />
                     </div>
@@ -167,14 +158,14 @@ export default function SignUp() {
                       >
                         <option value="">Select an option</option>
                         <option value="Male"> Male</option>
-                       <option value="option2">Female</option>
+                        <option value="option2">Female</option>
                         <option value="Other">Other</option>
                       </Field>
                     </div>
                     <ErrorMessage
                       name="gender"
                       component="div"
-                      className="text-red-500 text-xs mt-1"
+                      className="text-red-500 text-sm mt-1"
                     />
                   </div>
 
@@ -195,7 +186,7 @@ export default function SignUp() {
                       />
                       <ErrorMessage
                         name="pin"
-                        className="text-red-600"
+                        className="text-red-500 text-sm mt-1"
                         component="div"
                       />
                     </div>
@@ -217,7 +208,7 @@ export default function SignUp() {
                       />
                       <ErrorMessage
                         name="state"
-                        className="text-red-600"
+                        className="text-red-500 text-sm mt-1"
                         component="div"
                       />
                     </div>
@@ -247,79 +238,6 @@ export default function SignUp() {
 
                   <div className="">
                     <label
-                      htmlFor="level_of_study"
-                      className="block text-sm font-medium leading-6 text-grey-900"
-                    >
-                      Education (currently pursuing)
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        as="select"
-                        name="level_of_study"
-                        id="level_of_study"
-                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      >
-                        {" "}
-                        <option value="">Please select</option>
-                        <option value="10th">10th</option>
-                        <option value="12th">12th</option>
-                        <option value="Under Graduate">Under Graduate</option>
-                        <option value="Post Graduate">Post Graduate</option>
-                      </Field>
-                      <ErrorMessage
-                        name="level_of_study"
-                        component="div"
-                        className="text-red-500 text-xs mt-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="">
-                    <label
-                      htmlFor="field_of_study"
-                      className="block text-sm font-medium leading-6 text-grey-900"
-                    >
-                      Course
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        type="text"
-                        name="field_of_study"
-                        id="field_of_study"
-                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      />
-                      <ErrorMessage
-                        name="field_of_study"
-                        component="div"
-                        className="text-red-500 text-xs mt-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="">
-                    <label
-                      htmlFor="dateOfBirth"
-                      className="block text-sm font-medium leading-6 text-grey-900"
-                    >
-                      Date of birth
-                    </label>
-                    <div className="mt-2">
-                      <Field
-                        type="date"
-                        name="dateOfBirth"
-                        id="dateOfBirth"
-                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                      />
-                      <ErrorMessage
-                        name="dateOfBirth"
-                        component="div"
-                        className="text-red-500 text-xs mt-1"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="">
-                    <label
                       htmlFor="country"
                       className="block text-sm font-medium leading-6 text-grey-900"
                     >
@@ -335,13 +253,13 @@ export default function SignUp() {
                       <ErrorMessage
                         name="country"
                         component="div"
-                        className="text-red-500 text-xs mt-1"
+                        className="text-red-500 text-sm mt-1"
                       />
                     </div>
                   </div>
                 </div>
                 <Button text=" Sign Up" type="submit"
-                  disabled={isSubmitting}  theme="secondary" className="px-5 w-full" size="medium" />
+                  disabled={isSubmitting} theme="secondary" className="px-5 w-full" size="medium" />
               </div>
             </Form>
           )}

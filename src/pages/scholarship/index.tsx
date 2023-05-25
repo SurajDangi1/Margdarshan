@@ -10,7 +10,6 @@ import backgroundImage from "@/images/background-home.jpg";
 import Filter from "@/ui/filters";
 
 const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
-  console.log("props:", props);
   return (
     <div>
       <section

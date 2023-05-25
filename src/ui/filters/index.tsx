@@ -21,8 +21,6 @@ const Filter = () => {
       <Dropdown label={'Marks'} options={marks} onSelect={handleOptionSelect} />
        <Dropdown label={'Family Income'} options={income} onSelect={handleOptionSelect} />
       </div> 
-
-
     </div> 
   )
 }
