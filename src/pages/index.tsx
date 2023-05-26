@@ -8,7 +8,7 @@ import {
   Container,
   HeroBanner,
   ScholarshipCard,
-  imagesArray,
+  ImagesArray,
 } from "@/ui";
 import { useWindowWidth } from "@/hooks";
 import backgroundImage from "@/images/background-home.jpg";
@@ -26,7 +26,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home = (props: ReturnType<typeof getStaticProps>["props"]) => {
 
-  console.log("props:", props);
+
   return (
     <div>
       <NextSeo description="Margdarshan" />
@@ -97,7 +97,7 @@ const LandingHero = (props: {
                 <ScholarshipCard
                   deadlineDate={article.endDate}
                   image={
-                    imagesArray[Math.floor(Math.random() * imagesArray.length)]
+                    ImagesArray[Math.floor(Math.random() * ImagesArray.length)]
                   }
                   scholarshipDescription={article.description}
                   scholarshipName={article.title}

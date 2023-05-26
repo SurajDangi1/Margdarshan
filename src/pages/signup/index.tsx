@@ -47,11 +47,11 @@ export default function SignUp() {
     console.log(values);
     try {
       const response = await axios.post(
-        `https://margdarshan.up.railway.app/auth/signup`,
+        `http://localhost:9000/auth/signup`,
         values,
         { withCredentials: true }
       );
-      sessionStorage.setItem("token", response.data.access_token);
+      sessionStorage.setItem("token", response.data.data.access_token);
       window.location.href = "/";
       toast.success("Sign Up successful");
     } catch (error) {

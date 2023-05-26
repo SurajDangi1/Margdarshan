@@ -3,7 +3,7 @@ import {
   BlogFrontMatter,
   getParsedFileContentBySlug,
 } from "@/markdown";
-import { Container, ScholarshipCard, imagesArray } from "@/ui";
+import { Container, ScholarshipCard, ImagesArray } from "@/ui";
 import React from "react";
 import fs from "fs";
 import backgroundImage from "@/images/background-home.jpg";
@@ -48,7 +48,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                 <ScholarshipCard
                   deadlineDate={article.endDate}
                   image={
-                    imagesArray[Math.floor(Math.random() * imagesArray.length)]
+                    ImagesArray[Math.floor(Math.random() * ImagesArray.length)]
                   }
                   scholarshipDescription={article.description}
                   scholarshipName={article.title}

@@ -12,6 +12,7 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+
 export default function App({ Component, pageProps }: AppProps) {
   const path = useRouter().asPath;
   return (

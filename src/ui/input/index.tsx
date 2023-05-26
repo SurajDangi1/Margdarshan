@@ -1,19 +1,22 @@
 
 import { Field } from 'formik';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 interface Props {
   name: string;
   id: string;
   label: string;
-  type:string;
+  type: string ;
+  color?: string
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  value? :string 
 }
 
-const InputField: React.FC<Props> = ({ name, id, label,type }) => {
+const InputField: React.FC<Props> = ({ name, id, label, type, color, onChange, value}) => {
   return (
     <div className="">
       <label
-        className="block text-sm font-medium leading-6 text-grey-400"
+        className={`block text-sm font-medium leading-6 text-gray-900`}
       >
         {label}
       </label>
@@ -23,6 +26,8 @@ const InputField: React.FC<Props> = ({ name, id, label,type }) => {
           name={name}
           id={id}
           className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+          onChange={onChange}
+          value={value}
         />
       </div>
     </div>

@@ -38,11 +38,12 @@ export const
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-   
+
       const token = sessionStorage.getItem('token');
       setIsLoggedIn(!!token);
     }, []);
 
+   
 
     return (
       <ActiveLinkContext.Provider
@@ -81,8 +82,7 @@ export const
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">Central Scholarships</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">UG Scholarships</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 ">About</div>
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/profile'></Link> </div>
-              
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/profile'>Profile</Link> </div>
               </div> :
                 <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>
                   {mainLinks.map((link, idx) => {

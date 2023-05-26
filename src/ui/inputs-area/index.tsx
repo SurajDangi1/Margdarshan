@@ -2,7 +2,7 @@ import React from 'react'
 
 export interface InputAreaProps {
   label: string
-  value: string
+  value: string | number
 }
 
 const InputArea = ({ label, value }: InputAreaProps) => {

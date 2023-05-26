@@ -11,3 +11,4 @@ export * from "./inputs-area"
 export * from './input'
 export * from './user-signup-edit'
 export * from './dropdown'
+export * from './onboard-model'

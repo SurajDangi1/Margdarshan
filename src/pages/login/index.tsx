@@ -28,11 +28,11 @@ const Login = () => {
   const handleSubmit = async (values: FormValues): Promise<void> => {
     try {
       const response = await axios.post(
-        `https://margdarshan.up.railway.app/auth/login`,
+        `http://localhost:9000/auth/login`,
         values,
         { withCredentials: true }
       );
-      sessionStorage.setItem("token", response.data.access_token);
+      sessionStorage.setItem("token", response.data.data.access_token);
       window.location.href = "/";
       toast.success("Login successful");
     } catch (error) {

@@ -8,7 +8,7 @@ import {
   ArticleContext,
 } from "@/markdown";
 import H1 from "@/markdown/mdx-elements/h1";
-import { Container, HeroBanner, ScholarshipCard, imagesArray } from "@/ui";
+import { Container, HeroBanner, ImagesArray, ScholarshipCard } from "@/ui";
 
 import fs from "fs";
 import { MDXRemote } from "next-mdx-remote";
@@ -76,8 +76,8 @@ export function BlogArticle({
                   <ScholarshipCard
                     deadlineDate={article.endDate}
                     image={
-                      imagesArray[
-                        Math.floor(Math.random() * imagesArray.length)
+                      ImagesArray[
+                        Math.floor(Math.random() * ImagesArray.length)
                       ]
                     }
                     scholarshipDescription={article.description}
