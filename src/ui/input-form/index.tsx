@@ -9,10 +9,10 @@ interface Props {
   type: string ;
   color?: string
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  value? :  string
+  value? :  number
 }
 
-const InputField: React.FC<Props> = ({ name, id, label, type, color, onChange, value}) => {
+const InputsFields: React.FC<Props> = ({ name, id, label, type, color, onChange, value}) => {
   return (
     <div className="">
       <label
@@ -34,4 +34,4 @@ const InputField: React.FC<Props> = ({ name, id, label, type, color, onChange, v
   );
 };
 
-export default InputField;
+export default InputsFields;

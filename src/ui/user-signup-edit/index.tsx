@@ -3,6 +3,7 @@ import InputField from '../input'
 import { Button } from '@/ui'
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import axios from 'axios';
+import InputsFields from '../input-form';
 
 interface FormData {
   fullName?: string;
@@ -11,9 +12,12 @@ interface FormData {
   dateOfBirth?: string;
   country?: string;
   state?: string;
-
   level_of_study?: string;
   field_of_study?: string;
+  twelve_percentage?: number;
+  father_yearly_income?: number
+  category?: string;
+  pin?: string;
 }
 
 
@@ -74,9 +78,17 @@ const UserSignupEdit = () => {
           onChange={handleInputChange} />
         <InputField name={'field_of_study'} id={'field_of_study'} label={'Course'} type={'text'} value={formData.field_of_study || ''}
           onChange={handleInputChange} />
+        <InputsFields name={'twelve_percentage'} id={'twelve_percentage'} label={'12th Percent'} type={'number'} value={formData.twelve_percentage}
+          onChange={handleInputChange} />
+        <InputsFields name={'father_yearly_income'} id={'father_yearly_income'} label={'Father yearly Income'} type={'number'} value={formData.father_yearly_income}
+          onChange={handleInputChange} />
+        <InputsFields name={'pin'} id={'pin'} label={'Pin'} type={'number'} value={formData.pin}
+          onChange={handleInputChange} />
+        <InputField name={'category'} id={'category'} label={'category'} type={'text'} value={formData.category || ''}
+          onChange={handleInputChange} />
       </div>
       <div className='flex justify-end items-end pb-5'>
-        <Button text='Submit' type='submit' theme='primary' onClick={handleRefreshClick}/>
+        <Button text='Submit' type='submit' theme='primary' onClick={handleRefreshClick} />
       </div>
     </form>
     </div>

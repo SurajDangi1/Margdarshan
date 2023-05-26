@@ -20,6 +20,9 @@ interface UserDataProps {
     field_of_study: string;
     level_of_study: string;
     __v?: number;
+    twelve_percentage?: number;
+    father_yearly_income?: number
+    category?: string
 }
 
 const UserProfile: React.FC<UserDataProps> = ({
@@ -34,6 +37,10 @@ const UserProfile: React.FC<UserDataProps> = ({
     field_of_study,
     level_of_study,
     __v,
+    twelve_percentage,
+    father_yearly_income,
+    category
+
 }) => {
     const [isEditFormVisible, setEditFormVisible] = useState<boolean>(false);
 
@@ -100,6 +107,9 @@ const UserProfile: React.FC<UserDataProps> = ({
                                     <InputArea label="Postal Code" value={userData.pin} />
                                     <InputArea label="Education" value={userData.level_of_study} />
                                     <InputArea label="Course" value={userData.field_of_study} />
+                                    <InputArea label="12th Percentage" value={userData.twelve_percentage} />
+                                    <InputArea label="Family Income Yearly(in lakhs)" value={userData.father_yearly_income} />
+                                    <InputArea label="category" value={userData.category} />
                                 </div>)}
                         </div>
                     </div>
