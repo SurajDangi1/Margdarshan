@@ -45,7 +45,7 @@ export default function OnboardModal() {
 
     try {
       const accessToken = sessionStorage.getItem('token');
-      const response = await axios.post('http://localhost:9000/on-board', formData, {
+      const response = await axios.post('https://margdarshan.up.railway.app/on-board', formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

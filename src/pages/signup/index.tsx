@@ -47,7 +47,7 @@ export default function SignUp() {
     console.log(values);
     try {
       const response = await axios.post(
-        `http://localhost:9000/auth/signup`,
+        `https://margdarshan.up.railway.app/auth/signup`,
         values,
         { withCredentials: true }
       );
