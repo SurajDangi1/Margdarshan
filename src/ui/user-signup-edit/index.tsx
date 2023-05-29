@@ -17,10 +17,14 @@ interface FormData {
   twelve_percentage?: number;
   father_yearly_income?: number;
   category?: string;
-  pin?: string;
+  pin?: number;
 }
 
-const UserSignupEdit = ({ userData }) => {
+interface UserSignupEditProps {
+  userData: FormData;
+}
+
+const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
   const [formData, setFormData] = useState<FormData>({});
   const [updateStatus, setUpdateStatus] = useState<string>('');
   const category = ['St/Sc', 'Obc', 'General']
@@ -228,9 +232,9 @@ const UserSignupEdit = ({ userData }) => {
           /></div> : <> </>
 
           }
-          {/* {userData.father_yearly_income ? <div>
+          {userData.father_yearly_income ? <div>
             <label htmlFor="father_yearly_income" className="block  text-sm font-medium text-gray-700">
-              Family Income
+              Family Income(In Lpa)
             </label>
             <div className='mt-1'>
               <input
@@ -239,6 +243,20 @@ const UserSignupEdit = ({ userData }) => {
                 id="father_yearly_income"
                 className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 value={formData.father_yearly_income || userData.father_yearly_income || ' '}
+                onChange={handleInputChange}
+              />   </div></div> : <></>
+          }
+          {/* {userData.twelve_percentage ? <div>
+            <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
+             12th percentage
+            </label>
+            <div className='mt-1'>
+              <input
+                type='number'
+                name="twelve_percentage"
+                id="twelve_percentage"
+                className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                value={formData.twelve_percentage || userData.twelve_percentage || ' '}
                 onChange={handleInputChange}
               />   </div></div> : <></>
           } */}

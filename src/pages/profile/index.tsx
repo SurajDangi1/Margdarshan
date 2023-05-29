@@ -17,13 +17,13 @@ interface UserDataProps {
     dateOfBirth: string;
     city: string;
     state: string;
-    pin?: number | string;
+    pin?: number ;
     createdAt: string;
     field_of_study: string;
     level_of_study: string;
     __v?: number;
     twelve_percentage?: number;
-    father_yearly_income?: string
+    father_yearly_income?: number
     category?: string
 }
 
@@ -106,12 +106,15 @@ const UserProfile: React.FC<UserDataProps> = ({
                                     {userData.email ? <InputArea label="Email" value={userData.email} /> : <></>}
                                     {userData.gender ? <InputArea label="Gender" value={userData.gender} /> : <></>}
                                     {userData.dateOfBirth ? <InputArea label="Date Of Birth" value={userData.dateOfBirth} /> : <></>}
+                                    {userData.country ? <InputArea label="Country" value={userData.country} /> : <></>}
                                     {userData.state ? <InputArea label="State" value={userData.state} /> : <></>}
+                                    {userData.city ? <InputArea label="City" value={userData.city} /> : <></>}
+                                    {userData.pin ? <InputArea label="Pin" value={userData.pin} /> : <></>}
                                     {userData.level_of_study ? <InputArea label="Education" value={userData.level_of_study} /> : <></>}
                                     {userData.field_of_study ? <InputArea label="Course" value={userData.field_of_study} /> : <></>}
                                     {userData.twelve_percentage ? <InputArea label="12th Percent" value={userData.twelve_percentage} /> : <></>}
                                     {userData.father_yearly_income ? <InputArea label="Family Income" value={userData.father_yearly_income} /> : <></>}
-                                    {userData.father_yearly_income ? <InputArea label="Category" value={userData.category} /> : <></>}
+                                    {/* {userData.father_yearly_income ? <InputArea label="Category" value={userData.category} /> : <></>} */}
                                 </div>)}
                         </div>
                     </div>

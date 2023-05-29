@@ -31,7 +31,7 @@ export default function OnboardModal() {
   const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
-    twelve_percentage: 5,
+    twelve_percentage: 59,
     father_yearly_income: 5,
     category: '',
     state: '',
@@ -78,6 +78,11 @@ export default function OnboardModal() {
     }));
   };
 
+
+  const categoryOptions = ['St/Sc', 'Obc', 'General'];
+  const incomeOptions = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa', 'above 5 Lpa'];
+  const studyOptions = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
+  const marksOptions = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%'];
   const stateOptions = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -116,11 +121,6 @@ export default function OnboardModal() {
     "Lakshadweep",
     "Puducherry"
   ];
-  const categoryOptions = ['St/Sc', 'Obc', 'General'];
-  const incomeOptions = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa', 'above 5 Lpa'];
-  const studyOptions = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
-  const marksOptions = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%'];
-
   const handleOptionSelect = (selectedOption: string) => {
     console.log('Selected option:', selectedOption);
   };
@@ -141,24 +141,16 @@ export default function OnboardModal() {
           <>
             <div className='flex justify-between mb-5  '>
               <div>
-                <Image
-                  alt="Margdarshan Logo"
-                  src={BrandBlackLogo}
-                  width={200}
-                  height={120}
-                  className="w-3/4 lg:w-full pt-2"
-                />
+
               </div>
               <div>
-
-                <Button text='Close' theme='secondary' onClick={handleClose} />
+                <button onClick={handleClose} >
+                  <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                </button>
               </div>
             </div>
-            <div className='flex justify-center items-center'>
-              <h1 className='text-title-4 text-secondary'>Welcome to the OnBoard Form</h1>
-            </div>
+            <h1 className='text-center text-title-4 text-secondary'>Hello and welcome to the OnBoard Form</h1>
             <div className='flex justify-center'>
-
               <Image
                 alt="Margdarshan Logo"
                 src='/Scholarship-dum-images/ilus.png'
@@ -167,86 +159,79 @@ export default function OnboardModal() {
                 className="w-60 h-48 pt-2"
               />
             </div>
-            <h1 className='text-title-6 text-center mb-2'>Completes your profile to get matched Scholarships</h1>
+            <h1 className='text-title-6 text-center mb-2'>Completes your profile in order to receive profile-matched Scholarships</h1>
           </>
-
         );
       case 2:
         return (
           <div>
-            <div className='flex justify-between mb-5  '>
-              <div>
-                <Image
-                  alt="Margdarshan Logo"
-                  src={BrandBlackLogo}
-                  width={200}
-                  height={120}
-                  className="w-3/4 lg:w-full pt-2"
+            <form onSubmit={handleSubmit}>
+              <div className='flex justify-between mb-5  '>
+                <div>
+
+                </div>
+                <div>
+                  <button onClick={handleClose}>
+                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                  </button>
+                </div>
+              </div>
+              <div className='mb-2'>
+                <InputField
+                  name='fullName'
+                  id='fullName'
+                  label='Full Name(as per Aadhar)'
+                  type='text'
+                  value={formData.fullName}
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
-
-                <Button text='Close' theme='secondary' onClick={handleClose} />
+                <Dropdown
+                  id='state'
+                  name='state'
+                  label='State'
+                  options={stateOptions}
+                  onSelect={(value) => handleDropdownChange('state', value)}
+                />
               </div>
-            </div>
-            <div className='mb-2'>
-              <InputField
-                name='fullName'
-                id='fullName'
-                label='Full Name(as per Aadhar)'
-                type='text'
-                value={formData.fullName}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Dropdown
-                id='state'
-                name='state'
-                label='State'
-                options={stateOptions}
-                onSelect={(value) => handleDropdownChange('state', value)}
-              />
-            </div>
+            </form>
           </div>
         );
       case 3:
         return (
           <div>
-            <div className='flex justify-between mb-5  '>
-              <div>
-                <Image
-                  alt="Margdarshan Logo"
-                  src={BrandBlackLogo}
-                  width={200}
-                  height={120}
-                  className="w-3/4 lg:w-full pt-2"
+            <form onSubmit={handleSubmit}>
+              <div className='flex justify-between mb-5  '>
+                <div>
+
+                </div>
+                <div>
+                  <button onClick={handleClose}>
+                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                  </button>
+                </div>
+              </div>
+              <div className='mb-2'>
+                <InputsFields
+                  label='Father yearly income(in Lpa)'
+                  id='father_yearly_income'
+                  name='father_yearly_income'
+                  type='number'
+                  value={formData.father_yearly_income}
+                  onChange={handleInputChange}
                 />
               </div>
               <div>
-
-                <Button text='Close' theme='secondary' onClick={handleClose} />
+                <Dropdown
+                  label='Category'
+                  id='category'
+                  name='category'
+                  options={categoryOptions}
+                  onSelect={(value) => handleDropdownChange('category', value)}
+                />
               </div>
-            </div>
-            <div className='mb-2'>
-              <InputsFields
-                label='Father yearly income(in Lpa)'
-                id='father_yearly_income'
-                name='father_yearly_income'
-                type='number'
-                value={formData.father_yearly_income}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div>
-              <Dropdown
-                label='Category'
-                id='category'
-                name='category'
-                options={categoryOptions}
-                onSelect={(value) => handleDropdownChange('category', value)}
-              />
-            </div>
+            </form>
           </div>
         );
       case 4:
@@ -255,17 +240,11 @@ export default function OnboardModal() {
             <form onSubmit={handleSubmit}>
               <div className='flex justify-between mb-5  '>
                 <div>
-                  <Image
-                    alt="Margdarshan Logo"
-                    src={BrandBlackLogo}
-                    width={200}
-                    height={120}
-                    className="w-3/4 lg:w-full pt-2"
-                  />
                 </div>
                 <div>
-
-                  <Button text='Close' theme='secondary' onClick={handleClose} />
+                  <button onClick={handleClose}>
+                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                  </button>
                 </div>
               </div>
               <div className='mb-2'>
@@ -274,7 +253,7 @@ export default function OnboardModal() {
                   id='field_of_study'
                   name='field_of_study'
                   options={studyOptions}
-                  onSelect={(value) => handleDropdownChange('level_of_study', value)}
+                  onSelect={(value) => handleDropdownChange('field_of_study', value)}
                 />
               </div>
               <div className='mb-2'>
@@ -308,7 +287,7 @@ export default function OnboardModal() {
   return (
     <div className=''>
       <div>
-      <Button onClick={handleOpen} text='Open modal'>Open modal</Button>
+        <Button onClick={handleOpen} theme='secondary' text='Open modal'></Button>
       </div>
       <Modal
         open={open}
@@ -321,7 +300,6 @@ export default function OnboardModal() {
             <div className='font-serif font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6'>
               {renderFormStep()}
               <div className='mt-5 sm:mt-4 sm:flex justify-between mb-5'>
-
                 {step > 1 && (
                   <button
                     type='button'
@@ -330,16 +308,25 @@ export default function OnboardModal() {
                   >
                     Back
                   </button>
-
                 )}
                 {step < 4 ? (
-                  <button
-                    type='button'
-                    className='inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
-                    onClick={handleNext}
-                  >
-                    Next
-                  </button>
+                  <div>
+                    {step == 1 ? <div className='pl-48'><button
+                      type='button'
+                      className=' w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
+                      onClick={handleNext}
+                    >
+                     Continue
+                    </button> </div>:
+                      <button
+                        type='button'
+                        className='inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
+                        onClick={handleNext}
+                      >
+                        Next
+                      </button>
+                    }
+                  </div>
                 ) : (
                   <div>
                     <form onSubmit={handleSubmit}>
@@ -352,12 +339,12 @@ export default function OnboardModal() {
                     </form>
                   </div>
                 )}
-                <Toaster position='top-center' reverseOrder={false} />
+                <Toaster />
               </div>
             </div>
           </div>
-        </div>             
+        </div>
       </Modal>
     </div>
-  );   
+  );
 }

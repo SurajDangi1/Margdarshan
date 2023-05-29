@@ -43,7 +43,7 @@ export const
       setIsLoggedIn(!!token);
     }, []);
 
-   
+
 
     return (
       <ActiveLinkContext.Provider
@@ -78,10 +78,10 @@ export const
             </div>
             <div className="col-span-7 flex justify-center gap-x-8">
               {isLoggedIn ? <div className="hidden gap-x-4 xl:flex xl:gap-x-8">
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">All Scholarships</div>
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">Central Scholarships</div>
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">UG Scholarships</div>
-                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Logout />About</div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/scholarship'>All Scholarships</Link></div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/scholarship'>Central Scholarships</Link></div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/scholarship'>UG Scholarships</Link></div>
+                <div className="cursor-pointer transition-all  hover:border-opacity-100 ">About</div>
                 <div className="cursor-pointer transition-all  hover:border-opacity-100 "><Link href='/profile'>Profile</Link> </div>
               </div> :
                 <div className={`hidden gap-x-4 xl:flex xl:gap-x-8`}>

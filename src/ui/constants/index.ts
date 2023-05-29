@@ -1,7 +1,7 @@
 export const STANDARD_INPUT_HEIGHT = 44;
 
 export const mainLinks = [
-  { text: "All Scholarships", link: "/scholarship" },
+  { text: "All Scholarships", link: "" },
   { text: "Central Scholarships" },
   {
     text: "UG Scholarships",
