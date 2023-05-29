@@ -13,15 +13,17 @@ interface UserDataProps {
     fullName: string;
     email: string;
     gender: string;
+    country: string;
+    dateOfBirth: string;
     city: string;
     state: string;
-    pin?: number | string ;
+    pin?: number | string;
     createdAt: string;
     field_of_study: string;
     level_of_study: string;
     __v?: number;
     twelve_percentage?: number;
-    father_yearly_income?: number
+    father_yearly_income?: string
     category?: string
 }
 
@@ -31,6 +33,8 @@ const UserProfile: React.FC<UserDataProps> = ({
     email,
     gender,
     city,
+    country,
+    dateOfBirth,
     state,
     pin,
     createdAt,
@@ -43,7 +47,7 @@ const UserProfile: React.FC<UserDataProps> = ({
 
 }) => {
     const [isEditFormVisible, setEditFormVisible] = useState<boolean>(false);
-
+    
     const handleEditFormToggle = () => {
         setEditFormVisible(!isEditFormVisible);
     };
@@ -52,23 +56,23 @@ const UserProfile: React.FC<UserDataProps> = ({
 
     useEffect(() => {
         const fetchUserData = async () => {
-          try {
-            const accessToken = sessionStorage.getItem('token');
-            // console.log("token", accessToken)
-            const response = await axios.get('http://localhost:9000/user', {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            });
-            setUserData(response.data.data);
-          } catch (error) {
-            console.error(error);
-          }
+            try {
+                const accessToken = sessionStorage.getItem('token');
+                // console.log("token", accessToken)
+                const response = await axios.get('http://localhost:9000/user', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                });
+                setUserData(response.data.data);
+            } catch (error) {
+                console.error(error);
+            }
         };
         fetchUserData();
     }, []);
 
-  
+
     if (!userData) {
         return <div>Loading...</div>;
     }
@@ -86,41 +90,40 @@ const UserProfile: React.FC<UserDataProps> = ({
                 <div className="px-4 border border-grey-300 rounded-b-large ">
                     <div className='grid grid-cols-1 sm:grid-cols-12 lg:grid-cols-12  sm:divide-x lg:divide-x divide-grey-300'>
                         <div className='col-span-2'>
-                            <div className='flex'>
-                                <h1 className='px-4 py-2 font-medium'><Link href='/profile'>Account</Link></h1>
+                            <div className='flex  pt-3'>
+                                <h1 className='px-4 py-2 font-medium  bg-secondary rounded-medium'><Link href='/profile'>Account</Link></h1>
                             </div>
                             <h1 className='px-4 py-2 font-medium'><Logout /></h1>
                         </div>
                         <div className='col-span-10 sm:pl-10 lg:pl-10 sm:pr-10 lg:pr-10 pt-3 '>
                             <div className='flex justify-end items-end pb-5'>
-                                {isEditFormVisible ? (<Button text='x' theme='secondary' onClick={handleEditFormToggle} />) : (<Button text='Edit' theme='secondary' onClick={handleEditFormToggle} />)}
+                                {isEditFormVisible ? (<Button text='Close' theme='secondary' onClick={handleEditFormToggle} />) : (<Button text='Edit' theme='secondary' onClick={handleEditFormToggle} />)}
                             </div>
-                            {isEditFormVisible ? (<div><UserSignupEdit /></div>
+                            {isEditFormVisible ? (<div><UserSignupEdit userData={userData} /></div>
                             ) : (
                                 <div className='grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-2  gap-5 mb-10'>
-                                    <InputArea label="Full Name" value={userData.fullName} />
-                                    <InputArea label="Email" value={userData.email} />
-                                    <InputArea label="Gender" value={userData.gender} />
-                                    <InputArea label="Date Of Birth" value={userData.createdAt.slice(0,10)} />
-                                    <InputArea label="Country" value="India" />
-                                    <InputArea label="State" value={userData.state} />
-                                    <InputArea label="Postal Code" value={userData.pin} />
-                                    <InputArea label="Education" value={userData.level_of_study} />
-                                    <InputArea label="Course" value={userData.field_of_study} />
-                                    <InputArea label="12th Percentage" value={userData.twelve_percentage} />
-                                    <InputArea label="Family Income Yearly(in lakhs)" value={userData.father_yearly_income} />
-                                    <InputArea label="category" value={userData.category} />
+                                    {userData.fullName ? <InputArea label="Full Name" value={userData.fullName} /> : <></>}
+                                    {userData.email ? <InputArea label="Email" value={userData.email} /> : <></>}
+                                    {userData.gender ? <InputArea label="Gender" value={userData.gender} /> : <></>}
+                                    {userData.dateOfBirth ? <InputArea label="Date Of Birth" value={userData.dateOfBirth} /> : <></>}
+                                    {userData.state ? <InputArea label="State" value={userData.state} /> : <></>}
+                                    {userData.level_of_study ? <InputArea label="Education" value={userData.level_of_study} /> : <></>}
+                                    {userData.field_of_study ? <InputArea label="Course" value={userData.field_of_study} /> : <></>}
+                                    {userData.twelve_percentage ? <InputArea label="12th Percent" value={userData.twelve_percentage} /> : <></>}
+                                    {userData.father_yearly_income ? <InputArea label="Family Income" value={userData.father_yearly_income} /> : <></>}
+                                    {userData.father_yearly_income ? <InputArea label="Category" value={userData.category} /> : <></>}
                                 </div>)}
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='bg-black'>
+            <button className='bg-secondary rounded-medium ml-32 text-black'>
                 <OnboardModal />
-            </div>
+            </button>
         </div>
 
     )
 }
+
 
 export default UserProfile

@@ -1,23 +1,23 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import BrandBlackLogo from "public/assets/logo/margdarshan-logo-black.svg";
 import Modal from '@mui/material/Modal';
 import InputField from '../input';
 import Dropdown from '../dropdown';
-import { useState } from 'react';
 import axios from 'axios';
 import InputsFields from '../input-form';
-
+import toast, { Toaster } from "react-hot-toast";
+import Image from 'next/image';
+import { Button } from '../button';
 
 interface FormData {
-  fullName?: string;
-  twelve_percentage?: number;
-  father_yearly_income?: number
-  category?: string
-  state?: string;
-  level_of_study?: string;
-  field_of_study?: string;
+  fullName: string;
+  twelve_percentage: number;
+  father_yearly_income: number;
+  category: string;
+  state: string;
+  level_of_study: string;
+  field_of_study: string;
 }
 
 interface DropdownOption {
@@ -26,20 +26,19 @@ interface DropdownOption {
 }
 
 export default function OnboardModal() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
-    twelve_percentage: 79,
-    father_yearly_income: 777,
+    twelve_percentage: 5,
+    father_yearly_income: 5,
     category: '',
     state: '',
     level_of_study: '',
     field_of_study: '',
   });
   const [updateStatus, setUpdateStatus] = useState<string>('');
-
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,14 +50,15 @@ export default function OnboardModal() {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-
-      if (response.status === 200) {
-        setUpdateStatus('Update successful!');
-      } else {
-        setUpdateStatus('Update failed.');
-      }
+      toast.success("Update successful");
+      // if (response.status === 200) {
+      //   setUpdateStatus('Update successful!');
+      // } else {
+      //   setUpdateStatus('Update failed.');
+      //}
     } catch (error) {
       console.error(error);
+      toast.error("Update failed");
       setUpdateStatus('An error occurred during the update.');
     }
   };
@@ -78,7 +78,8 @@ export default function OnboardModal() {
     }));
   };
 
-  const state = ["Andhra Pradesh",
+  const stateOptions = [
+    "Andhra Pradesh",
     "Arunachal Pradesh",
     "Assam",
     "Bihar",
@@ -113,16 +114,18 @@ export default function OnboardModal() {
     "Daman and Diu",
     "Delhi",
     "Lakshadweep",
-    "Puducherry"];
-  const category = ['St/Sc', 'Obc', 'General']
-  const Income = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa']
-  const Study = ['10th', '12th', 'UnderGraduate', 'PostGraduate']
-  const Marks = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%',]
+    "Puducherry"
+  ];
+  const categoryOptions = ['St/Sc', 'Obc', 'General'];
+  const incomeOptions = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa', 'above 5 Lpa'];
+  const studyOptions = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
+  const marksOptions = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%'];
+
   const handleOptionSelect = (selectedOption: string) => {
     console.log('Selected option:', selectedOption);
   };
 
-  const [step, setStep] = React.useState(1);
+  const [step, setStep] = useState(1);
   const handleNext = () => {
     setStep(step + 1);
   };
@@ -131,20 +134,66 @@ export default function OnboardModal() {
     setStep(step - 1);
   };
 
-  const handleRefreshClick = () => {
-    window.location.href = "/profile";
-  };
-
   const renderFormStep = () => {
     switch (step) {
       case 1:
         return (
+          <>
+            <div className='flex justify-between mb-5  '>
+              <div>
+                <Image
+                  alt="Margdarshan Logo"
+                  src={BrandBlackLogo}
+                  width={200}
+                  height={120}
+                  className="w-3/4 lg:w-full pt-2"
+                />
+              </div>
+              <div>
+
+                <Button text='Close' theme='secondary' onClick={handleClose} />
+              </div>
+            </div>
+            <div className='flex justify-center items-center'>
+              <h1 className='text-title-4 text-secondary'>Welcome to the OnBoard Form</h1>
+            </div>
+            <div className='flex justify-center'>
+
+              <Image
+                alt="Margdarshan Logo"
+                src='/Scholarship-dum-images/ilus.png'
+                width={100}
+                height={110}
+                className="w-60 h-48 pt-2"
+              />
+            </div>
+            <h1 className='text-title-6 text-center mb-2'>Completes your profile to get matched Scholarships</h1>
+          </>
+
+        );
+      case 2:
+        return (
           <div>
+            <div className='flex justify-between mb-5  '>
+              <div>
+                <Image
+                  alt="Margdarshan Logo"
+                  src={BrandBlackLogo}
+                  width={200}
+                  height={120}
+                  className="w-3/4 lg:w-full pt-2"
+                />
+              </div>
+              <div>
+
+                <Button text='Close' theme='secondary' onClick={handleClose} />
+              </div>
+            </div>
             <div className='mb-2'>
               <InputField
                 name='fullName'
                 id='fullName'
-                label='full Name(as per Aadhar)'
+                label='Full Name(as per Aadhar)'
                 type='text'
                 value={formData.fullName}
                 onChange={handleInputChange}
@@ -155,20 +204,33 @@ export default function OnboardModal() {
                 id='state'
                 name='state'
                 label='State'
-                options={state}
+                options={stateOptions}
                 onSelect={(value) => handleDropdownChange('state', value)}
               />
             </div>
           </div>
-
-
         );
-      case 2:
+      case 3:
         return (
           <div>
+            <div className='flex justify-between mb-5  '>
+              <div>
+                <Image
+                  alt="Margdarshan Logo"
+                  src={BrandBlackLogo}
+                  width={200}
+                  height={120}
+                  className="w-3/4 lg:w-full pt-2"
+                />
+              </div>
+              <div>
+
+                <Button text='Close' theme='secondary' onClick={handleClose} />
+              </div>
+            </div>
             <div className='mb-2'>
               <InputsFields
-                label='Father yearly income'
+                label='Father yearly income(in Lpa)'
                 id='father_yearly_income'
                 name='father_yearly_income'
                 type='number'
@@ -178,50 +240,64 @@ export default function OnboardModal() {
             </div>
             <div>
               <Dropdown
-                label='category'
+                label='Category'
                 id='category'
                 name='category'
-                options={category}
+                options={categoryOptions}
                 onSelect={(value) => handleDropdownChange('category', value)}
-
               />
             </div>
           </div>
         );
-      case 3:
+      case 4:
         return (
           <div>
-            <div className='mb-2'>
-              <Dropdown
-                label='Education (currently pursuing course)'
+            <form onSubmit={handleSubmit}>
+              <div className='flex justify-between mb-5  '>
+                <div>
+                  <Image
+                    alt="Margdarshan Logo"
+                    src={BrandBlackLogo}
+                    width={200}
+                    height={120}
+                    className="w-3/4 lg:w-full pt-2"
+                  />
+                </div>
+                <div>
 
-                id='field_of_study'
-                name='field_of_study'
-                options={Study}
-                onSelect={(value) => handleDropdownChange('level_of_study', value)}
-
-              />
-            </div>
-            <div className='mb-2'>
-              <Dropdown
-                id='level_of_study'
-                name='level_of_study'
-                label='Course'
-                options={Study}
-                onSelect={(value) => handleDropdownChange('field_of_study', value)}
-
-              />
-              <div>
-                <InputsFields
-                  id='twelve_percentage'
-                  name='twelve_percentage'
-                  label='12th Percent'
-                  type='number'
-                  value={formData.twelve_percentage}
-                  onChange={handleInputChange}
+                  <Button text='Close' theme='secondary' onClick={handleClose} />
+                </div>
+              </div>
+              <div className='mb-2'>
+                <Dropdown
+                  label='Education (currently pursuing course)'
+                  id='field_of_study'
+                  name='field_of_study'
+                  options={studyOptions}
+                  onSelect={(value) => handleDropdownChange('level_of_study', value)}
                 />
               </div>
-            </div>
+              <div className='mb-2'>
+                <InputField
+                  name='level_of_study'
+                  id='level_of_study'
+                  label='Course'
+                  type='Course'
+                  value={formData.level_of_study}
+                  onChange={handleInputChange}
+                />
+                <div>
+                  <InputsFields
+                    id='twelve_percentage'
+                    name='twelve_percentage'
+                    label='12th Percent'
+                    type='number'
+                    value={formData.twelve_percentage}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+            </form>
           </div>
         );
       default:
@@ -229,58 +305,59 @@ export default function OnboardModal() {
     }
   };
 
-
   return (
-    <div className=' '>
-      <Button onClick={handleOpen}>Open modal</Button>
+    <div className=''>
+      <div>
+      <Button onClick={handleOpen} text='Open modal'>Open modal</Button>
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby='modal-modal-title'
+        aria-describedby='modal-modal-description'
       >
-        <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <form onSubmit={handleSubmit}>
-              <div className="font-serif font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6">
-                {renderFormStep()}
-                <div className="mt-5 sm:mt-4   sm:flex justify-between">
-                  {step > 1 && (
-                    <button
-                      type="button"
-                      className="mt-3 w-full inline-flex justify-center rounded-medium border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 shadow-sm  sm:mt-0  sm:w-auto sm:text-sm"
-                      onClick={handleBack}
-                    >
-                      Back
-                    </button>
-                  )}
-                  {step < 3
-                    ? (
+        <div className='fixed z-10 inset-0 overflow-y-auto' aria-labelledby='modal-title' role='dialog' aria-modal='true'>
+          <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
+            <div className='font-serif font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6'>
+              {renderFormStep()}
+              <div className='mt-5 sm:mt-4 sm:flex justify-between mb-5'>
+
+                {step > 1 && (
+                  <button
+                    type='button'
+                    className='mt-3 w-full inline-flex justify-center rounded-medium border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 shadow-sm sm:mt-0 sm:w-auto sm:text-sm'
+                    onClick={handleBack}
+                  >
+                    Back
+                  </button>
+
+                )}
+                {step < 4 ? (
+                  <button
+                    type='button'
+                    className='inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
+                    onClick={handleNext}
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <div>
+                    <form onSubmit={handleSubmit}>
                       <button
-                        type="button"
-                        className="inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black  sm:w-auto sm:text-sm"
-                        onClick={handleNext}
-                      >
-                        Next
-                      </button>
-                    ) : (
-                      <button
-                        type="submit"
-                        onClick={handleRefreshClick}
-                        className="inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black  sm:w-auto sm:text-sm"
+                        type='submit'
+                        className='inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
                       >
                         Submit
                       </button>
-                    )}
-                </div>
-
+                    </form>
+                  </div>
+                )}
+                <Toaster position='top-center' reverseOrder={false} />
               </div>
-            </form>
+            </div>
           </div>
-        </div>
-
-
+        </div>             
       </Modal>
     </div>
-  );
+  );   
 }
