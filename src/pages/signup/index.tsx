@@ -47,7 +47,7 @@ export default function SignUp() {
     console.log(values);
     try {
       const response = await axios.post(
-        `https://margdarshan.up.railway.app/auth/signup`,
+        `http://localhost:9000/auth/signup`,
         values,
         { withCredentials: true }
       );
@@ -87,7 +87,7 @@ export default function SignUp() {
                         type="text"
                         name="fullName"
                         id="fullName"
-                        className=" border text-grey-900 border-grey-300 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300  sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="fullName"
@@ -109,7 +109,7 @@ export default function SignUp() {
                         type="email"
                         name="email"
                         id="email"
-                        className=" border text-grey-900 border-grey-300 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="email"
