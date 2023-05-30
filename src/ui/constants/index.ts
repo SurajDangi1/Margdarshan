@@ -8,12 +8,12 @@ export const mainLinks = [
   },
   {
     text: "About",
-    link: "/profile",
   },
   {
     text: "Login",
     link: "/login",
   },
+
 ];
 
 
