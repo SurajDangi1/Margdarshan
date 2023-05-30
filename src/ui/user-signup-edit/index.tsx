@@ -1,9 +1,10 @@
 import InputField from '../input';
 import { Button } from '@/ui';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Dropdown from '../dropdown';
+import { useRouter } from 'next/router';
 
 interface FormData {
   fullName?: string;
@@ -69,6 +70,9 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
     "Lakshadweep",
     "Puducherry"
   ];
+
+
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -105,6 +109,19 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
       [name]: value,
     }));
   };
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    // Parse the input value as a number
+    const parsedValue = parseFloat(value);
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: parsedValue,
+    }));
+  };
+
   const handleInputOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -112,6 +129,12 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
       [name]: value,
     }));
   };
+  const router = useRouter();
+
+  const handleClick = () => {
+    window.location.reload();
+  };
+
 
   return (
     <div>
@@ -243,12 +266,12 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
                 id="father_yearly_income"
                 className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 value={formData.father_yearly_income || userData.father_yearly_income || ' '}
-                onChange={handleInputChange}
+                onChange={handleNumberChange}
               />   </div></div> : <></>
           }
-          {/* {userData.twelve_percentage ? <div>
+          {userData.twelve_percentage ? <div>
             <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
-             12th percentage
+              12th percentage
             </label>
             <div className='mt-1'>
               <input
@@ -257,9 +280,9 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
                 id="twelve_percentage"
                 className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 value={formData.twelve_percentage || userData.twelve_percentage || ' '}
-                onChange={handleInputChange}
+                onChange={handleNumberChange}
               />   </div></div> : <></>
-          } */}
+          }
           <div>
             <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
               Category
@@ -285,7 +308,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
           </div>
         </div>
         <div className="flex justify-end items-end pb-5">
-          <Button text="Submit" type="submit" theme="primary" />
+          <Button text="Submit" type="submit" onClick={handleClick} theme="primary" />
         </div>
       </form>
       <Toaster position="top-center" reverseOrder={false} />

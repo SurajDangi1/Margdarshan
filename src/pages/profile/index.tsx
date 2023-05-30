@@ -8,6 +8,8 @@ import UserSignupEdit from '@/ui/user-signup-edit'
 import OnboardModal from '@/ui/onboard-model'
 import axios from 'axios'
 
+import { CircularProgress } from '@mui/material'
+
 interface UserDataProps {
     _id: string;
     fullName: string;
@@ -17,7 +19,7 @@ interface UserDataProps {
     dateOfBirth: string;
     city: string;
     state: string;
-    pin?: number ;
+    pin?: number;
     createdAt: string;
     field_of_study: string;
     level_of_study: string;
@@ -47,12 +49,27 @@ const UserProfile: React.FC<UserDataProps> = ({
 
 }) => {
     const [isEditFormVisible, setEditFormVisible] = useState<boolean>(false);
-    
+
     const handleEditFormToggle = () => {
         setEditFormVisible(!isEditFormVisible);
     };
 
     const [userData, setUserData] = useState<UserDataProps | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        // Simulating an asynchronous operation
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+    }, []);
+
+    // useEffect(() => {
+    //   if (!isLoading) {
+    //     window.location.reload();
+    //   }
+    // }, [isLoading]);
+
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -74,56 +91,65 @@ const UserProfile: React.FC<UserDataProps> = ({
 
 
     if (!userData) {
-        return <div>Loading...</div>;
+        return <div className='pt-24 flex justify-center items-center'> <CircularProgress color="secondary" /></div>;
     }
+
     return (
+
         <div>
-            <div className='pt-20 hidden lg:block' style={{ background: 'linear-gradient(to bottom, var(--color-secondary) 50%, var(--color-white) 50%)' }}>
-                <div className='flex justify-center items-center '>
-                    <Image src='/Scholarship-dum-images/cover.jpg' width={1008} height={1008} className='rounded-t-large ' alt='img-1' />
-                </div>
-            </div>
-            <div key={_id} className="bg-white pl-10 lg:pl-32 pr-10 lg:pr-32 pt-24 lg:pt-0 overflow-hidden rounded-lg mb-10">
-                <div className="px-4 py-2 sm:px-6 border-t border-r border-l border-grey-300">
-                    <h1 className="font-semibold">{userData.fullName}</h1>
-                </div>
-                <div className="px-4 border border-grey-300 rounded-b-large ">
-                    <div className='grid grid-cols-1 sm:grid-cols-12 lg:grid-cols-12  sm:divide-x lg:divide-x divide-grey-300'>
-                        <div className='col-span-2'>
-                            <div className='flex  pt-3'>
-                                <h1 className='px-4 py-2 font-medium  bg-secondary rounded-medium'><Link href='/profile'>Account</Link></h1>
-                            </div>
-                            <h1 className='px-4 py-2 font-medium'><Logout /></h1>
-                        </div>
-                        <div className='col-span-10 sm:pl-10 lg:pl-10 sm:pr-10 lg:pr-10 pt-3 '>
-                            <div className='flex justify-end items-end pb-5'>
-                                {isEditFormVisible ? (<Button text='Close' theme='secondary' onClick={handleEditFormToggle} />) : (<Button text='Edit' theme='secondary' onClick={handleEditFormToggle} />)}
-                            </div>
-                            {isEditFormVisible ? (<div><UserSignupEdit userData={userData} /></div>
-                            ) : (
-                                <div className='grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-2  gap-5 mb-10'>
-                                    {userData.fullName ? <InputArea label="Full Name" value={userData.fullName} /> : <></>}
-                                    {userData.email ? <InputArea label="Email" value={userData.email} /> : <></>}
-                                    {userData.gender ? <InputArea label="Gender" value={userData.gender} /> : <></>}
-                                    {userData.dateOfBirth ? <InputArea label="Date Of Birth" value={userData.dateOfBirth} /> : <></>}
-                                    {userData.country ? <InputArea label="Country" value={userData.country} /> : <></>}
-                                    {userData.state ? <InputArea label="State" value={userData.state} /> : <></>}
-                                    {userData.city ? <InputArea label="City" value={userData.city} /> : <></>}
-                                    {userData.pin ? <InputArea label="Pin" value={userData.pin} /> : <></>}
-                                    {userData.level_of_study ? <InputArea label="Education" value={userData.level_of_study} /> : <></>}
-                                    {userData.field_of_study ? <InputArea label="Course" value={userData.field_of_study} /> : <></>}
-                                    {userData.twelve_percentage ? <InputArea label="12th Percent" value={userData.twelve_percentage} /> : <></>}
-                                    {userData.father_yearly_income ? <InputArea label="Family Income" value={userData.father_yearly_income} /> : <></>}
-                                    {/* {userData.father_yearly_income ? <InputArea label="Category" value={userData.category} /> : <></>} */}
-                                </div>)}
+            {isLoading ? (
+                <CircularProgress color="secondary" />
+            ) : (
+                <div>
+                    <div className='pt-20 hidden lg:block' style={{ background: 'linear-gradient(to bottom, var(--color-secondary) 50%, var(--color-white) 50%)' }}>
+                        <div className='flex justify-center items-center '>
+                            <Image src='/Scholarship-dum-images/cover.jpg' width={1008} height={1008} className='rounded-t-large ' alt='img-1' />
                         </div>
                     </div>
+                    <div key={_id} className="bg-white pl-10 lg:pl-32 pr-10 lg:pr-32 pt-24 lg:pt-0 overflow-hidden rounded-lg mb-10">
+                        <div className="px-4 py-2 sm:px-6 border-t border-r border-l border-grey-300">
+                            <h1 className="font-semibold">{userData.fullName}</h1>
+                        </div>
+                        <div className="px-4 border border-grey-300 rounded-b-large ">
+                            <div className='grid grid-cols-1 sm:grid-cols-12 lg:grid-cols-12  sm:divide-x lg:divide-x divide-grey-300'>
+                                <div className='col-span-2'>
+                                    <div className='flex  pt-3'>
+                                        <h1 className='px-4 py-2 font-medium  bg-secondary rounded-medium'><Link href='/profile'>Account</Link></h1>
+                                    </div>
+                                    <h1 className='px-4 py-2 font-medium'><Logout /></h1>
+                                </div>
+                                <div className='col-span-10 sm:pl-10 lg:pl-10 sm:pr-10 lg:pr-10 pt-3 '>
+                                    <div className='flex justify-end items-end pb-5'>
+                                        {isEditFormVisible ? (<Button text='Close' theme='secondary' onClick={handleEditFormToggle} />) : (<Button text='Edit' theme='secondary' onClick={handleEditFormToggle} />)}
+                                    </div>
+                                    {isEditFormVisible ? (<div><UserSignupEdit userData={userData} /></div>
+                                    ) : (
+                                        <div className='grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-2  gap-5 mb-10'>
+                                            {userData.fullName ? <InputArea label="Full Name" value={userData.fullName} /> : <></>}
+                                            {userData.email ? <InputArea label="Email" value={userData.email} /> : <></>}
+                                            {userData.gender ? <InputArea label="Gender" value={userData.gender} /> : <></>}
+                                            {userData.dateOfBirth ? <InputArea label="Date Of Birth" value={userData.dateOfBirth} /> : <></>}
+                                            {userData.country ? <InputArea label="Country" value={userData.country} /> : <></>}
+                                            {userData.state ? <InputArea label="State" value={userData.state} /> : <></>}
+                                            {userData.city ? <InputArea label="City" value={userData.city} /> : <></>}
+                                            {userData.pin ? <InputArea label="Pin" value={userData.pin} /> : <></>}
+                                            {userData.level_of_study ? <InputArea label="Education" value={userData.level_of_study} /> : <></>}
+                                            {userData.field_of_study ? <InputArea label="Course" value={userData.field_of_study} /> : <></>}
+                                            {userData.twelve_percentage ? <InputArea label="12th Percent" value={userData.twelve_percentage} /> : <></>}
+                                            {userData.father_yearly_income ? <InputArea label="Family Income" value={userData.father_yearly_income} /> : <></>}
+                                            {/* {userData.father_yearly_income ? <InputArea label="Category" value={userData.category} /> : <></>} */}
+                                        </div>)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button className='bg-secondary rounded-medium ml-32 text-black'>
+                        <OnboardModal />
+                    </button>
                 </div>
-            </div>
-            <button className='bg-secondary rounded-medium ml-32 text-black'>
-                <OnboardModal />
-            </button>
+            )}
         </div>
+
 
     )
 }

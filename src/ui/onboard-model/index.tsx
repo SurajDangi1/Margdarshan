@@ -9,6 +9,7 @@ import InputsFields from '../input-form';
 import toast, { Toaster } from "react-hot-toast";
 import Image from 'next/image';
 import { Button } from '../button';
+import { useRouter } from 'next/router';
 
 interface FormData {
   fullName: string;
@@ -31,7 +32,7 @@ export default function OnboardModal() {
   const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
-    twelve_percentage: 59,
+    twelve_percentage: 50,
     father_yearly_income: 5,
     category: '',
     state: '',
@@ -68,6 +69,18 @@ export default function OnboardModal() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
+    }));
+  };
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    // Parse the input value as a number
+    const parsedValue = parseFloat(value);
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: parsedValue,
     }));
   };
 
@@ -132,6 +145,14 @@ export default function OnboardModal() {
 
   const handleBack = () => {
     setStep(step - 1);
+  };
+
+  const router = useRouter();
+
+  const handleClick = () => {
+    // Navigate to the desired page
+    router.push('/profile');
+    window.location.reload();
   };
 
   const renderFormStep = () => {
@@ -219,7 +240,7 @@ export default function OnboardModal() {
                   name='father_yearly_income'
                   type='number'
                   value={formData.father_yearly_income}
-                  onChange={handleInputChange}
+                  onChange={handleNumberChange}
                 />
               </div>
               <div>
@@ -272,7 +293,7 @@ export default function OnboardModal() {
                     label='12th Percent'
                     type='number'
                     value={formData.twelve_percentage}
-                    onChange={handleInputChange}
+                    onChange={handleNumberChange}
                   />
                 </div>
               </div>
@@ -316,8 +337,8 @@ export default function OnboardModal() {
                       className=' w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
                       onClick={handleNext}
                     >
-                     Continue
-                    </button> </div>:
+                      Continue
+                    </button> </div> :
                       <button
                         type='button'
                         className='inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
@@ -332,6 +353,7 @@ export default function OnboardModal() {
                     <form onSubmit={handleSubmit}>
                       <button
                         type='submit'
+                        onClick={handleClick}
                         className='inline-flex justify-center w-full rounded-medium border border-transparent shadow-sm px-4 py-2 bg-secondary text-base font-medium text-black sm:w-auto sm:text-sm'
                       >
                         Submit
