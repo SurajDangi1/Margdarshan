@@ -181,7 +181,6 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
               </div>
             </div> : <></>
           }
-          
           {userData.dateOfBirth ?
             <InputField
               name="dateOfBirth"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import BrandBlackLogo from "public/assets/logo/margdarshan-logo-black.svg";
 import Modal from '@mui/material/Modal';
@@ -28,7 +28,20 @@ interface DropdownOption {
 
 export default function OnboardModal() {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOpen(true);
+    }, 30); // 300 seconds = 300,000 milliseconds
+
+    return () => {
+      clearTimeout(timer); // Clear the timer if the component unmounts before it expires
+    };
+  }, []);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
