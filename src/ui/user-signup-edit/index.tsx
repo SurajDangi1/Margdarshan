@@ -181,6 +181,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
               </div>
             </div> : <></>
           }
+          
           {userData.dateOfBirth ?
             <InputField
               name="dateOfBirth"
@@ -191,14 +192,6 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
               onChange={handleInputChange}
             /> : <></>
           }
-          {/* <InputField
-            name="state"
-            id="state"
-            label="State"
-            type="text"
-            value={formData.state || userData.state || ''}
-            onChange={handleInputChange}
-          /> */}
           {userData.state ?
             <div>
               <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
@@ -222,7 +215,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
                 </select>
               </div>
             </div> : <></>}
-          <div>
+          {formData.level_of_study ? <div>
             <label htmlFor="level_of_study" className="block  text-sm font-medium text-gray-700">
               Education (currently pursuing)
             </label>
@@ -244,7 +237,8 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
 
               </select>
             </div>
-          </div>
+          </div> : <></>
+          }
           {userData.field_of_study ? <div>  <InputField
             name="field_of_study"
             id="field_of_study"
@@ -253,7 +247,6 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
             value={formData.field_of_study || userData.field_of_study || ' '}
             onChange={handleInputChange}
           /></div> : <> </>
-
           }
           {userData.father_yearly_income ? <div>
             <label htmlFor="father_yearly_income" className="block  text-sm font-medium text-gray-700">
@@ -283,7 +276,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
                 onChange={handleNumberChange}
               />   </div></div> : <></>
           }
-          <div>
+          {userData.category ? <div>
             <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
               Category
             </label>
@@ -305,7 +298,8 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
 
               </select>
             </div>
-          </div>
+          </div> : <></>
+          }
         </div>
         <div className="flex justify-end items-end pb-5">
           <Button text="Submit" type="submit" onClick={handleClick} theme="primary" />
