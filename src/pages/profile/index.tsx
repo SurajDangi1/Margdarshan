@@ -48,6 +48,7 @@ const UserProfile: React.FC<UserDataProps> = ({
     category
 
 }) => {
+    
     const [isEditFormVisible, setEditFormVisible] = useState<boolean>(false);
 
     const handleEditFormToggle = () => {
@@ -93,7 +94,7 @@ const UserProfile: React.FC<UserDataProps> = ({
     if (!userData) {
         return <div className='pt-24 flex justify-center items-center'> <CircularProgress color="secondary" /></div>;
     }
-
+     
     return (
 
         <div>

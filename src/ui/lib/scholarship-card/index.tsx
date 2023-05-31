@@ -9,6 +9,7 @@ export interface ScholarshipsProps {
   scholarshipName: string;
   scholarshipDescription: string;
   slug: string;
+  female?:string;
 }
 
 export const ScholarshipCard = ({
@@ -17,10 +18,12 @@ export const ScholarshipCard = ({
   scholarshipName,
   scholarshipDescription,
   slug,
+  female,
 }: ScholarshipsProps) => {
   return (
     <Link href={`${slug}`}>
       <div className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer rounded-large group min-h-[560px]">
+        <p>{female}</p>
         <div className="overflow-hidden">
           <Image
             className="group-hover:scale-105 transition-all duration-500 cursor-pointer"

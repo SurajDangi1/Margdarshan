@@ -1,5 +1,6 @@
 export interface BlogFrontMatter {
   title: string;
+  isFemaleOnly:string;
   description: string;
   minutesToRead?: number;
   heroBackgroundColor?: string;

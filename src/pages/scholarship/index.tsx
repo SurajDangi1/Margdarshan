@@ -4,13 +4,52 @@ import {
   getParsedFileContentBySlug,
 } from "@/markdown";
 import { Container, ScholarshipCard, ImagesArray } from "@/ui";
-import React from "react";
+import React, { useState } from "react";
 import fs from "fs";
 import backgroundImage from "@/images/background-home.jpg";
-import Filter from "@/ui/filters";
+import Dropdown from "@/ui/dropdown";
+import InputField from "@/ui/input";
+
 
 const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
+  const [selectedValues, setSelectedValues] = useState<{
+    isFemale: string | null;
+    scholarshipStartMonth: string | null;
+    scholarshipEndMonth: string | null;
+    father_yearly_income: number | null;
+    twelvePercentage: number | null;
+  }>({
+    isFemale: null,
+    scholarshipStartMonth: null,
+    scholarshipEndMonth: null,
+
+    father_yearly_income: null,
+    twelvePercentage: null,
+  });
+
+  const options = ['Yes', 'No'];
+  const months = ["January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"];
+
+
+  const handleOptionSelect = (selectedOption: string, label: string) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [label]: selectedOption,
+    }));
+  };
+  console.log(selectedValues)
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const parsedValue = parseFloat(value);
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [name]: parsedValue
+    }));
+  };
   return (
+
     <div>
       <section
         id="banner"
@@ -40,21 +79,41 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
         </Container>
       </section>
       <section id="recent-scholarships" className="bg-slate-100">
-        <Filter />
+        <div>
+          <div className='grid grid-cols-1 sm:grid-cols-3 pl-10 pr-10 gap-5 mb-5'>
+            <Dropdown label={'Is Female'} options={options} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'isFemale')} />
+            <Dropdown label={'Scholarship Start Month'} options={months} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'scholarshipStartMonth')} />
+            <Dropdown label={'Scholarship End Month'} options={months} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'scholarshipEndMonth')} />
+          </div>
+          <div className='grid grid-cols-1 sm:grid-cols-2  gap-5 pl-10 sm:pl-40 pr-10 sm:pr-40'>
+            <InputField
+              label={'12th Percentage'}
+              name={'twelvePercentage'}
+              onChange={handleNumberChange} id={'twelve_percentage'} type={'number'} />
+            <InputField
+              label={'Family Income(In Lpa)'}
+              name={'father_yearly_income'}
+              onChange={handleNumberChange} id={'father_yearly_income'} type={'number'} />
+          </div>
+        </div>
         <div className="container pt-10 pb-10">
           <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {props.articlesData.map((article, idx) => (
               <div key={idx}>
-                <ScholarshipCard
-                  deadlineDate={article.endDate}
-                  image={
-                    ImagesArray[Math.floor(Math.random() * ImagesArray.length)]
-                  }
-                  scholarshipDescription={article.description}
-                  scholarshipName={article.title}
-                  slug={`/scholarship/${article.slug}`}
-                />
+                {article.isFemaleOnly.toLowerCase() == selectedValues.isFemale?.toLowerCase() &&
+                  <ScholarshipCard
+                    deadlineDate={article.endDate}
+                    female={article.isFemaleOnly}
+                    image={
+                      ImagesArray[Math.floor(Math.random() * ImagesArray.length)]
+                    }
+                    scholarshipDescription={article.description}
+                    scholarshipName={article.title}
+                    slug={`/scholarship/${article.slug}`}
+                  /> 
+                }
               </div>
+
             ))}
           </div>
         </div>

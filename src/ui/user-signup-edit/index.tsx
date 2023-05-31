@@ -103,6 +103,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
       [name]: value,
     }));
   };
+
   const handleDropdownChange = (name: string, value: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -113,7 +114,6 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Parse the input value as a number
     const parsedValue = parseFloat(value);
 
     setFormData((prevFormData) => ({
