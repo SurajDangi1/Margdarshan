@@ -1,6 +1,9 @@
 export interface BlogFrontMatter {
   title: string;
-  isFemaleOnly:string;
+  isFemaleOnly: string;
+  startMonth: string;
+  endMonth: string;
+  minimumFamilyIncome : string;
   description: string;
   minutesToRead?: number;
   heroBackgroundColor?: string;

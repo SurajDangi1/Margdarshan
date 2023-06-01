@@ -16,7 +16,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
     isFemale: string | null;
     scholarshipStartMonth: string | null;
     scholarshipEndMonth: string | null;
-    father_yearly_income: number | null;
+    father_yearly_income: string | null;
     twelvePercentage: number | null;
   }>({
     isFemale: null,
@@ -93,14 +93,14 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
             <InputField
               label={'Family Income(In Lpa)'}
               name={'father_yearly_income'}
-              onChange={handleNumberChange} id={'father_yearly_income'} type={'number'} />
+              onChange={handleNumberChange} id={'father_yearly_income'} type={'text'} />
           </div>
         </div>
         <div className="container pt-10 pb-10">
           <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {props.articlesData.map((article, idx) => (
               <div key={idx}>
-                {article.isFemaleOnly.toLowerCase() == selectedValues.isFemale?.toLowerCase() &&
+                {(article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale?.toLowerCase() || article.startMonth?.toLowerCase() === selectedValues.scholarshipStartMonth?.toLowerCase() || article.endMonth?.toLowerCase() === selectedValues.scholarshipEndMonth?.toLowerCase() ) ?
                   <ScholarshipCard
                     deadlineDate={article.endDate}
                     female={article.isFemaleOnly}
@@ -110,10 +110,9 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                     scholarshipDescription={article.description}
                     scholarshipName={article.title}
                     slug={`/scholarship/${article.slug}`}
-                  /> 
+                  /> : <></>
                 }
               </div>
-
             ))}
           </div>
         </div>
