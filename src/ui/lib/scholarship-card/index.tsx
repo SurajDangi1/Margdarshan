@@ -23,7 +23,6 @@ export const ScholarshipCard = ({
   return (
     <Link href={`${slug}`}>
       <div className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer rounded-large group min-h-[560px]">
-        <p>{female}</p>
         <div className="overflow-hidden">
           <Image
             className="group-hover:scale-105 transition-all duration-500 cursor-pointer"
@@ -37,6 +36,7 @@ export const ScholarshipCard = ({
             }}
           />
         </div>
+      
 
         <div className="px-6 py-4">
           <p className="text-gray-700 text-body-3 mb-2">

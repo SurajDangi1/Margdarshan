@@ -8,7 +8,7 @@ const OnboardingForm = () => {
         src="https://tally.so/r/3NrZDN?transparentBackground=1"
         className=""
         height={585}
-        width="100%"
+          width="100%"
       ></iframe>
     </div>
   );

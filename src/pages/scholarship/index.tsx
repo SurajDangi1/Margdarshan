@@ -9,7 +9,12 @@ import fs from "fs";
 import backgroundImage from "@/images/background-home.jpg";
 import Dropdown from "@/ui/dropdown";
 import InputField from "@/ui/input";
+import dayjs from 'dayjs';
+import isSameOrAfter  from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore  from 'dayjs/plugin/isSameOrBefore';
 
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
   const [selectedValues, setSelectedValues] = useState<{
@@ -42,10 +47,10 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    const parsedValue = parseFloat(value);
+    // const parsedValue = parseFloat(value);
     setSelectedValues((prevValues) => ({
       ...prevValues,
-      [name]: parsedValue
+      [name]: value
     }));
   };
   return (
@@ -82,44 +87,57 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
         <div>
           <div className='grid grid-cols-1 sm:grid-cols-3 pl-10 pr-10 gap-5 mb-5'>
             <Dropdown label={'Is Female'} options={options} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'isFemale')} />
-            <Dropdown label={'Scholarship Start Month'} options={months} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'scholarshipStartMonth')} />
-            <Dropdown label={'Scholarship End Month'} options={months} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'scholarshipEndMonth')} />
-          </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2  gap-5 pl-10 sm:pl-40 pr-10 sm:pr-40'>
             <InputField
-              label={'12th Percentage'}
-              name={'twelvePercentage'}
-              onChange={handleNumberChange} id={'twelve_percentage'} type={'number'} />
-            <InputField
-              label={'Family Income(In Lpa)'}
-              name={'father_yearly_income'}
-              onChange={handleNumberChange} id={'father_yearly_income'} type={'text'} />
+              label={'Scholarship Start Date'}
+              name={'scholarshipStartMonth'}
+              onChange={handleNumberChange} id={'scholarshipStartMonth'} type={'date'} />
+               <InputField
+              label={'Scholarship End Date'}
+              name={'scholarshipEndMonth'}
+              onChange={handleNumberChange} id={'scholarshipEndMonth'} type={'date'} />
           </div>
         </div>
         <div className="container pt-10 pb-10">
-          <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {props.articlesData.map((article, idx) => (
-              <div key={idx}>
-                {(article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale?.toLowerCase() || article.startMonth?.toLowerCase() === selectedValues.scholarshipStartMonth?.toLowerCase() || article.endMonth?.toLowerCase() === selectedValues.scholarshipEndMonth?.toLowerCase() ) ?
-                  <ScholarshipCard
-                    deadlineDate={article.endDate}
-                    female={article.isFemaleOnly}
-                    image={
-                      ImagesArray[Math.floor(Math.random() * ImagesArray.length)]
-                    }
-                    scholarshipDescription={article.description}
-                    scholarshipName={article.title}
-                    slug={`/scholarship/${article.slug}`}
-                  /> : <></>
-                }
-              </div>
-            ))}
-          </div>
+        <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {props.articlesData.map((article, idx) => {
+            const articleStartDate = dayjs(article.startDate);
+            const articleEndDate = dayjs(article.endDate);
+            const scholarshipStartMonth = selectedValues.scholarshipStartMonth;
+            const scholarshipEndMonth = selectedValues.scholarshipEndMonth;
+
+            if (
+              (!scholarshipStartMonth || !scholarshipEndMonth) ||  // Show all data when no values are selected
+              (articleStartDate.isSameOrBefore(scholarshipEndMonth, 'month') &&
+                articleEndDate.isSameOrAfter(scholarshipStartMonth, 'month'))
+            ) {
+              // Apply additional filters for selected values, e.g., isFemaleOnly
+              if (
+                (!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase())
+              ) {
+                return (
+                  <div key={idx}>
+                    <ScholarshipCard
+                      deadlineDate={article.endDate}
+                      female={article.isFemaleOnly}
+                      image={ImagesArray[Math.floor(Math.random() * ImagesArray.length)]}
+                      scholarshipDescription={article.description}
+                      scholarshipName={article.title}
+                      slug={`/scholarship/${article.slug}`}
+                    />
+                  </div>
+                );
+              }
+            }
+            return null;
+          })}
         </div>
+      </div>
       </section>
     </div>
   );
 };
+
+
 
 export const getStaticProps = () => {
   const blogsDir = fs.readdirSync(BLOG_PATH);
