@@ -142,7 +142,7 @@ export default function SignUp() {
                     </div>
                   </div>
 
-                  <div>
+                  <div>   
                     <label
                       htmlFor="gender"
                       className="block text-sm font-medium leading-6 text-grey-900"
@@ -158,8 +158,8 @@ export default function SignUp() {
                       >
                         <option value="">Select an option</option>
                         <option value="Male"> Male</option>
-                        <option value="option2">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Other</option>
                       </Field>
                     </div>
                     <ErrorMessage

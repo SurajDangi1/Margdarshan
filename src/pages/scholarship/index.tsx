@@ -10,8 +10,8 @@ import backgroundImage from "@/images/background-home.jpg";
 import Dropdown from "@/ui/dropdown";
 import InputField from "@/ui/input";
 import dayjs from 'dayjs';
-import isSameOrAfter  from 'dayjs/plugin/isSameOrAfter';
-import isSameOrBefore  from 'dayjs/plugin/isSameOrBefore';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
@@ -43,7 +43,6 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
       [label]: selectedOption,
     }));
   };
-  console.log(selectedValues)
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,8 +52,9 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
       [name]: value
     }));
   };
-  return (
 
+
+  return (
     <div>
       <section
         id="banner"
@@ -91,53 +91,51 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
               label={'Scholarship Start Date'}
               name={'scholarshipStartMonth'}
               onChange={handleNumberChange} id={'scholarshipStartMonth'} type={'date'} />
-               <InputField
+            <InputField
               label={'Scholarship End Date'}
               name={'scholarshipEndMonth'}
               onChange={handleNumberChange} id={'scholarshipEndMonth'} type={'date'} />
           </div>
         </div>
         <div className="container pt-10 pb-10">
-        <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {props.articlesData.map((article, idx) => {
-            const articleStartDate = dayjs(article.startDate);
-            const articleEndDate = dayjs(article.endDate);
-            const scholarshipStartMonth = selectedValues.scholarshipStartMonth;
-            const scholarshipEndMonth = selectedValues.scholarshipEndMonth;
+          <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {props.articlesData.map((article, idx) => {
+              const articleStartDate = dayjs(article.startDate);
+              const articleEndDate = dayjs(article.endDate);
+              const scholarshipStartMonth = selectedValues.scholarshipStartMonth;
+              const scholarshipEndMonth = selectedValues.scholarshipEndMonth;
 
-            if (
-              (!scholarshipStartMonth || !scholarshipEndMonth) ||  // Show all data when no values are selected
-              (articleStartDate.isSameOrBefore(scholarshipEndMonth, 'month') &&
-                articleEndDate.isSameOrAfter(scholarshipStartMonth, 'month'))
-            ) {
-              // Apply additional filters for selected values, e.g., isFemaleOnly
               if (
-                (!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase())
+                (!scholarshipStartMonth || !scholarshipEndMonth) ||  // Show all data when no values are selected
+                (articleStartDate.isSameOrBefore(scholarshipEndMonth, 'month') &&
+                  articleEndDate.isSameOrAfter(scholarshipStartMonth, 'month'))
               ) {
-                return (
-                  <div key={idx}>
-                    <ScholarshipCard
-                      deadlineDate={article.endDate}
-                      female={article.isFemaleOnly}
-                      image={ImagesArray[Math.floor(Math.random() * ImagesArray.length)]}
-                      scholarshipDescription={article.description}
-                      scholarshipName={article.title}
-                      slug={`/scholarship/${article.slug}`}
-                    />
-                  </div>
-                );
+                // Apply additional filters for selected values, e.g., isFemaleOnly
+                if (
+                  (!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase())
+                ) {
+                  return (
+                    <div key={idx}>
+                      <ScholarshipCard
+                        deadlineDate={article.endDate}
+                        female={article.isFemaleOnly}
+                        image={ImagesArray[Math.floor(Math.random() * ImagesArray.length)]}
+                        scholarshipDescription={article.description}
+                        scholarshipName={article.title}
+                        slug={`/scholarship/${article.slug}`}
+                      />
+                    </div>
+                  );
+                }
               }
-            }
-            return null;
-          })}
+              return null;
+            })}
+          </div>
         </div>
-      </div>
       </section>
     </div>
   );
 };
-
-
 
 export const getStaticProps = () => {
   const blogsDir = fs.readdirSync(BLOG_PATH);
