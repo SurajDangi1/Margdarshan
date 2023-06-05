@@ -15,7 +15,13 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 interface ScholarshipData {
-  // Define the properties of your scholarship data here
+  _id :'string'
+  endDate:'string'
+  isFemaleOnly:'string'
+  image:'string'
+  scholarshipDescription:'string'
+  title:'string'
+  slug:'string'
 }
 
 export const ApiContext = createContext<ScholarshipData[]>([]);
@@ -34,18 +40,15 @@ export default function App({ Component, pageProps }: AppProps) {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        setApiData(response.data);
+        setApiData(response.data.data);
       } catch (error) {
         console.error(error);
       }
     };
-
     fetchApiData();
   }, []);
 
   return (
-    
-      
     <ApiContext.Provider value={apidata}>
       <MaterialThemeContext>
         <DefaultSeo
@@ -67,7 +70,7 @@ export default function App({ Component, pageProps }: AppProps) {
         </div>
       </MaterialThemeContext>
     </ApiContext.Provider>
- 
- 
+
+
   );
 }

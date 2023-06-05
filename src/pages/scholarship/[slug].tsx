@@ -64,7 +64,7 @@ export function BlogArticle({
             </h1>
           </Container>
         </section>
-
+         
         <div className="gap-x-6 container mt-8 grid-cols-12 xl:grid">
           <div className="prose col-span-8 mb-10">
             <MDXRemote {...html} components={mdxElements} />
@@ -84,7 +84,7 @@ export function BlogArticle({
                     scholarshipName={article.title}
                     slug={`/scholarship/${article.slug}`}
                   />
-                </div>
+                </div>                           
               ))}
             </div>
           </div>
@@ -94,7 +94,7 @@ export function BlogArticle({
   );
 }
 
-export const getStaticProps = async ({
+export const getStaticProps = async ({   
   params,
 }: {
   params: { slug: string };

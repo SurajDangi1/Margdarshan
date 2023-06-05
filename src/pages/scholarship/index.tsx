@@ -96,7 +96,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
               name={'scholarshipEndMonth'}
               onChange={handleNumberChange} id={'scholarshipEndMonth'} type={'date'} />
           </div>
-        </div>
+        </div>  
         <div className="container pt-10 pb-10">
           <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {props.articlesData.map((article, idx) => {
@@ -110,7 +110,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                 (articleStartDate.isSameOrBefore(scholarshipEndMonth, 'month') &&
                   articleEndDate.isSameOrAfter(scholarshipStartMonth, 'month'))
               ) {
-                // Apply additional filters for selected values, e.g., isFemaleOnly
+
                 if (
                   (!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase())
                 ) {
