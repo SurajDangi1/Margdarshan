@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import OnboardingForm from "@/onboarding-form";
 import { NextSeo } from "next-seo";
 import {
   Button,
@@ -19,6 +18,7 @@ import {
   BlogFrontMatter,
   getParsedFileContentBySlug,
 } from "@/markdown";
+import SuggestedScholarships from "@/ui/suggested-scholarships";
 
 
 
@@ -81,7 +81,7 @@ const LandingHero = (props: {
           </div>
         </Container>
       </section>
-      <section id="recent-scholarships" className="bg-slate-100">
+      <section id="recent-scholarships" className="bg-slate-100 pb-10">
         <div className="container pt-10 pb-10">
           <div
             className="text-center pb-10
@@ -108,6 +108,10 @@ const LandingHero = (props: {
             ))}
           </div>
         </div>
+      </section>
+      <section className="bg-slate-100">
+        
+        <SuggestedScholarships />
       </section>
 
     </div>

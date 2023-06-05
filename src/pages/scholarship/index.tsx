@@ -87,7 +87,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
         <div>
           <div className='grid grid-cols-1 sm:grid-cols-3 pl-10 pr-10 gap-5 mb-5'>
             <Dropdown label={'Is Female'} options={options} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'isFemale')} />
-            <InputField
+            <InputField 
               label={'Scholarship Start Date'}
               name={'scholarshipStartMonth'}
               onChange={handleNumberChange} id={'scholarshipStartMonth'} type={'date'} />
@@ -127,7 +127,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                     </div>
                   );
                 }
-              }
+              } 
               return null;
             })}
           </div>

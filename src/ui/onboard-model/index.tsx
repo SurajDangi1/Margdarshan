@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import BrandBlackLogo from "public/assets/logo/margdarshan-logo-black.svg";
 import Modal from '@mui/material/Modal';
@@ -13,9 +13,9 @@ import { useRouter } from 'next/router';
 
 interface FormData {
   fullName: string;
-  twelve_percentage: number;
-  father_yearly_income: number;
-  category: string;
+  twelve_percentage?: number;
+  father_yearly_income?: number;
+  category?: string;
   state: string;
   level_of_study: string;
   field_of_study: string;
@@ -26,7 +26,11 @@ interface DropdownOption {
   label: string;
 }
 
-export default function OnboardModal() {
+interface OnboardModalProps {
+  userData: FormData;
+}
+
+export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -52,6 +56,7 @@ export default function OnboardModal() {
     level_of_study: '',
     field_of_study: '',
   });
+
   const [updateStatus, setUpdateStatus] = useState<string>('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,11 +70,6 @@ export default function OnboardModal() {
         },
       });
       toast.success("Update successful");
-      // if (response.status === 200) {
-      //   setUpdateStatus('Update successful!');
-      // } else {
-      //   setUpdateStatus('Update failed.');
-      //}
     } catch (error) {
       console.error(error);
       toast.error("Update failed");
@@ -88,7 +88,6 @@ export default function OnboardModal() {
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Parse the input value as a number
     const parsedValue = parseFloat(value);
 
     setFormData((prevFormData) => ({
@@ -104,10 +103,18 @@ export default function OnboardModal() {
     }));
   };
 
+  const handleInputOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
 
   const categoryOptions = ['St/Sc', 'Obc', 'General'];
   const incomeOptions = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa', 'above 5 Lpa'];
-  const studyOptions = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
+  const Study = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
   const marksOptions = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%'];
   const stateOptions = [
     "Andhra Pradesh",
@@ -168,6 +175,7 @@ export default function OnboardModal() {
     window.location.reload();
   };
 
+
   const renderFormStep = () => {
     switch (step) {
       case 1:
@@ -216,23 +224,35 @@ export default function OnboardModal() {
                   id='fullName'
                   label='Full Name(as per Aadhar)'
                   type='text'
-                  value={formData.fullName}
+                  value={formData?.fullName || userData?.fullName || ''}
                   onChange={handleInputChange}
                 />
               </div>
               <div>
-                <Dropdown
-                  id='state'
-                  name='state'
-                  label='State'
-                  options={stateOptions}
-                  onSelect={(value) => handleDropdownChange('state', value)}
-                />
+                <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
+                  State
+                </label>
+                <div className='mt-1'>
+                  <select
+                    name="state"
+                    id="state"
+                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                    value={formData.state || userData.state || ''}
+                    onChange={handleInputOnChange}
+
+                  >
+                    {stateOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </form>
           </div>
-        );
-      case 3:
+        );                         
+      case 3:  
         return (
           <div>
             <form onSubmit={handleSubmit}>
@@ -247,23 +267,40 @@ export default function OnboardModal() {
                 </div>
               </div>
               <div className='mb-2'>
-                <InputsFields
-                  label='Father yearly income(in Lpa)'
-                  id='father_yearly_income'
-                  name='father_yearly_income'
-                  type='number'
-                  value={formData.father_yearly_income}
-                  onChange={handleNumberChange}
-                />
+                <label htmlFor="father_yearly_income" className="block  text-sm font-medium text-gray-700">
+                  Family Income (In Lpa)
+                </label>
+                <div className='mt-1'>
+                  <input
+                    type='number'
+                    name="father_yearly_income"
+                    id="father_yearly_income"
+                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
+                    value={formData.father_yearly_income || userData.father_yearly_income || ' '}
+                    onChange={handleNumberChange}
+                  />   </div>
               </div>
               <div>
-                <Dropdown
-                  label='Category'
-                  id='category'
-                  name='category'
-                  options={categoryOptions}
-                  onSelect={(value) => handleDropdownChange('category', value)}
-                />
+                <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
+                  Category
+                </label>
+                <div className='mt-1'>
+
+                  <select
+                    name="category"
+                    id="category"
+                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                    value={formData.category || userData.category || ''}
+                    onChange={handleInputOnChange}
+                  >
+                    {categoryOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+
+                  </select>
+                </div>
               </div>
             </form>
           </div>
@@ -282,13 +319,27 @@ export default function OnboardModal() {
                 </div>
               </div>
               <div className='mb-2'>
-                <Dropdown
-                  label='Education (currently pursuing course)'
-                  id='field_of_study'
-                  name='field_of_study'
-                  options={studyOptions}
-                  onSelect={(value) => handleDropdownChange('field_of_study', value)}
-                />
+
+                <label htmlFor="level_of_study" className="block  text-sm font-medium text-gray-700">
+                  Education (currently pursuing)
+                </label>
+                <div className='mt-1'>
+                  <select
+                    name="level_of_study"
+                    id="level_of_study"
+                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                    value={formData.level_of_study || userData.level_of_study || ''}
+                    onChange={handleInputOnChange}
+                  >
+                    {Study.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+
+                  </select>
+
+                </div>
               </div>
               <div className='mb-2'>
                 <InputField
@@ -296,18 +347,23 @@ export default function OnboardModal() {
                   id='level_of_study'
                   label='Course'
                   type='Course'
-                  value={formData.level_of_study}
+                  value={formData.level_of_study || userData.field_of_study || ' '}
                   onChange={handleInputChange}
                 />
                 <div>
-                  <InputsFields
-                    id='twelve_percentage'
-                    name='twelve_percentage'
-                    label='12th Percent'
-                    type='number'
-                    value={formData.twelve_percentage}
-                    onChange={handleNumberChange}
-                  />
+                  <div>
+                    <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
+                      12th percentage
+                    </label>
+                    <div className='mt-1'>
+                      <input
+                        type='number'
+                        name="twelve_percentage"
+                        id="twelve_percentage"
+                        className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
+                        value={formData.twelve_percentage || userData.twelve_percentage || ' '}
+                        onChange={handleNumberChange}
+                      />   </div></div>
                 </div>
               </div>
             </form>
