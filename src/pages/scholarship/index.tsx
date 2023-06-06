@@ -119,7 +119,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                       <ScholarshipCard
                         deadlineDate={article.endDate}
                         female={article.isFemaleOnly}
-                        image={ImagesArray[Math.floor(Math.random() * ImagesArray.length)]}
+                        image={article.image}
                         scholarshipDescription={article.description}
                         scholarshipName={article.title}
                         slug={`/scholarship/${article.slug}`}

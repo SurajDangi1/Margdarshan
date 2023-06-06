@@ -5,7 +5,7 @@ import { ApiContext } from '../../pages/_app';
 
 const SuggestedScholarships = () => {
     const apidata = useContext(ApiContext);
-    console.log("suggested", apidata);
+ 
     return (
         <div>
             <section>
