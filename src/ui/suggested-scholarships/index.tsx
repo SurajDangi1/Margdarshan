@@ -8,8 +8,7 @@ const SuggestedScholarships = () => {
  
     return (
         <div>
-            <section>
-            
+            <section>        
              <h2 className="text-title-2 lg:text-title-1 text-center">
               Suggested Scholarships
             </h2>

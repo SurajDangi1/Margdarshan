@@ -10,6 +10,8 @@ import toast, { Toaster } from "react-hot-toast";
 import Image from 'next/image';
 import { Button } from '../button';
 import { useRouter } from 'next/router';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
 
 interface FormData {
   fullName: string;
@@ -20,6 +22,15 @@ interface FormData {
   level_of_study: string;
   field_of_study: string;
 }
+
+const validationSchema = yup.object({
+  fullName: yup.string().required('Full Name is required'),
+  state: yup.string().required('State is required'),
+  father_yearly_income: yup.number().required('Family Income is required'),
+  category: yup.string().required('Category is required'),
+  level_of_study: yup.string().required('Education is required'),
+  twelve_percentage: yup.number().required('12th Percentage is required'),
+});
 
 interface DropdownOption {
   value: string;
@@ -36,10 +47,10 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setOpen(true);
-    }, 30); // 300 seconds = 300,000 milliseconds
+    }, 30);
 
     return () => {
-      clearTimeout(timer); // Clear the timer if the component unmounts before it expires
+      clearTimeout(timer);
     };
   }, []);
 
@@ -77,6 +88,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
     }
   };
 
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -96,12 +108,6 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
     }));
   };
 
-  const handleDropdownChange = (name: string, value: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
 
   const handleInputOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -113,9 +119,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
 
 
   const categoryOptions = ['St/Sc', 'Obc', 'General'];
-  const incomeOptions = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa', 'above 5 Lpa'];
   const Study = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
-  const marksOptions = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%'];
   const stateOptions = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -154,9 +158,6 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
     "Lakshadweep",
     "Puducherry"
   ];
-  const handleOptionSelect = (selectedOption: string) => {
-    console.log('Selected option:', selectedOption);
-  };
 
   const [step, setStep] = useState(1);
   const handleNext = () => {
@@ -170,7 +171,6 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
   const router = useRouter();
 
   const handleClick = () => {
-    // Navigate to the desired page
     router.push('/profile');
     window.location.reload();
   };
@@ -207,166 +207,190 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
       case 2:
         return (
           <div>
-            <form onSubmit={handleSubmit}>
-              <div className='flex justify-between mb-5  '>
-                <div>
+            <Formik
+              initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ errors, touched, isSubmitting }) => (
+                <Form>
+                  <div className='flex justify-between mb-5'>
+                    <div></div>
+                    <div>
+                      <button onClick={handleClose}>
+                        <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className='mb-2'>
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                      Full Name(as per Aadhar)
+                    </label>
+                    <Field
+                      name='fullName'
+                      id='fullName'
+                      label='Full Name(as per Aadhar)'
+                      type='text'
+                      value={formData.fullName || userData.fullName || ''}
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                      onChange={handleInputChange}
+                    />
+                    <ErrorMessage name="fullName" component="div" className="text-red-500" />
+                  </div>
+                  <div>
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                      State
+                    </label>
+                    <div className='mt-1'>
+                      <Field
+                        as='select'
+                        name="state"
+                        id="state"
+                        className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                        value={formData.state || userData.state || ''}
+                        onChange={handleInputOnChange}
+                      >
+                        {stateOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </Field>
+                    </div>
+                  </div>
 
-                </div>
-                <div>
-                  <button onClick={handleClose}>
-                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
-                  </button>
-                </div>
-              </div>
-              <div className='mb-2'>
-                <InputField
-                  name='fullName'
-                  id='fullName'
-                  label='Full Name(as per Aadhar)'
-                  type='text'
-                  value={formData?.fullName || userData?.fullName || ''}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
-                  State
-                </label>
-                <div className='mt-1'>
-                  <select
-                    name="state"
-                    id="state"
-                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
-                    value={formData.state || userData.state || ''}
-                    onChange={handleInputOnChange}
+                </Form>
+              )}
+            </Formik>
 
-                  >
-                    {stateOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </form>
           </div>
-        );                         
-      case 3:  
+        );
+      case 3:
         return (
           <div>
-            <form onSubmit={handleSubmit}>
-              <div className='flex justify-between mb-5  '>
-                <div>
+            <Formik
+              initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <Form >
+                <div className='flex justify-between mb-5  '>
+                  <div>
 
+                  </div>
+                  <div>
+                    <button onClick={handleClose}>
+                      <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                    </button>
+                  </div>
+                </div>
+                <div className='mb-2'>
+                  <label htmlFor="father_yearly_income" className="block  text-sm font-medium text-gray-700">
+                    Family Income (In Lpa)
+                  </label>
+                  <div className='mt-1'>
+                    <input
+                      type='number'
+                      name="father_yearly_income"
+                      id="father_yearly_income"
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
+                      value={formData.father_yearly_income || userData.father_yearly_income || ' '}
+                      onChange={handleNumberChange}
+                    />   </div>
                 </div>
                 <div>
-                  <button onClick={handleClose}>
-                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
-                  </button>
-                </div>
-              </div>
-              <div className='mb-2'>
-                <label htmlFor="father_yearly_income" className="block  text-sm font-medium text-gray-700">
-                  Family Income (In Lpa)
-                </label>
-                <div className='mt-1'>
-                  <input
-                    type='number'
-                    name="father_yearly_income"
-                    id="father_yearly_income"
-                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
-                    value={formData.father_yearly_income || userData.father_yearly_income || ' '}
-                    onChange={handleNumberChange}
-                  />   </div>
-              </div>
-              <div>
-                <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
-                  Category
-                </label>
-                <div className='mt-1'>
+                  <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
+                    Category
+                  </label>
+                  <div className='mt-1'>
+                    <select
+                      name="category"
+                      id="category"
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                      value={formData.category || userData.category || ''}
+                      onChange={handleInputOnChange}
+                    >
+                      {categoryOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
 
-                  <select
-                    name="category"
-                    id="category"
-                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
-                    value={formData.category || userData.category || ''}
-                    onChange={handleInputOnChange}
-                  >
-                    {categoryOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-
-                  </select>
+                    </select>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </Form>
+            </Formik>
           </div>
         );
       case 4:
         return (
           <div>
-            <form onSubmit={handleSubmit}>
-              <div className='flex justify-between mb-5  '>
-                <div>
-                </div>
-                <div>
-                  <button onClick={handleClose}>
-                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
-                  </button>
-                </div>
-              </div>
-              <div className='mb-2'>
-
-                <label htmlFor="level_of_study" className="block  text-sm font-medium text-gray-700">
-                  Education (currently pursuing)
-                </label>
-                <div className='mt-1'>
-                  <select
-                    name="level_of_study"
-                    id="level_of_study"
-                    className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
-                    value={formData.level_of_study || userData.level_of_study || ''}
-                    onChange={handleInputOnChange}
-                  >
-                    {Study.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-
-                  </select>
-
-                </div>
-              </div>
-              <div className='mb-2'>
-                <InputField
-                  name='level_of_study'
-                  id='level_of_study'
-                  label='Course'
-                  type='Course'
-                  value={formData.level_of_study || userData.field_of_study || ' '}
-                  onChange={handleInputChange}
-                />
-                <div>
+            <Formik
+              initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <Form >
+                <div className='flex justify-between mb-5  '>
                   <div>
-                    <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
-                      12th percentage
-                    </label>
-                    <div className='mt-1'>
-                      <input
-                        type='number'
-                        name="twelve_percentage"
-                        id="twelve_percentage"
-                        className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
-                        value={formData.twelve_percentage || userData.twelve_percentage || ' '}
-                        onChange={handleNumberChange}
-                      />   </div></div>
+                  </div>
+                  <div>
+                    <button onClick={handleClose}>
+                      <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </form>
+                <div className='mb-2'>
+
+                  <label htmlFor="level_of_study" className="block  text-sm font-medium text-gray-700">
+                    Education (currently pursuing)
+                  </label>
+                  <div className='mt-1'>
+                    <select
+                      name="level_of_study"
+                      id="level_of_study"
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                      value={formData.level_of_study || userData.level_of_study || ''}
+                      onChange={handleInputOnChange}
+                    >
+                      {Study.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+
+                    </select>
+
+                  </div>
+                </div>
+                <div className='mb-2'>
+                  <InputField
+                    name='level_of_study'
+                    id='level_of_study'
+                    label='Course'
+                    type='Course'
+                    value={formData.level_of_study || userData.field_of_study || ' '}
+                    onChange={handleInputChange}
+                  />
+                  <div>
+                    <div>
+                      <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
+                        12th percentage
+                      </label>
+                      <div className='mt-1'>
+                        <input
+                          type='number'
+                          name="twelve_percentage"
+                          id="twelve_percentage"
+                          className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
+                          value={formData.twelve_percentage || userData.twelve_percentage || ' '}
+                          onChange={handleNumberChange}
+                        />   </div></div>
+                  </div>
+                </div>
+              </Form>
+            </Formik>
           </div>
         );
       default:
@@ -419,7 +443,9 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
                   </div>
                 ) : (
                   <div>
-                    <form onSubmit={handleSubmit}>
+                    <Formik initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+                      validationSchema={validationSchema}
+                      onSubmit={handleSubmit}  >
                       <button
                         type='submit'
                         onClick={handleClick}
@@ -427,7 +453,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
                       >
                         Submit
                       </button>
-                    </form>
+                    </Formik>
                   </div>
                 )}
                 <Toaster />

@@ -9,11 +9,10 @@ import {
 } from "@/markdown";
 import H1 from "@/markdown/mdx-elements/h1";
 import { Container, HeroBanner, ImagesArray, ScholarshipCard } from "@/ui";
-
 import fs from "fs";
 import { MDXRemote } from "next-mdx-remote";
 import { ArticleJsonLd, NextSeo } from "next-seo";
-import { renderToString } from "react-dom/server"; 
+import { renderToString } from "react-dom/server";
 import backgroundImage from "@/images/background-home.jpg";
 
 export function BlogArticle({
@@ -26,14 +25,15 @@ export function BlogArticle({
   const [secondString, ...thirdStringArray] = rest.reverse();
 
   const thirdString = thirdStringArray.reverse().join(" ");
+
   return (
     <>
       <NextSeo
         title={frontMatter.title}
         description={frontMatter.title + " " + frontMatter.description}
-      />   
+      />
       <ArticleContext.Provider value={frontMatter}>
-        {/* <span style={{transform:`translate(${completion - 100}%)`}} 
+        {/* <span style={{transform:`translate(${completion - 100}%)`}}   i
           className="absolute bg-warning h-1 w-full bottom-0"/> */}
         <section
           id="banner"
@@ -64,10 +64,13 @@ export function BlogArticle({
             </h1>
           </Container>
         </section>
-         
+
         <div className="gap-x-6 container mt-8 grid-cols-12 xl:grid">
           <div className="prose col-span-8 mb-10">
             <MDXRemote {...html} components={mdxElements} />
+        
+            <iframe src={frontMatter.pdfName} width="100%" height="30%" className="rounded-large"></iframe>
+
           </div>
           <div className="hidden xl:col-span-4 xl:block max-w-[400px]">
             <div className="flex flex-col gap-6">
@@ -77,14 +80,14 @@ export function BlogArticle({
                     deadlineDate={article.endDate}
                     image={
                       ImagesArray[
-                        Math.floor(Math.random() * ImagesArray.length)
+                      Math.floor(Math.random() * ImagesArray.length)
                       ]
                     }
                     scholarshipDescription={article.description}
                     scholarshipName={article.title}
                     slug={`/scholarship/${article.slug}`}
                   />
-                </div>                           
+                </div>
               ))}
             </div>
           </div>
@@ -94,11 +97,12 @@ export function BlogArticle({
   );
 }
 
-export const getStaticProps = async ({   
+
+export const getStaticProps = async ({
   params,
 }: {
   params: { slug: string };
-}) => {                                
+}) => {
   // read markdown file into content and frontmatter
   const blogMarkdownContent = getParsedFileContentBySlug<BlogFrontMatter>(
     params.slug,

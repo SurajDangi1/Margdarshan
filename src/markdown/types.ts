@@ -1,5 +1,6 @@
 export interface BlogFrontMatter {
   title: string;
+  pdfName:string;
   image : string;
   isFemaleOnly: string;
   startMonth: string;
