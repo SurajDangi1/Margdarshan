@@ -22,7 +22,7 @@ const SuggestedScholarships = () => {
                                     image={ImagesArray[Math.floor(Math.random() * ImagesArray.length)]}
                                     scholarshipDescription={e.description}
                                     scholarshipName={e.title}
-                                    slug={`/suggested-scholarship/${e.slug}`}
+                                    slug={`/scholarship/${e.slug}`}
                                 />
                             </div>
                         ))}    
