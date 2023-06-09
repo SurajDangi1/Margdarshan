@@ -40,6 +40,10 @@ const LandingHero = (props: {
 }) => {
   return (
     <div>
+
+
+
+
       <section
         id="banner"
         aria-labelledby="faq-title"
@@ -69,7 +73,7 @@ const LandingHero = (props: {
           <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
             Find life-changing scholarships made for you
           </p>
-          
+
           <div className="mt-10 flex justify-center space-x-6">
             <Button href="/ai" text="Ask your AI "></Button>
             <Button
@@ -80,6 +84,9 @@ const LandingHero = (props: {
             ></Button>
           </div>
         </Container>
+      </section>
+      <section className="bg-slate-100">
+        <SuggestedScholarships />
       </section>
       <section id="recent-scholarships" className="bg-slate-100 pb-10">
         <div className="container pt-10 pb-10">
@@ -109,10 +116,7 @@ const LandingHero = (props: {
           </div>
         </div>
       </section>
-      <section className="bg-slate-100">
-        
-        <SuggestedScholarships />
-      </section>
+
 
     </div>
   );
