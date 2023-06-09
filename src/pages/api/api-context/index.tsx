@@ -14,7 +14,7 @@ export const ApiDataProvider: React.FC = ({ children }:any) => {
       const fetchApiData = async () => {
         try {
           const accessToken = sessionStorage.getItem('token');
-          const response = await axios.get('http://localhost:9000/scholarship', {
+          const response = await axios.get('https://margdarshan.up.railway.app/scholarship', {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

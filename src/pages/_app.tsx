@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
     const fetchApiData = async () => {
       try {
         const accessToken = sessionStorage.getItem('token');
-        const response = await axios.get('http://localhost:9000/scholarship', {
+        const response = await axios.get('https://margdarshan.up.railway.app/scholarship', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },

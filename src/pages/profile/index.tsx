@@ -68,7 +68,7 @@ const UserProfile: React.FC<UserDataProps> = ({
             try {
                 const accessToken = sessionStorage.getItem('token');
                 // console.log("token", accessToken)
-                const response = await axios.get('http://localhost:9000/user', {
+                const response = await axios.get('https://margdarshan.up.railway.app/user', {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },

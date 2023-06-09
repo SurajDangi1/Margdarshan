@@ -51,19 +51,13 @@ interface OnboardModalProps {
 export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setOpen(true);
-    }, 30);
+useEffect(() => {
+  setOpen(true);
+}, []);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+const handleOpen = () => {
+  setOpen(true);
+};
   const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
@@ -82,7 +76,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
 
     try {
       const accessToken = sessionStorage.getItem('token');
-      const response = await axios.post('http://localhost:9000/on-board', formData, {
+      const response = await axios.post('https://margdarshan.up.railway.app/on-board', formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -93,7 +87,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
       toast.error("Update failed");
       setUpdateStatus('An error occurred during the update.');
     }
-  };
+  };     
 
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -476,3 +470,4 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
     </div>
   );
 }
+     
