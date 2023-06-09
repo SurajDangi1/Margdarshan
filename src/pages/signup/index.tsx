@@ -87,7 +87,7 @@ export default function SignUp() {
                         type="text"
                         name="fullName"
                         id="fullName"
-                        className=" border text-grey-900 border-grey-300 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300  sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="fullName"
@@ -109,7 +109,7 @@ export default function SignUp() {
                         type="email"
                         name="email"
                         id="email"
-                        className=" border text-grey-900 border-grey-300 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                        className=" border text-grey-900 border-grey-300 sm:text-sm rounded-medium focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                       />
                       <ErrorMessage
                         name="email"
@@ -142,7 +142,7 @@ export default function SignUp() {
                     </div>
                   </div>
 
-                  <div>
+                  <div>   
                     <label
                       htmlFor="gender"
                       className="block text-sm font-medium leading-6 text-grey-900"
@@ -158,8 +158,8 @@ export default function SignUp() {
                       >
                         <option value="">Select an option</option>
                         <option value="Male"> Male</option>
-                        <option value="option2">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Other</option>
                       </Field>
                     </div>
                     <ErrorMessage

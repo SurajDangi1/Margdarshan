@@ -1,5 +1,13 @@
 export interface BlogFrontMatter {
   title: string;
+  pdfName:string;
+  State : string;
+  scholarshipType : string;
+  image : string;
+  isFemaleOnly: string;
+  startMonth: string;
+  endMonth: string;
+  minimumFamilyIncome : string;
   description: string;
   minutesToRead?: number;
   heroBackgroundColor?: string;

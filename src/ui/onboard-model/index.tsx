@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import BrandBlackLogo from "public/assets/logo/margdarshan-logo-black.svg";
 import Modal from '@mui/material/Modal';
@@ -10,38 +10,54 @@ import toast, { Toaster } from "react-hot-toast";
 import Image from 'next/image';
 import { Button } from '../button';
 import { useRouter } from 'next/router';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as yup from "yup";
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ["devanagari"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+});
 
 interface FormData {
   fullName: string;
-  twelve_percentage: number;
-  father_yearly_income: number;
-  category: string;
+  twelve_percentage?: number;
+  father_yearly_income?: number;
+  category?: string;
   state: string;
   level_of_study: string;
   field_of_study: string;
 }
+
+const validationSchema = yup.object({
+  fullName: yup.string().required('Full Name is required'),
+  state: yup.string().required('State is required'),
+  father_yearly_income: yup.number().required('Family Income is required'),
+  category: yup.string().required('Category is required'),
+  level_of_study: yup.string().required('Education is required'),
+  twelve_percentage: yup.number().required('12th Percentage is required'),
+});
 
 interface DropdownOption {
   value: string;
   label: string;
 }
 
-export default function OnboardModal() {
+interface OnboardModalProps {
+  userData: FormData;
+}
+
+export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setOpen(true);
-    }, 30); // 300 seconds = 300,000 milliseconds
+useEffect(() => {
+  setOpen(true);
+}, []);
 
-    return () => {
-      clearTimeout(timer); // Clear the timer if the component unmounts before it expires
-    };
-  }, []);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
+const handleOpen = () => {
+  setOpen(true);
+};
   const handleClose = () => setOpen(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
@@ -52,6 +68,7 @@ export default function OnboardModal() {
     level_of_study: '',
     field_of_study: '',
   });
+
   const [updateStatus, setUpdateStatus] = useState<string>('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,17 +82,13 @@ export default function OnboardModal() {
         },
       });
       toast.success("Update successful");
-      // if (response.status === 200) {
-      //   setUpdateStatus('Update successful!');
-      // } else {
-      //   setUpdateStatus('Update failed.');
-      //}
     } catch (error) {
       console.error(error);
       toast.error("Update failed");
       setUpdateStatus('An error occurred during the update.');
     }
-  };
+  };     
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -88,7 +101,6 @@ export default function OnboardModal() {
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Parse the input value as a number
     const parsedValue = parseFloat(value);
 
     setFormData((prevFormData) => ({
@@ -97,18 +109,18 @@ export default function OnboardModal() {
     }));
   };
 
-  const handleDropdownChange = (name: string, value: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+
+  const handleInputOnChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
     }));
   };
 
 
   const categoryOptions = ['St/Sc', 'Obc', 'General'];
-  const incomeOptions = ['50k - 1Lpa', '1Lpa - 2Lpa', '2Lpa - 3Lpa', '3Lpa - 4Lpa', '4Lpa - 5Lpa', 'above 5 Lpa'];
-  const studyOptions = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
-  const marksOptions = ['50%-60%', '60%-70%', '70%-80%', '80%-90%', '90%-100%'];
+  const Study = ['10th', '12th', 'UnderGraduate', 'PostGraduate'];
   const stateOptions = [
     "Andhra Pradesh",
     "Arunachal Pradesh",
@@ -147,9 +159,6 @@ export default function OnboardModal() {
     "Lakshadweep",
     "Puducherry"
   ];
-  const handleOptionSelect = (selectedOption: string) => {
-    console.log('Selected option:', selectedOption);
-  };
 
   const [step, setStep] = useState(1);
   const handleNext = () => {
@@ -163,16 +172,16 @@ export default function OnboardModal() {
   const router = useRouter();
 
   const handleClick = () => {
-    // Navigate to the desired page
     router.push('/profile');
     window.location.reload();
   };
+
 
   const renderFormStep = () => {
     switch (step) {
       case 1:
         return (
-          <>
+          <div className={`${poppins.variable} font-sans`}>
             <div className='flex justify-between mb-5  '>
               <div>
 
@@ -194,123 +203,195 @@ export default function OnboardModal() {
               />
             </div>
             <h1 className='text-title-6 text-center mb-2'>Completes your profile in order to receive profile-matched Scholarships</h1>
-          </>
+          </div>
         );
       case 2:
         return (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div className='flex justify-between mb-5  '>
-                <div>
+          <div className={`${poppins.variable} font-sans`}>
+            <Formik
+              initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ errors, touched, isSubmitting }) => (
+                <Form>
+                  <div className='flex justify-between mb-5'>
+                    <div></div>
+                    <div>
+                      <button onClick={handleClose}>
+                        <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className='mb-2'>
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                      Full Name(as per Aadhar)
+                    </label>
+                    <Field
+                      name='fullName'
+                      id='fullName'
+                      label='Full Name(as per Aadhar)'
+                      type='text'
+                      value={formData.fullName || userData.fullName || ''}
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                      onChange={handleInputChange}
+                    />
+                    <ErrorMessage name="fullName" component="div" className="text-red-500 text-body-6" />
+                  </div>
+                  <div>
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                      State
+                    </label>
+                    <div className='mt-1'>
+                      <Field
+                        as='select'
+                        name="state"
+                        id="state"
+                        className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                        value={formData.state || userData.state || ''}
+                        onChange={handleInputOnChange}
+                      >
+                        {stateOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </Field>
+                    </div>
+                  </div>
 
-                </div>
-                <div>
-                  <button onClick={handleClose}>
-                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
-                  </button>
-                </div>
-              </div>
-              <div className='mb-2'>
-                <InputField
-                  name='fullName'
-                  id='fullName'
-                  label='Full Name(as per Aadhar)'
-                  type='text'
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <Dropdown
-                  id='state'
-                  name='state'
-                  label='State'
-                  options={stateOptions}
-                  onSelect={(value) => handleDropdownChange('state', value)}
-                />
-              </div>
-            </form>
+                </Form>
+              )}
+            </Formik>
+
           </div>
         );
       case 3:
         return (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div className='flex justify-between mb-5  '>
-                <div>
+          <div className={`${poppins.variable} font-sans`}>
+            <Formik
+              initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <Form >
+                <div className='flex justify-between mb-5  '>
+                  <div>
 
+                  </div>
+                  <div>
+                    <button onClick={handleClose}>
+                      <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                    </button>
+                  </div>
+                </div>
+                <div className='mb-2'>
+                  <label htmlFor="father_yearly_income" className="block  text-sm font-medium text-gray-700">
+                    Family Income (In Lpa)
+                  </label>
+                  <div className='mt-1'>
+                    <input
+                      type='number'
+                      name="father_yearly_income"
+                      id="father_yearly_income"
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
+                      value={formData.father_yearly_income || userData.father_yearly_income || ' '}
+                      onChange={handleNumberChange}
+                    />   </div>
                 </div>
                 <div>
-                  <button onClick={handleClose}>
-                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
-                  </button>
+                  <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
+                    Category
+                  </label>
+                  <div className='mt-1'>
+                    <select
+                      name="category"
+                      id="category"
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                      value={formData.category || userData.category || ''}
+                      onChange={handleInputOnChange}
+                    >
+                      {categoryOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div className='mb-2'>
-                <InputsFields
-                  label='Father yearly income(in Lpa)'
-                  id='father_yearly_income'
-                  name='father_yearly_income'
-                  type='number'
-                  value={formData.father_yearly_income}
-                  onChange={handleNumberChange}
-                />
-              </div>
-              <div>
-                <Dropdown
-                  label='Category'
-                  id='category'
-                  name='category'
-                  options={categoryOptions}
-                  onSelect={(value) => handleDropdownChange('category', value)}
-                />
-              </div>
-            </form>
+              </Form>
+            </Formik>
           </div>
         );
       case 4:
         return (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div className='flex justify-between mb-5  '>
-                <div>
+          <div className={`${poppins.variable} font-sans`}>
+            <Formik
+              initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <Form >
+                <div className='flex justify-between mb-5  '>
+                  <div>
+                  </div>
+                  <div>
+                    <button onClick={handleClose}>
+                      <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <button onClick={handleClose}>
-                    <Image src={'/assets/logo/close.png'} height={20} width={20} alt={''} />
-                  </button>
+                <div className='mb-2'>
+
+                  <label htmlFor="level_of_study" className="block  text-sm font-medium text-gray-700">
+                    Education (currently pursuing)
+                  </label>
+                  <div className='mt-1'>
+                    <select
+                      name="level_of_study"
+                      id="level_of_study"
+                      className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
+                      value={formData.level_of_study || userData.level_of_study || ''}
+                      onChange={handleInputOnChange}
+                    >
+                      {Study.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+
+                    </select>
+
+                  </div>
                 </div>
-              </div>
-              <div className='mb-2'>
-                <Dropdown
-                  label='Education (currently pursuing course)'
-                  id='field_of_study'
-                  name='field_of_study'
-                  options={studyOptions}
-                  onSelect={(value) => handleDropdownChange('field_of_study', value)}
-                />
-              </div>
-              <div className='mb-2'>
-                <InputField
-                  name='level_of_study'
-                  id='level_of_study'
-                  label='Course'
-                  type='Course'
-                  value={formData.level_of_study}
-                  onChange={handleInputChange}
-                />
-                <div>
-                  <InputsFields
-                    id='twelve_percentage'
-                    name='twelve_percentage'
-                    label='12th Percent'
-                    type='number'
-                    value={formData.twelve_percentage}
-                    onChange={handleNumberChange}
+                <div className='mb-2'>
+                  <InputField
+                    name='level_of_study'
+                    id='level_of_study'
+                    label='Course'
+                    type='Course'
+                    value={formData.level_of_study || userData.field_of_study || ' '}
+                    onChange={handleInputChange}
                   />
+                  <div>
+                    <div>
+                      <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
+                        12th percentage
+                      </label>
+                      <div className='mt-1'>
+                        <input
+                          type='number'
+                          name="twelve_percentage"
+                          id="twelve_percentage"
+                          className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-2.5"
+                          value={formData.twelve_percentage || userData.twelve_percentage || ' '}
+                          onChange={handleNumberChange}
+                        />   </div></div>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </Form>
+            </Formik>
           </div>
         );
       default:
@@ -319,7 +400,7 @@ export default function OnboardModal() {
   };
 
   return (
-    <div className=''>
+    <div className={`${poppins.variable} font-sans`}>
       <div>
         <Button onClick={handleOpen} theme='secondary' text='Open modal'></Button>
       </div>
@@ -329,9 +410,12 @@ export default function OnboardModal() {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <div className='fixed z-10 inset-0 overflow-y-auto' aria-labelledby='modal-title' role='dialog' aria-modal='true'>
+        <div className={`${poppins.variable} font-sans`}>
+
+        
+        <div className=' fixed z-10 inset-0 overflow-y-auto' aria-labelledby='modal-title' role='dialog' aria-modal='true'>
           <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
-            <div className='font-serif font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6'>
+            <div className=' font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6'>
               {renderFormStep()}
               <div className='mt-5 sm:mt-4 sm:flex justify-between mb-5'>
                 {step > 1 && (
@@ -363,7 +447,9 @@ export default function OnboardModal() {
                   </div>
                 ) : (
                   <div>
-                    <form onSubmit={handleSubmit}>
+                    <Formik initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
+                      validationSchema={validationSchema}
+                      onSubmit={handleSubmit}  >
                       <button
                         type='submit'
                         onClick={handleClick}
@@ -371,7 +457,7 @@ export default function OnboardModal() {
                       >
                         Submit
                       </button>
-                    </form>
+                    </Formik>
                   </div>
                 )}
                 <Toaster />
@@ -379,7 +465,9 @@ export default function OnboardModal() {
             </div>
           </div>
         </div>
+      </div>
       </Modal>
     </div>
   );
 }
+     

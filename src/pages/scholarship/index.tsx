@@ -4,15 +4,98 @@ import {
   getParsedFileContentBySlug,
 } from "@/markdown";
 import { Container, ScholarshipCard, ImagesArray } from "@/ui";
-import React from "react";
+import React, { useState } from "react";
 import fs from "fs";
 import backgroundImage from "@/images/background-home.jpg";
-import Filter from "@/ui/filters";
+import Dropdown from "@/ui/dropdown";
+import InputField from "@/ui/input";
+import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
+  const [selectedValues, setSelectedValues] = useState<{
+    isFemale: string | null;
+    scholarshipStartMonth: string | null;
+    scholarshipEndMonth: string | null;
+    father_yearly_income: string | null;
+    twelvePercentage: number | null;
+    scholarshipType: string | null;
+    State: string | null;
+  }>({
+    isFemale: null,
+    scholarshipStartMonth: null,
+    scholarshipEndMonth: null,
+    father_yearly_income: null,
+    twelvePercentage: null,
+    scholarshipType: null,
+    State: null,
+  });
+
+  const options = ['Yes', 'No'];
+  const scholarshipTypeOptions = ['Private', 'Goverment'];
+  const stateOptions = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu and Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttarakhand",
+    "Uttar Pradesh",
+    "West Bengal",
+    "Andaman and Nicobar Islands",
+    "Chandigarh",
+    "Dadra and Nagar Haveli",
+    "Daman and Diu",
+    "Delhi",
+    "Lakshadweep",
+    "Puducherry"
+  ];
+
+  const handleOptionSelect = (selectedOption: string, label: string) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [label]: selectedOption,
+    }));
+  };
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    // const parsedValue = parseFloat(value);
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [name]: value
+    }));  
+  };
+  
+ 
   return (
     <div>
-      <section
+      <section   
         id="banner"
         aria-labelledby="faq-title"
         className="bg-slate-100"
@@ -40,29 +123,63 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
         </Container>
       </section>
       <section id="recent-scholarships" className="bg-slate-100">
-        <Filter />
+        <div>
+          <div className='grid grid-cols-1 sm:grid-cols-3 pl-10 pr-10 gap-5 mb-5'>
+            <Dropdown label={'Is Female'} options={options} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'isFemale')} />
+            <InputField
+              label={'Scholarship Start Date'}
+              name={'scholarshipStartMonth'}
+              onChange={handleNumberChange} id={'scholarshipStartMonth'} type={'date'} />
+            <InputField
+              label={'Scholarship End Date'}
+              name={'scholarshipEndMonth'}
+              onChange={handleNumberChange} id={'scholarshipEndMonth'} type={'date'} />
+          </div>
+          <div className='grid grid-cols-1 sm:grid-cols-2 pl-10 sm:pl-56 pr-10 sm:pr-56 gap-5 mb-5'>
+            <Dropdown label={'State'} options={stateOptions} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'State')} />
+            <Dropdown label={'Scholarship Type'} options={scholarshipTypeOptions} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'scholarshipType')} />
+          </div>
+        </div>
         <div className="container pt-10 pb-10">
           <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {props.articlesData.map((article, idx) => (
-              <div key={idx}>
-                <ScholarshipCard
-                  deadlineDate={article.endDate}
-                  image={
-                    ImagesArray[Math.floor(Math.random() * ImagesArray.length)]
-                  }
-                  scholarshipDescription={article.description}
-                  scholarshipName={article.title}
-                  slug={`/scholarship/${article.slug}`}
-                />
-              </div>
-            ))}
+            {props.articlesData.map((article, idx) => {
+              const articleStartDate = dayjs(article.startDate);
+              const articleEndDate = dayjs(article.endDate);
+              const scholarshipStartMonth = selectedValues.scholarshipStartMonth;
+              const scholarshipEndMonth = selectedValues.scholarshipEndMonth;
+
+              if (
+                (!scholarshipStartMonth || !scholarshipEndMonth) ||  // Show all data when no values are selected
+                (articleStartDate.isSameOrBefore(scholarshipEndMonth, 'month') &&
+                  articleEndDate.isSameOrAfter(scholarshipStartMonth, 'month'))
+              ) {
+
+                if (
+                  ((!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase()) && (!selectedValues.State || article.State?.toLowerCase() === selectedValues.State.toLowerCase()) && (!selectedValues.scholarshipType || article.scholarshipType?.toLowerCase() === selectedValues.scholarshipType.toLowerCase()))
+                ) {
+                  return (
+                    <div key={idx}>
+                      <ScholarshipCard
+                        deadlineDate={article.endDate}
+                        female={article.isFemaleOnly}
+                        image={article.image}
+                        scholarshipDescription={article.description}
+                        scholarshipName={article.title}
+                        slug={`/scholarship/${article.slug}`}
+                      />
+                    </div>
+                  );
+                }
+              }
+              return null;
+            })}
           </div>
         </div>
       </section>
     </div>
   );
-};
-
+}; 
+    
 export const getStaticProps = () => {
   const blogsDir = fs.readdirSync(BLOG_PATH);
   const articlesData = blogsDir.map((blogFile) => {

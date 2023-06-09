@@ -3,11 +3,9 @@ import Image from 'next/image'
 import Logout from '../logout'
 import InputArea from '@/ui/inputs-area'
 import Link from 'next/link'
-import { Button } from '@/ui'
+import { Button, OnboardModal } from '@/ui'
 import UserSignupEdit from '@/ui/user-signup-edit'
-import OnboardModal from '@/ui/onboard-model'
 import axios from 'axios'
-
 import { CircularProgress } from '@mui/material'
 
 interface UserDataProps {
@@ -48,6 +46,7 @@ const UserProfile: React.FC<UserDataProps> = ({
     category
 
 }) => {
+
     const [isEditFormVisible, setEditFormVisible] = useState<boolean>(false);
 
     const handleEditFormToggle = () => {
@@ -58,17 +57,10 @@ const UserProfile: React.FC<UserDataProps> = ({
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Simulating an asynchronous operation
         setTimeout(() => {
             setIsLoading(false);
         }, 3000);
     }, []);
-
-    // useEffect(() => {
-    //   if (!isLoading) {
-    //     window.location.reload();
-    //   }
-    // }, [isLoading]);
 
 
     useEffect(() => {
@@ -137,14 +129,14 @@ const UserProfile: React.FC<UserDataProps> = ({
                                             {userData.field_of_study ? <InputArea label="Course" value={userData.field_of_study} /> : <></>}
                                             {userData.twelve_percentage ? <InputArea label="12th Percent" value={userData.twelve_percentage} /> : <></>}
                                             {userData.father_yearly_income ? <InputArea label="Family Income" value={userData.father_yearly_income} /> : <></>}
-                                            {/* {userData.father_yearly_income ? <InputArea label="Category" value={userData.category} /> : <></>} */}
+                                            {userData.category ? <InputArea label="Category" value={userData.category} /> : <></>}
                                         </div>)}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <button className='bg-secondary rounded-medium ml-32 text-black'>
-                        <OnboardModal />
+                        <OnboardModal userData={userData} />
                     </button>
                 </div>
             )}

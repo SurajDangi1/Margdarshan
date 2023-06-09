@@ -70,9 +70,9 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
     "Lakshadweep",
     "Puducherry"
   ];
+    
 
-
-
+                                                                            
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -103,17 +103,10 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
       [name]: value,
     }));
   };
-  const handleDropdownChange = (name: string, value: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    // Parse the input value as a number
     const parsedValue = parseFloat(value);
 
     setFormData((prevFormData) => ({
@@ -129,7 +122,6 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
       [name]: value,
     }));
   };
-  const router = useRouter();
 
   const handleClick = () => {
     window.location.reload();
@@ -219,7 +211,6 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
               Education (currently pursuing)
             </label>
             <div className='mt-1'>
-
               <select
                 name="level_of_study"
                 id="level_of_study"
@@ -265,7 +256,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
             <label htmlFor="twelve_percentage" className="block  text-sm font-medium text-gray-700">
               12th percentage
             </label>
-            <div className='mt-1'>
+               <div className='mt-1'>
               <input
                 type='number'
                 name="twelve_percentage"
@@ -275,7 +266,7 @@ const UserSignupEdit: React.FC<UserSignupEditProps> = ({ userData }) => {
                 onChange={handleNumberChange}
               />   </div></div> : <></>
           }
-          {userData.category ? <div>
+             {userData.category ? <div>
             <label htmlFor="category" className="block  text-sm font-medium text-gray-700">
               Category
             </label>

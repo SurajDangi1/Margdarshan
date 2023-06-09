@@ -9,6 +9,7 @@ export interface ScholarshipsProps {
   scholarshipName: string;
   scholarshipDescription: string;
   slug: string;
+  female?:string;
 }
 
 export const ScholarshipCard = ({
@@ -17,6 +18,7 @@ export const ScholarshipCard = ({
   scholarshipName,
   scholarshipDescription,
   slug,
+  female,
 }: ScholarshipsProps) => {
   return (
     <Link href={`${slug}`}>
@@ -34,6 +36,7 @@ export const ScholarshipCard = ({
             }}
           />
         </div>
+      
 
         <div className="px-6 py-4">
           <p className="text-gray-700 text-body-3 mb-2">
