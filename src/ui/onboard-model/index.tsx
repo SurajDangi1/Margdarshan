@@ -12,6 +12,13 @@ import { Button } from '../button';
 import { useRouter } from 'next/router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ["devanagari"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+});
 
 interface FormData {
   fullName: string;
@@ -180,7 +187,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
     switch (step) {
       case 1:
         return (
-          <>
+          <div className={`${poppins.variable} font-sans`}>
             <div className='flex justify-between mb-5  '>
               <div>
 
@@ -202,11 +209,11 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
               />
             </div>
             <h1 className='text-title-6 text-center mb-2'>Completes your profile in order to receive profile-matched Scholarships</h1>
-          </>
+          </div>
         );
       case 2:
         return (
-          <div>
+          <div className={`${poppins.variable} font-sans`}>
             <Formik
               initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
               validationSchema={validationSchema}
@@ -235,7 +242,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
                       className="border font-medium text-grey-900 border-grey-300 sm:text-sm rounded-medium  block w-full p-3"
                       onChange={handleInputChange}
                     />
-                    <ErrorMessage name="fullName" component="div" className="text-red-500" />
+                    <ErrorMessage name="fullName" component="div" className="text-red-500 text-body-6" />
                   </div>
                   <div>
                     <label htmlFor="state" className="block text-sm font-medium text-gray-700">
@@ -267,7 +274,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
         );
       case 3:
         return (
-          <div>
+          <div className={`${poppins.variable} font-sans`}>
             <Formik
               initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
               validationSchema={validationSchema}
@@ -325,7 +332,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
         );
       case 4:
         return (
-          <div>
+          <div className={`${poppins.variable} font-sans`}>
             <Formik
               initialValues={formData as React.FormEvent<HTMLFormElement> & FormData}
               validationSchema={validationSchema}
@@ -399,7 +406,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
   };
 
   return (
-    <div className=''>
+    <div className={`${poppins.variable} font-sans`}>
       <div>
         <Button onClick={handleOpen} theme='secondary' text='Open modal'></Button>
       </div>
@@ -409,9 +416,12 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
-        <div className='fixed z-10 inset-0 overflow-y-auto' aria-labelledby='modal-title' role='dialog' aria-modal='true'>
+        <div className={`${poppins.variable} font-sans`}>
+
+        
+        <div className=' fixed z-10 inset-0 overflow-y-auto' aria-labelledby='modal-title' role='dialog' aria-modal='true'>
           <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
-            <div className='font-serif font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6'>
+            <div className=' font-semibold relative inline-block align-bottom bg-white rounded-large px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-[512px] sm:p-6'>
               {renderFormStep()}
               <div className='mt-5 sm:mt-4 sm:flex justify-between mb-5'>
                 {step > 1 && (
@@ -461,6 +471,7 @@ export const OnboardModal: React.FC<OnboardModalProps> = ({ userData }) => {
             </div>
           </div>
         </div>
+      </div>
       </Modal>
     </div>
   );
