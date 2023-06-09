@@ -23,19 +23,58 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
     scholarshipEndMonth: string | null;
     father_yearly_income: string | null;
     twelvePercentage: number | null;
+    scholarshipType: string | null;
+    State: string | null;
   }>({
     isFemale: null,
     scholarshipStartMonth: null,
     scholarshipEndMonth: null,
-
     father_yearly_income: null,
     twelvePercentage: null,
+    scholarshipType: null,
+    State: null,
   });
 
   const options = ['Yes', 'No'];
-  const months = ["January", "February", "March", "April", "May", "June", "July",
-    "August", "September", "October", "November", "December"];
-
+  const scholarshipTypeOptions = ['Private', 'Goverment'];
+  const stateOptions = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu and Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttarakhand",
+    "Uttar Pradesh",
+    "West Bengal",
+    "Andaman and Nicobar Islands",
+    "Chandigarh",
+    "Dadra and Nagar Haveli",
+    "Daman and Diu",
+    "Delhi",
+    "Lakshadweep",
+    "Puducherry"
+  ];
 
   const handleOptionSelect = (selectedOption: string, label: string) => {
     setSelectedValues((prevValues) => ({
@@ -50,13 +89,13 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
     setSelectedValues((prevValues) => ({
       ...prevValues,
       [name]: value
-    }));
+    }));  
   };
-
-
+  
+ 
   return (
     <div>
-      <section
+      <section   
         id="banner"
         aria-labelledby="faq-title"
         className="bg-slate-100"
@@ -87,7 +126,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
         <div>
           <div className='grid grid-cols-1 sm:grid-cols-3 pl-10 pr-10 gap-5 mb-5'>
             <Dropdown label={'Is Female'} options={options} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'isFemale')} />
-            <InputField 
+            <InputField
               label={'Scholarship Start Date'}
               name={'scholarshipStartMonth'}
               onChange={handleNumberChange} id={'scholarshipStartMonth'} type={'date'} />
@@ -96,7 +135,11 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
               name={'scholarshipEndMonth'}
               onChange={handleNumberChange} id={'scholarshipEndMonth'} type={'date'} />
           </div>
-        </div>  
+          <div className='grid grid-cols-1 sm:grid-cols-2 pl-10 sm:pl-56 pr-10 sm:pr-56 gap-5 mb-5'>
+            <Dropdown label={'State'} options={stateOptions} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'State')} />
+            <Dropdown label={'Scholarship Type'} options={scholarshipTypeOptions} onSelect={(selectedOption) => handleOptionSelect(selectedOption, 'scholarshipType')} />
+          </div>
+        </div>
         <div className="container pt-10 pb-10">
           <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {props.articlesData.map((article, idx) => {
@@ -112,7 +155,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
               ) {
 
                 if (
-                  (!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase())
+                  ((!selectedValues.isFemale || article.isFemaleOnly?.toLowerCase() === selectedValues.isFemale.toLowerCase()) && (!selectedValues.State || article.State?.toLowerCase() === selectedValues.State.toLowerCase()) && (!selectedValues.scholarshipType || article.scholarshipType?.toLowerCase() === selectedValues.scholarshipType.toLowerCase()))
                 ) {
                   return (
                     <div key={idx}>
@@ -127,7 +170,7 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
                     </div>
                   );
                 }
-              } 
+              }
               return null;
             })}
           </div>
@@ -135,8 +178,8 @@ const Blog = (props: ReturnType<typeof getStaticProps>["props"]) => {
       </section>
     </div>
   );
-};
-
+}; 
+    
 export const getStaticProps = () => {
   const blogsDir = fs.readdirSync(BLOG_PATH);
   const articlesData = blogsDir.map((blogFile) => {

@@ -19,7 +19,7 @@ interface ScholarshipData {
   endDate:'string'
   isFemaleOnly:'string'
   image:'string'
-  scholarshipDescription:'string'
+  description:'string'
   title:'string'
   slug:'string'
 }

@@ -18,7 +18,7 @@ interface FilterContextInterface {
   }) => void;
 }
 
-
+    
 const initialFilterContext: FilterContextInterface = {
   selectedValues: {
     isFemale: null,

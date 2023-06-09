@@ -4,6 +4,7 @@ import Img from "./img";
 import Note from "./note";
 import Youtube from "./youtube";
 import { Button } from "@/ui";
+
 export const mdxElements = {
   Youtube: Youtube,
   h2: H2,
@@ -17,7 +18,7 @@ export const mdxElements = {
     >
   ) => (
     // eslint-disable-next-line jsx-a11y/anchor-has-content
-    <a {...props} className="text-cherry-300" />
-  ),
+    <a {...props} className="text-black bg-secondary no-underline p-3 rounded-medium" />
+  ),        
   Note: Note,
-};
+};   

@@ -1,6 +1,8 @@
 export interface BlogFrontMatter {
   title: string;
   pdfName:string;
+  State : string;
+  scholarshipType : string;
   image : string;
   isFemaleOnly: string;
   startMonth: string;

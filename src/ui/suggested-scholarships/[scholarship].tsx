@@ -45,12 +45,12 @@ import {
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-          >
+          > 
             <Container className="pt-20 pb-16 text-center lg:pt-60 lg:pb-40 container relative z-20">
               <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight leading-loose text-slate-900 sm:text-7xl lg:px-24">
                 {firstString}
                 <span className="relative whitespace-nowrap text-cherry-400 ">
-                  <svg
+                  <svg  
                     aria-hidden="true"
                     viewBox="0 0 418 42"
                     className="absolute top-2/3 left-0 h-[0.58em] w-full fill-blue-300/70"
